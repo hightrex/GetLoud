@@ -274,6 +274,8 @@ document.querySelectorAll('.tier-btn').forEach(btn => {
 donationForm.addEventListener('submit', (e) => {
   e.preventDefault();
   const name = document.getElementById('donorName').value;
+  const email = document.getElementById('donorEmail').value;
+  const discipline = document.getElementById('donorDiscipline').value || 'Not specified';
   const amount = selectedAmount === 'custom'
     ? (document.getElementById('customAmount').value || '50')
     : selectedAmount;
@@ -281,23 +283,45 @@ donationForm.addEventListener('submit', (e) => {
   const hiddenInput = document.getElementById('hiddenSupportAmount');
   if (hiddenInput) hiddenInput.value = amount;
 
-  const formData = new FormData(donationForm);
+  const submitBtn = document.getElementById('submitDonationBtn');
+  const originalBtnText = submitBtn.textContent;
+  submitBtn.textContent = 'Submitting Registration...';
+  submitBtn.disabled = true;
 
-  // Post form data asynchronously to Netlify Forms engine
-  fetch('/', {
+  // 100% FREE Instant Email Delivery to Karshang via FormSubmit.co API
+  // Replace target email below with Karshang's real email address when deploying!
+  const targetEmail = 'krashproductionsperth@gmail.com'; 
+
+  fetch(`https://formsubmit.co/ajax/${targetEmail}`, {
     method: 'POST',
-    headers: { "Content-Type": "application/x-www-form-urlencoded" },
-    body: new URLSearchParams(formData).toString()
+    headers: { 
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    },
+    body: JSON.stringify({
+      _subject: `⚡ New GetLoud Perth Registration: ${name} ($${amount})`,
+      "Collaborator Name": name,
+      "Email Address": email,
+      "Creative Discipline / Week": discipline,
+      "Support Tier": `$${amount} USD`,
+      "Payment Choice": document.querySelector('input[name="paymentGateway"]:checked')?.value || 'Stripe/Card',
+      "_template": "table"
+    })
   })
-  .then(() => {
+  .then(response => response.json())
+  .then(data => {
+    submitBtn.textContent = originalBtnText;
+    submitBtn.disabled = false;
     closeDonationModal();
-    showToast(`🎉 Registration received, ${name}! We'll contact you for your $${amount} week slot in Perth.`);
+    showToast(`🎉 Thank you, ${name}! Your registration was sent directly to Karshang's inbox.`);
     donationForm.reset();
   })
-  .catch((err) => {
-    console.warn('Netlify submission fallback:', err);
+  .catch(err => {
+    console.warn('FormSubmit fallback:', err);
+    submitBtn.textContent = originalBtnText;
+    submitBtn.disabled = false;
     closeDonationModal();
-    showToast(`🎉 Registration received, ${name}! We'll contact you for your $${amount} week slot in Perth.`);
+    showToast(`🎉 Registration received, ${name}! Welcome to GetLoud Perth.`);
     donationForm.reset();
   });
 });
