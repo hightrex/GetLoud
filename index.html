@@ -1,0 +1,748 @@
+<!doctype html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <!-- Primary Meta Tags -->
+    <title>GetLoud Perth — Karshang Ghising (Snowcoal) 100-Day Mental Health Endurance</title>
+    <meta name="title" content="GetLoud Perth — Karshang Ghising 100-Day Mental Health Endurance Initiative" />
+    <meta name="description" content="Upcoming 100-day 500km endurance initiative in Perth, WA. Karshang Ghising (Snowcoal / Krash Productions) runs 5km daily for 100 days for mental health awareness." />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://getloud-perth.netlify.app/" />
+    <meta property="og:title" content="GetLoud Perth — 100 Days. 5km Daily. Mental Health Initiative" />
+    <meta property="og:description" content="Learn about Karshang Ghising's upcoming 100-day 5km daily Perth endurance run to break mental health stigma and fund crisis helplines." />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+  </head>
+  <body class="bg-[#080c14] text-gray-100 min-h-screen selection:bg-[#00f098] selection:text-black">
+    
+    <!-- STICKY GLASSMORPHIC NAVBAR WITH KRASH PRODUCTIONS LOGO -->
+    <header class="fixed top-0 left-0 right-0 z-50 glass-nav transition-all duration-300">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+        
+        <!-- Brand Logo & Krash Productions Integration -->
+        <a href="#" class="flex items-center gap-3.5 group focus:outline-none">
+          <div class="h-11 px-2 py-1 rounded-xl bg-gray-900/90 border border-gray-700/80 flex items-center justify-center group-hover:border-[#00f098] transition-all">
+            <img src="/src/assets/Krash_Productions.png" alt="Krash Productions" class="h-8 w-auto object-contain" />
+          </div>
+          <div class="hidden sm:block w-[1px] h-7 bg-gray-800"></div>
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="font-extrabold text-xl tracking-wider text-white">GET<span class="text-[#00f098]">LOUD</span></span>
+              <span class="text-[10px] font-bold uppercase tracking-widest px-2 py-0.5 rounded-full bg-[#00f098]/10 text-[#00f098] border border-[#00f098]/30">PERTH</span>
+            </div>
+            <p class="text-[10px] text-gray-400 font-medium">Karshang Ghising • Krash Productions</p>
+          </div>
+        </a>
+
+        <!-- Desktop Navigation Links -->
+        <nav class="hidden md:flex items-center gap-7 text-sm font-semibold text-gray-300">
+          <a href="#about" class="hover:text-[#00f098] transition-colors">Event Vision</a>
+          <a href="#how-it-works" class="hover:text-[#00f098] transition-colors">How It Works</a>
+          <a href="#collaborators" class="hover:text-[#00f098] transition-colors">Register as Collaborator</a>
+          <a href="#impact" class="hover:text-[#00f098] transition-colors">Target Impact</a>
+          <a href="#faq" class="hover:text-[#00f098] transition-colors">FAQ</a>
+        </nav>
+
+        <!-- CTA & Mobile Toggle -->
+        <div class="flex items-center gap-4">
+          <button id="navDonateBtn" class="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#00f098] to-[#10b981] text-black font-bold text-sm shadow-md shadow-[#00f098]/20 hover:shadow-[#00f098]/40 hover:scale-[1.02] active:scale-95 transition-all">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd" />
+            </svg>
+            Register ($20) / Donate
+          </button>
+
+          <!-- Mobile Hamburger -->
+          <button id="mobileMenuBtn" aria-label="Toggle Navigation Menu" class="md:hidden p-2.5 rounded-xl bg-gray-800/80 text-gray-300 hover:text-white border border-gray-700/50 focus:outline-none">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path id="hamburgerIcon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Mobile Dropdown Menu -->
+      <div id="mobileMenu" class="hidden md:hidden glass-nav border-t border-gray-800 px-4 pt-4 pb-6 space-y-3">
+        <a href="#about" class="mobile-nav-link block py-2 px-3 rounded-lg text-base font-semibold text-gray-200 hover:bg-[#00f098]/10 hover:text-[#00f098]">Event Vision</a>
+        <a href="#how-it-works" class="mobile-nav-link block py-2 px-3 rounded-lg text-base font-semibold text-gray-200 hover:bg-[#00f098]/10 hover:text-[#00f098]">How It Works</a>
+        <a href="#collaborators" class="mobile-nav-link block py-2 px-3 rounded-lg text-base font-semibold text-gray-200 hover:bg-[#00f098]/10 hover:text-[#00f098]">Register as Collaborator</a>
+        <a href="#impact" class="mobile-nav-link block py-2 px-3 rounded-lg text-base font-semibold text-gray-200 hover:bg-[#00f098]/10 hover:text-[#00f098]">Target Impact</a>
+        <a href="#faq" class="mobile-nav-link block py-2 px-3 rounded-lg text-base font-semibold text-gray-200 hover:bg-[#00f098]/10 hover:text-[#00f098]">FAQ</a>
+        <button id="mobileDonateBtn" class="w-full mt-2 flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-gradient-to-r from-[#00f098] to-[#10b981] text-black font-bold text-sm shadow-md">
+          Register ($20) / Join Feature
+        </button>
+      </div>
+    </header>
+
+    <main class="pt-24">
+      
+      <!-- HERO SECTION (EVENT PREVIEW & LAUNCH FOCUS) -->
+      <section id="hero" class="relative min-h-[85vh] flex items-center justify-center py-16 px-4 sm:px-6 lg:px-8 overflow-hidden">
+        <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#00f098]/10 rounded-full blur-[140px] pointer-events-none"></div>
+        <div class="absolute bottom-10 right-10 w-[400px] h-[400px] bg-[#f59e0b]/10 rounded-full blur-[120px] pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center relative z-10">
+          
+          <!-- Hero Text Content -->
+          <div class="lg:col-span-7 space-y-8 text-left">
+            
+            <div class="inline-flex flex-wrap items-center gap-2 px-3.5 py-1.5 rounded-full bg-gradient-to-r from-[#00f098]/15 to-[#f59e0b]/15 border border-[#00f098]/30 shadow-inner">
+              <span class="w-2 h-2 rounded-full bg-[#00f098] animate-ping"></span>
+              <span class="text-xs font-bold uppercase tracking-wider text-[#00f098]">UPCOMING INITIATIVE • PERTH, WA TO NEPAL</span>
+            </div>
+
+            <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-[1.1]">
+              100 Days. <span class="text-gradient-emerald">5km Daily.</span> Getting Loud for Mental Health.
+            </h1>
+
+            <p class="text-lg sm:text-xl text-gray-300 font-normal leading-relaxed">
+              Perth-based singer, songwriter, and frontman of <strong class="text-[#f59e0b]">Snowcoal</strong>, <strong class="text-white font-bold underline decoration-[#00f098] decoration-2 underline-offset-4">Karshang Ghising</strong> is launching a 100-consecutive-day endurance challenge—running 5km every single day across Perth landmarks (Kings Park, Swan River, Cottesloe) to break mental health stigma and raise $10,000 for emergency crisis helplines.
+            </p>
+
+            <!-- Pre-Launch Readiness Box -->
+            <div class="p-6 rounded-2xl glass-card border border-white/10 space-y-4">
+              <div class="flex items-center justify-between text-sm font-bold">
+                <span class="flex items-center gap-2 text-white">
+                  <svg class="w-5 h-5 text-[#00f098]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  Status: <span id="heroDayText" class="text-[#00f098] font-mono text-base">Preparing for Day 1 Launch</span>
+                </span>
+                <span class="text-[#f59e0b] font-mono">14 Open Collaborator Slots</span>
+              </div>
+
+              <div class="relative w-full h-3 bg-gray-900 rounded-full overflow-hidden p-0.5 border border-gray-800">
+                <div id="heroProgressBar" class="h-full bg-gradient-to-r from-[#00f098] to-[#10b981] rounded-full transition-all duration-1000" style="width: 5%;"></div>
+              </div>
+
+              <div class="grid grid-cols-3 gap-4 pt-2 text-center border-t border-gray-800/80">
+                <div>
+                  <p class="text-xs text-gray-400 uppercase font-semibold">Total Target</p>
+                  <p class="text-lg font-extrabold text-white font-mono">500 KM</p>
+                </div>
+                <div>
+                  <p class="text-xs text-gray-400 uppercase font-semibold">Fund Goal</p>
+                  <p class="text-lg font-extrabold text-[#00f098] font-mono">$10,000 USD</p>
+                </div>
+                <div>
+                  <p class="text-xs text-gray-400 uppercase font-semibold">Weekly Slots</p>
+                  <p class="text-lg font-extrabold text-[#f59e0b] font-mono">14 Weeks Open</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- CTA Buttons -->
+            <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 pt-2">
+              <button id="heroDonateBtn" class="px-8 py-4 rounded-xl bg-gradient-to-r from-[#00f098] via-[#10b981] to-[#059669] text-black font-extrabold text-base shadow-xl shadow-[#00f098]/30 hover:shadow-[#00f098]/50 hover:scale-[1.02] active:scale-95 transition-all flex items-center justify-center gap-3 group">
+                <svg class="w-5 h-5 text-black group-hover:scale-110 transition-transform" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z" clip-rule="evenodd" />
+                </svg>
+                <span>Register as Weekly Collaborator ($20)</span>
+              </button>
+
+              <a href="#about" class="px-7 py-4 rounded-xl bg-gray-900/80 hover:bg-gray-800 text-white font-bold text-base border border-gray-700/60 hover:border-[#00f098]/40 transition-all flex items-center justify-center gap-2 group">
+                <span>Read Event Vision</span>
+                <svg class="w-4 h-4 text-gray-400 group-hover:text-[#00f098] group-hover:translate-x-1 transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                </svg>
+              </a>
+            </div>
+
+          </div>
+
+          <!-- Hero Visual Feature Card -->
+          <div class="lg:col-span-5 flex justify-center">
+            <div class="relative w-full max-w-md">
+              <div class="absolute -inset-1 bg-gradient-to-r from-[#00f098] to-[#f59e0b] rounded-3xl blur-xl opacity-30 animate-pulse"></div>
+
+              <div class="relative glass-card p-6 rounded-3xl border border-white/10 space-y-6 text-center">
+                
+                <div class="flex items-center justify-between pb-4 border-b border-gray-800">
+                  <div class="flex items-center gap-3">
+                    <div class="w-12 h-12 rounded-full bg-gradient-to-br from-[#00f098] to-[#10b981] p-0.5">
+                      <div class="w-full h-full rounded-full bg-gray-900 flex items-center justify-center font-extrabold text-sm text-[#00f098]">
+                        KG
+                      </div>
+                    </div>
+                    <div class="text-left">
+                      <h2 class="text-base font-extrabold text-white">Karshang Ghising</h2>
+                      <p class="text-xs text-[#f59e0b] font-semibold">Snowcoal • Krash Productions</p>
+                    </div>
+                  </div>
+                  <span class="px-3 py-1 rounded-full text-xs font-bold bg-amber-500/10 text-amber-400 border border-amber-500/30">
+                    📍 Perth, WA
+                  </span>
+                </div>
+
+                <!-- Event Emblem Display -->
+                <div class="p-6 rounded-2xl bg-gray-900/90 border border-gray-800 space-y-4 text-center">
+                  <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#00f098]/20 to-[#f59e0b]/20 border border-[#00f098]/40 flex items-center justify-center mx-auto text-[#00f098]">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h3 class="text-xl font-extrabold text-white">The 100-Day Challenge</h3>
+                    <p class="text-xs text-gray-400 mt-1">5km Daily • 500km Total • 14 Weekly Guests</p>
+                  </div>
+                  <div class="p-3 rounded-xl bg-gray-950/80 text-xs text-gray-300 italic border border-gray-800">
+                    "Every day we run is a day we break the silence surrounding mental health."
+                  </div>
+                </div>
+
+                <!-- Krash Productions Branding Badge -->
+                <div class="flex items-center justify-between p-3 rounded-xl bg-gray-900 border border-gray-800">
+                  <span class="text-xs text-gray-400">Produced by</span>
+                  <img src="/src/assets/Krash_Productions.png" alt="Krash Productions Logo" class="h-5 w-auto" />
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- EVENT VISION & ABOUT INITIATIVE SECTION -->
+      <section id="about" class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-gray-800/80">
+        
+        <div class="text-center max-w-3xl mx-auto space-y-4 mb-16">
+          <span class="px-3.5 py-1.5 rounded-full bg-[#00f098]/10 text-[#00f098] border border-[#00f098]/20 text-xs font-bold uppercase">
+            Understanding the Mission
+          </span>
+          <h2 class="text-3xl sm:text-4xl font-extrabold text-white">
+            What Is GetLoud? The Story & Purpose
+          </h2>
+          <p class="text-base text-gray-400">
+            GetLoud is a grassroots endurance and creative movement bridging Perth, Western Australia, with mental health initiatives in Nepal.
+          </p>
+        </div>
+
+        <!-- 4 Core Pillars Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          
+          <div class="p-6 rounded-3xl glass-card border border-gray-800 space-y-4">
+            <div class="w-12 h-12 rounded-2xl bg-[#00f098]/10 text-[#00f098] flex items-center justify-center">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+              </svg>
+            </div>
+            <h3 class="text-lg font-extrabold text-white">5km Daily Endurance</h3>
+            <p class="text-xs text-gray-300 leading-relaxed">
+              Karshang Ghising will run 5km every single day for 100 consecutive days around Perth WA (500km total) without taking a single day off, symbolizing the constant persistence needed in mental health recovery.
+            </p>
+          </div>
+
+          <div class="p-6 rounded-3xl glass-card border border-gray-800 space-y-4">
+            <div class="w-12 h-12 rounded-2xl bg-[#f59e0b]/10 text-[#f59e0b] flex items-center justify-center">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 100-6 3 3 0 000 6z" />
+              </svg>
+            </div>
+            <h3 class="text-lg font-extrabold text-white">14 Weekly Collaborations</h3>
+            <p class="text-xs text-gray-300 leading-relaxed">
+              Every week of the 14-week campaign is paired with a guest collaborator—artists, musicians, dancers, and runners—who donate $20, run 5km in Perth with Karshang, and co-host a mental health podcast.
+            </p>
+          </div>
+
+          <div class="p-6 rounded-3xl glass-card border border-gray-800 space-y-4">
+            <div class="w-12 h-12 rounded-2xl bg-blue-500/10 text-blue-400 flex items-center justify-center">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 .895-2 3-2 3 .895 3 2zm12 0c0 1.105-1.343 2-3 2s-3-.895-3-2 .895-2 3-2 3 .895 3 2zM9 10l12-3" />
+              </svg>
+            </div>
+            <h3 class="text-lg font-extrabold text-white">Music & Expression</h3>
+            <p class="text-xs text-gray-300 leading-relaxed">
+              As frontman of Perth band <strong>Snowcoal</strong> and founder of <strong>Krash Productions</strong>, Karshang uses original songs and media production to turn unexpressed pain into powerful artistic expression.
+            </p>
+          </div>
+
+          <div class="p-6 rounded-3xl glass-card border border-gray-800 space-y-4">
+            <div class="w-12 h-12 rounded-2xl bg-purple-500/10 text-purple-400 flex items-center justify-center">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
+            <h3 class="text-lg font-extrabold text-white">Direct Crisis Funding</h3>
+            <p class="text-xs text-gray-300 leading-relaxed">
+              100% of public donations and collaborator contributions go directly to verified non-profit mental health partners funding 24/7 suicide crisis helplines and youth tele-counseling.
+            </p>
+          </div>
+
+        </div>
+
+      </section>
+
+      <!-- HOW IT WORKS & PERTH ROUTES SECTION -->
+      <section id="how-it-works" class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-gray-800/80">
+        
+        <div class="text-center max-w-3xl mx-auto space-y-4 mb-16">
+          <span class="px-3.5 py-1.5 rounded-full bg-[#f59e0b]/15 text-[#f59e0b] border border-[#f59e0b]/30 text-xs font-bold uppercase">
+            The Event Mechanics
+          </span>
+          <h2 class="text-3xl sm:text-4xl font-extrabold text-white">
+            How The 100-Day Run Operates
+          </h2>
+          <p class="text-base text-gray-400">
+            From Perth running tracks to global Strava participation—here is how the campaign is structured.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+          
+          <!-- Step-by-step process -->
+          <div class="lg:col-span-7 space-y-6">
+            
+            <div class="p-6 rounded-2xl glass-card border border-gray-800 flex gap-4 items-start">
+              <div class="w-10 h-10 rounded-xl bg-[#00f098]/10 text-[#00f098] font-bold font-mono flex items-center justify-center shrink-0">
+                01
+              </div>
+              <div class="space-y-1">
+                <h4 class="text-base font-extrabold text-white">Daily 5km Strava Logging in Perth</h4>
+                <p class="text-xs text-gray-300 leading-relaxed">
+                  Every single day, Karshang completes a 5km run across Perth routes (Kings Park, Swan River, Matagarup Bridge, Cottesloe Beach) and logs it live on Strava for 100% verification.
+                </p>
+              </div>
+            </div>
+
+            <div class="p-6 rounded-2xl glass-card border border-gray-800 flex gap-4 items-start">
+              <div class="w-10 h-10 rounded-xl bg-[#f59e0b]/10 text-[#f59e0b] font-bold font-mono flex items-center justify-center shrink-0">
+                02
+              </div>
+              <div class="space-y-1">
+                <h4 class="text-base font-extrabold text-white">Weekly Collaborator Registration ($20)</h4>
+                <p class="text-xs text-gray-300 leading-relaxed">
+                  Supporters and creatives select one of the 14 open weekly slots, contribute a $20 donation, and schedule their 5km run + podcast recording session with Karshang in Perth.
+                </p>
+              </div>
+            </div>
+
+            <div class="p-6 rounded-2xl glass-card border border-gray-800 flex gap-4 items-start">
+              <div class="w-10 h-10 rounded-xl bg-blue-500/10 text-blue-400 font-bold font-mono flex items-center justify-center shrink-0">
+                03
+              </div>
+              <div class="space-y-1">
+                <h4 class="text-base font-extrabold text-white">Unscripted Mental Health Podcast</h4>
+                <p class="text-xs text-gray-300 leading-relaxed">
+                  After the 5km run, Karshang and the guest record an episode discussing emotional resilience, creativity, coping mechanisms, and breaking stigma.
+                </p>
+              </div>
+            </div>
+
+            <div class="p-6 rounded-2xl glass-card border border-gray-800 flex gap-4 items-start">
+              <div class="w-10 h-10 rounded-xl bg-purple-500/10 text-purple-400 font-bold font-mono flex items-center justify-center shrink-0">
+                04
+              </div>
+              <div class="space-y-1">
+                <h4 class="text-base font-extrabold text-white">Direct Disbursement & Impact</h4>
+                <p class="text-xs text-gray-300 leading-relaxed">
+                  All funds collected are transferred directly to verified non-profit mental health partners providing free tele-counseling hours and emergency helpline support.
+                </p>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Featured Perth Routes Card -->
+          <div class="lg:col-span-5 glass-card p-6 sm:p-8 rounded-3xl border border-gray-800 space-y-6">
+            <div class="flex items-center justify-between border-b border-gray-800 pb-4">
+              <h3 class="text-lg font-extrabold text-white">Featured Perth WA Routes</h3>
+              <span class="text-xs font-bold text-[#00f098]">5km Daily Circuits</span>
+            </div>
+
+            <ul class="space-y-3 text-xs text-gray-300">
+              <li class="p-3 rounded-xl bg-gray-900/80 border border-gray-800 flex items-center justify-between">
+                <span>📍 Kings Park & Botanic Garden Trails</span>
+                <span class="text-gray-500">5.0 KM</span>
+              </li>
+              <li class="p-3 rounded-xl bg-gray-900/80 border border-gray-800 flex items-center justify-between">
+                <span>📍 Swan River Foreshore & Elizabeth Quay</span>
+                <span class="text-gray-500">5.0 KM</span>
+              </li>
+              <li class="p-3 rounded-xl bg-gray-900/80 border border-gray-800 flex items-center justify-between">
+                <span>📍 Matagarup Bridge & Optus Stadium</span>
+                <span class="text-gray-500">5.0 KM</span>
+              </li>
+              <li class="p-3 rounded-xl bg-gray-900/80 border border-gray-800 flex items-center justify-between">
+                <span>📍 Cottesloe Beach Sunset Path</span>
+                <span class="text-gray-500">5.0 KM</span>
+              </li>
+              <li class="p-3 rounded-xl bg-gray-900/80 border border-gray-800 flex items-center justify-between">
+                <span>📍 Scarborough Coastal Track</span>
+                <span class="text-gray-500">5.0 KM</span>
+              </li>
+            </ul>
+
+            <p class="text-[11px] text-gray-400 italic">
+              *All 100 daily runs will be tracked on Strava and shared across social channels.
+            </p>
+          </div>
+
+        </div>
+
+      </section>
+
+      <!-- WEEKLY COLLABORATOR REGISTRATION ROSTER (14 OPEN SLOTS) -->
+      <section id="collaborators" class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-gray-800/80">
+        
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+          <div class="space-y-3 max-w-2xl">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#00f098]/10 text-[#00f098] border border-[#00f098]/20 text-xs font-bold uppercase">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 100-6 3 3 0 000 6z" />
+              </svg>
+              Collaborator Hub • 14 Weekly Slots Open
+            </div>
+            <h2 class="text-3xl sm:text-4xl font-extrabold text-white">
+              Claim Your Week as a Guest Collaborator
+            </h2>
+            <p class="text-base text-gray-400">
+              Members are added as the campaign unfolds! Contribute $20 to reserve your week spot, feature your creative discipline, run 5km with Karshang in Perth, and co-host an episode.
+            </p>
+          </div>
+
+          <!-- Category Filter Tabs -->
+          <div id="categoryTabs" class="flex flex-wrap gap-2 bg-gray-900/90 p-1.5 rounded-xl border border-gray-800">
+            <button data-category="all" class="tab-btn px-4 py-2 rounded-lg text-xs font-bold transition-all bg-[#00f098] text-black">
+              All 14 Slots Open
+            </button>
+            <button data-category="Music" class="tab-btn px-4 py-2 rounded-lg text-xs font-bold text-gray-400 hover:text-white hover:bg-gray-800 transition-all">
+              Music Weeks
+            </button>
+            <button data-category="Movement" class="tab-btn px-4 py-2 rounded-lg text-xs font-bold text-gray-400 hover:text-white hover:bg-gray-800 transition-all">
+              Movement Weeks
+            </button>
+            <button data-category="Art" class="tab-btn px-4 py-2 rounded-lg text-xs font-bold text-gray-400 hover:text-white hover:bg-gray-800 transition-all">
+              Art & Media Weeks
+            </button>
+          </div>
+        </div>
+
+        <!-- Collaborators Dynamic Grid Container -->
+        <div id="collaboratorsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <!-- Rendered dynamically via JavaScript -->
+        </div>
+
+      </section>
+
+      <!-- FUNDRAISER & TARGET IMPACT SECTION -->
+      <section id="impact" class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-gray-800/80">
+        
+        <div class="text-center max-w-3xl mx-auto space-y-4 mb-16">
+          <span class="px-3.5 py-1.5 rounded-full bg-[#f59e0b]/15 text-[#f59e0b] border border-[#f59e0b]/30 text-xs font-bold uppercase">
+            Target Fundraiser Impact
+          </span>
+          <h2 class="text-3xl sm:text-4xl font-extrabold text-white">
+            What Reaching Our $10,000 Goal Will Accomplish
+          </h2>
+          <p class="text-base text-gray-400">
+            As the campaign launches, every dollar raised directly translates into lifesaving mental health resources.
+          </p>
+        </div>
+
+        <!-- Target Metrics Grid (4 Cards) -->
+        <div id="statsContainer" class="grid grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+          
+          <div class="p-6 rounded-2xl glass-card border border-gray-800 text-center space-y-2 hover:border-[#00f098]/40 transition-all">
+            <div class="w-12 h-12 rounded-xl bg-[#00f098]/10 text-[#00f098] flex items-center justify-center mx-auto mb-3">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+              </svg>
+            </div>
+            <p id="statKm" class="text-3xl sm:text-4xl font-extrabold text-white font-mono">0 / 500</p>
+            <p class="text-xs font-bold uppercase text-gray-400">Kilometers Target</p>
+            <p class="text-xs text-gray-500">100 consecutive days</p>
+          </div>
+
+          <div class="p-6 rounded-2xl glass-card border border-gray-800 text-center space-y-2 hover:border-[#00f098]/40 transition-all">
+            <div class="w-12 h-12 rounded-xl bg-[#f59e0b]/10 text-[#f59e0b] flex items-center justify-center mx-auto mb-3">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+              </svg>
+            </div>
+            <p id="statDays" class="text-3xl sm:text-4xl font-extrabold text-white font-mono">0 / 100</p>
+            <p class="text-xs font-bold uppercase text-gray-400">Days Target</p>
+            <p class="text-xs text-gray-500">Upcoming launch in Perth</p>
+          </div>
+
+          <div class="p-6 rounded-2xl glass-card border border-gray-800 text-center space-y-2 hover:border-[#00f098]/40 transition-all">
+            <div class="w-12 h-12 rounded-xl bg-blue-500/10 text-blue-400 flex items-center justify-center mx-auto mb-3">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
+            <p id="statFunds" class="text-3xl sm:text-4xl font-extrabold text-white font-mono">$0 / $10k</p>
+            <p class="text-xs font-bold uppercase text-gray-400">Fundraising Target</p>
+            <p class="text-xs text-gray-500">100% transparent tracking</p>
+          </div>
+
+          <div class="p-6 rounded-2xl glass-card border border-gray-800 text-center space-y-2 hover:border-[#00f098]/40 transition-all">
+            <div class="w-12 h-12 rounded-xl bg-purple-500/10 text-purple-400 flex items-center justify-center mx-auto mb-3">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+              </svg>
+            </div>
+            <p id="statHours" class="text-3xl sm:text-4xl font-extrabold text-white font-mono">830+ HRS</p>
+            <p class="text-xs font-bold uppercase text-gray-400">Tele-Counseling Goal</p>
+            <p class="text-xs text-gray-500">Free youth counseling hours</p>
+          </div>
+
+        </div>
+
+      </section>
+
+      <!-- CLEAN PRE-EVENT FAQ ACCORDION -->
+      <section id="faq" class="py-20 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto border-t border-gray-800/80">
+        
+        <div class="text-center space-y-4 mb-14">
+          <span class="px-3 py-1 rounded-full bg-[#00f098]/10 text-[#00f098] border border-[#00f098]/20 text-xs font-bold uppercase">
+            Questions & Clarity
+          </span>
+          <h2 class="text-3xl sm:text-4xl font-extrabold text-white">
+            Frequently Asked Questions
+          </h2>
+          <p class="text-base text-gray-400">
+            Everything you need to know about Karshang's upcoming 100-day run and how to get involved.
+          </p>
+        </div>
+
+        <div id="faqAccordionContainer" class="space-y-4">
+          <!-- Populated by JavaScript -->
+        </div>
+
+      </section>
+
+      <!-- CALL TO ACTION BANNER -->
+      <section class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <div class="relative rounded-3xl p-8 sm:p-14 overflow-hidden border border-emerald-500/30 glass-card bg-gradient-to-br from-gray-900 via-[#0d1726] to-[#080c14] text-center space-y-6">
+          <div class="absolute -top-24 -right-24 w-80 h-80 bg-[#00f098]/20 rounded-full blur-[100px] pointer-events-none"></div>
+          <div class="absolute -bottom-24 -left-24 w-80 h-80 bg-[#f59e0b]/20 rounded-full blur-[100px] pointer-events-none"></div>
+
+          <div class="relative z-10 max-w-2xl mx-auto space-y-6">
+            <div class="flex items-center justify-center gap-3">
+              <img src="/src/assets/Krash_Productions.png" alt="Krash Productions Logo" class="h-6 w-auto" />
+              <span class="px-3 py-1 rounded-full bg-[#00f098]/15 text-[#00f098] border border-[#00f098]/30 text-xs font-bold uppercase">
+                Krash Productions • Perth WA
+              </span>
+            </div>
+            <h2 class="text-3xl sm:text-5xl font-extrabold text-white tracking-tight leading-tight">
+              Be Part of the Launch. Get Loud.
+            </h2>
+            <p class="text-base sm:text-lg text-gray-300">
+              Claim one of the 14 open weekly collaborator spots ($20 contribution) to run 5km with Karshang in Perth and record a podcast episode.
+            </p>
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
+              <button id="ctaDonateBtn" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-gradient-to-r from-[#00f098] to-[#10b981] text-black font-extrabold text-base shadow-xl shadow-[#00f098]/30 hover:scale-105 active:scale-95 transition-all">
+                Register Week Spot ($20)
+              </button>
+              <button id="shareCampaignBtn" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-gray-800 hover:bg-gray-700 text-white font-bold text-base border border-gray-700 transition-all flex items-center justify-center gap-2">
+                <svg class="w-5 h-5 text-[#00f098]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 100-2.684 3 3 0 000 2.684zm0 9a3 3 0 100-2.684 3 3 0 000 2.684z" />
+                </svg>
+                Share Campaign
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- FOOTER WITH KRASH PRODUCTIONS BRANDING -->
+    <footer class="bg-[#05080f] border-t border-gray-800 py-12 px-4 sm:px-6 lg:px-8">
+      <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
+        
+        <div class="flex items-center gap-4">
+          <img src="/src/assets/Krash_Productions.png" alt="Krash Productions Logo" class="h-10 w-auto" />
+          <div>
+            <div class="flex items-center justify-center md:justify-start gap-2">
+              <span class="font-extrabold text-lg text-white">GET<span class="text-[#00f098]">LOUD</span></span>
+              <span class="text-xs text-gray-400">• Perth, WA</span>
+            </div>
+            <p class="text-xs text-gray-500 mt-0.5">A Krash Productions initiative by Karshang Ghising (Snowcoal).</p>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-6 text-sm text-gray-400">
+          <a href="#about" class="hover:text-[#00f098]">Event Vision</a>
+          <a href="#how-it-works" class="hover:text-[#00f098]">How It Works</a>
+          <a href="#collaborators" class="hover:text-[#00f098]">Collaborator Hub</a>
+          <a href="#faq" class="hover:text-[#00f098]">FAQ</a>
+        </div>
+
+        <div class="text-xs text-gray-500">
+          © 2026 Krash Productions & GetLoud. Hosted on Netlify.
+        </div>
+      </div>
+    </footer>
+
+    <!-- DONATION / WEEKLY COLLABORATOR REGISTRATION MODAL -->
+    <div id="donationModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-black/80 backdrop-blur-md transition-all duration-300">
+      <div class="relative w-full max-w-xl glass-modal p-6 sm:p-8 rounded-3xl space-y-6 max-h-[90vh] overflow-y-auto">
+        
+        <button id="closeModalBtn" aria-label="Close Donation Modal" class="absolute top-5 right-5 p-2 rounded-xl bg-gray-800/80 text-gray-400 hover:text-white hover:bg-gray-700 transition-all focus:outline-none">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+
+        <div class="space-y-2 text-left">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#00f098]/15 text-[#00f098] text-xs font-bold uppercase">
+            Krash Productions • Supporter Registration
+          </div>
+          <h3 class="text-2xl font-extrabold text-white">Register Weekly Spot ($20) or Donate</h3>
+          <p class="text-xs text-gray-400">
+            Join Karshang Ghising for a 5km run in Perth, record a podcast episode, or support mental health crisis helplines.
+          </p>
+        </div>
+
+        <div class="space-y-3">
+          <label class="block text-xs font-bold uppercase text-gray-300">Select Support Tier</label>
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
+            <button type="button" data-amount="20" class="tier-btn p-3 rounded-xl border-2 border-[#00f098] bg-[#00f098]/10 text-white font-bold text-center text-sm hover:border-[#00f098] transition-all">
+              <span class="block text-xs text-[#00f098]">Weekly Spot</span>
+              $20
+            </button>
+            <button type="button" data-amount="50" class="tier-btn p-3 rounded-xl border border-gray-700 bg-gray-900/60 text-gray-300 font-bold text-center text-sm hover:border-[#00f098] transition-all">
+              <span class="block text-xs text-gray-400">Supporter</span>
+              $50
+            </button>
+            <button type="button" data-amount="100" class="tier-btn p-3 rounded-xl border border-gray-700 bg-gray-900/60 text-gray-300 font-bold text-center text-sm hover:border-[#00f098] transition-all">
+              <span class="block text-xs text-gray-400">Champion</span>
+              $100
+            </button>
+            <button type="button" data-amount="custom" class="tier-btn p-3 rounded-xl border border-gray-700 bg-gray-900/60 text-gray-300 font-bold text-center text-sm hover:border-[#00f098] transition-all">
+              <span class="block text-xs text-gray-400">Custom</span>
+              Other
+            </button>
+          </div>
+        </div>
+
+        <div id="customAmountGroup" class="hidden">
+          <label for="customAmount" class="block text-xs font-bold uppercase text-gray-300 mb-1">Enter Custom Amount ($ USD)</label>
+          <input type="number" id="customAmount" min="5" placeholder="e.g. 150" class="w-full px-4 py-3 rounded-xl bg-gray-900 border border-gray-700 text-white focus:border-[#00f098] focus:outline-none" />
+        </div>
+
+        <form id="donationForm" name="collaborator-registration" data-netlify="true" class="space-y-4 text-left">
+          <input type="hidden" name="form-name" value="collaborator-registration" />
+          <input type="hidden" id="hiddenSupportAmount" name="supportAmount" value="20" />
+
+          <div>
+            <label for="donorName" class="block text-xs font-bold uppercase text-gray-300 mb-1">Full Name / Collaborator Name</label>
+            <input type="text" id="donorName" name="fullName" required placeholder="e.g. Sarah Jenkins" class="w-full px-4 py-3 rounded-xl bg-gray-900 border border-gray-700 text-white text-sm focus:border-[#00f098] focus:outline-none" />
+          </div>
+
+          <div>
+            <label for="donorEmail" class="block text-xs font-bold uppercase text-gray-300 mb-1">Email Address</label>
+            <input type="email" id="donorEmail" name="email" required placeholder="your.email@example.com" class="w-full px-4 py-3 rounded-xl bg-gray-900 border border-gray-700 text-white text-sm focus:border-[#00f098] focus:outline-none" />
+          </div>
+
+          <div>
+            <label for="donorDiscipline" class="block text-xs font-bold uppercase text-gray-300 mb-1">Creative Discipline / Preferred Week (Optional)</label>
+            <input type="text" id="donorDiscipline" name="creativeDiscipline" placeholder="e.g. Acoustic Guitarist, Perth Trail Runner, Week 3 Slot" class="w-full px-4 py-3 rounded-xl bg-gray-900 border border-gray-700 text-white text-sm focus:border-[#00f098] focus:outline-none" />
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold uppercase text-gray-300 mb-2">Preferred Contribution Gateway</label>
+            <div class="grid grid-cols-3 gap-2">
+              <label class="flex items-center justify-center p-3 rounded-xl border border-[#00f098] bg-[#00f098]/10 cursor-pointer text-xs font-bold text-white">
+                <input type="radio" name="paymentGateway" value="Credit Card / Stripe" checked class="mr-1" />
+                Card / Stripe
+              </label>
+              <label class="flex items-center justify-center p-3 rounded-xl border border-gray-700 bg-gray-900 cursor-pointer text-xs font-bold text-gray-400 hover:border-gray-600">
+                <input type="radio" name="paymentGateway" value="PayPal" class="mr-1" />
+                PayPal
+              </label>
+              <label class="flex items-center justify-center p-3 rounded-xl border border-gray-700 bg-gray-900 cursor-pointer text-xs font-bold text-gray-400 hover:border-gray-600">
+                <input type="radio" name="paymentGateway" value="eSewa / Khalti" class="mr-1" />
+                eSewa / Khalti
+              </label>
+            </div>
+          </div>
+
+          <button type="submit" id="submitDonationBtn" class="w-full py-4 rounded-xl bg-gradient-to-r from-[#00f098] to-[#10b981] text-black font-extrabold text-base shadow-lg shadow-[#00f098]/30 hover:scale-[1.01] active:scale-95 transition-all">
+            Complete $20 Registration
+          </button>
+        </form>
+
+        <p class="text-[11px] text-gray-500 text-center">
+          🔒 Encrypted SSL transaction. Managed by Krash Productions for verified mental health initiatives.
+        </p>
+
+      </div>
+    </div>
+
+    <!-- AUDIO PODCAST PLAYER MODAL / DRAWER -->
+    <div id="podcastPlayerModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-black/85 backdrop-blur-md transition-all duration-300">
+      <div class="relative w-full max-w-lg glass-modal p-6 sm:p-8 rounded-3xl space-y-6 text-center">
+        
+        <button id="closePodcastBtn" aria-label="Close Podcast Player" class="absolute top-5 right-5 p-2 rounded-xl bg-gray-800 text-gray-400 hover:text-white">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+
+        <div class="w-20 h-20 rounded-2xl bg-gradient-to-br from-[#00f098] to-[#f59e0b] p-1 mx-auto shadow-xl shadow-[#00f098]/20">
+          <div class="w-full h-full bg-gray-900 rounded-xl flex items-center justify-center text-[#00f098]">
+            <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 100-6 3 3 0 000 6z" />
+            </svg>
+          </div>
+        </div>
+
+        <div class="space-y-1">
+          <span id="playerWeekBadge" class="px-3 py-1 rounded-full bg-[#00f098]/10 text-[#00f098] text-xs font-bold uppercase">
+            Episode Preview
+          </span>
+          <h3 id="playerTitle" class="text-xl font-extrabold text-white mt-2">Episode Title</h3>
+          <p id="playerCollaborator" class="text-sm font-semibold text-[#f59e0b]">Collaborator Name</p>
+        </div>
+
+        <audio id="audioElement" class="hidden"></audio>
+
+        <div class="h-12 flex items-center justify-center gap-1.5 px-4 bg-gray-900/90 rounded-2xl border border-gray-800">
+          <div class="w-1.5 h-6 bg-[#00f098] rounded-full animate-bounce"></div>
+          <div class="w-1.5 h-10 bg-[#00f098] rounded-full animate-bounce delay-100"></div>
+          <div class="w-1.5 h-4 bg-[#f59e0b] rounded-full animate-bounce delay-150"></div>
+          <div class="w-1.5 h-8 bg-[#00f098] rounded-full animate-bounce delay-200"></div>
+          <div class="w-1.5 h-5 bg-[#00f098] rounded-full animate-bounce"></div>
+          <div class="w-1.5 h-10 bg-[#f59e0b] rounded-full animate-bounce delay-75"></div>
+          <div class="w-1.5 h-7 bg-[#00f098] rounded-full animate-bounce delay-300"></div>
+        </div>
+
+        <div class="space-y-3">
+          <div class="flex items-center justify-between text-xs font-mono text-gray-400">
+            <span id="currentTime">0:00</span>
+            <span id="totalDuration">0:00</span>
+          </div>
+          <input type="range" id="audioSeeker" value="0" max="100" class="w-full accent-[#00f098] bg-gray-800 h-2 rounded-lg cursor-pointer" />
+        </div>
+
+        <div class="flex items-center justify-center gap-6">
+          <button id="togglePlayBtn" class="w-14 h-14 rounded-full bg-[#00f098] text-black flex items-center justify-center font-bold shadow-lg shadow-[#00f098]/30 hover:scale-105 active:scale-95 transition-all">
+            <svg id="playIcon" class="w-6 h-6 ml-1" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd" />
+            </svg>
+            <svg id="pauseIcon" class="w-6 h-6 hidden" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zM7 8a1 1 0 012 0v4a1 1 0 11-2 0V8zm5 0a1 1 0 012 0v4a1 1 0 11-2 0V8z" clip-rule="evenodd" />
+            </svg>
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- TOAST NOTIFICATION CONTAINER -->
+    <div id="toastContainer" class="fixed bottom-6 right-6 z-50 pointer-events-none flex flex-col gap-3"></div>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
