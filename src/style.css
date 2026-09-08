@@ -140,3 +140,20 @@ body.modal-open {
 .faq-answer {
   transition: max-height 0.4s cubic-bezier(0, 1, 0, 1), opacity 0.3s ease;
 }
+
+/* Progress bar shimmer */
+.progress-bar-fill {
+  transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.run-card img {
+  filter: brightness(0.95);
+}
+
+.run-card:hover img {
+  filter: brightness(1);
+}
+
+.product-card:hover {
+  transform: translateY(-4px);
+}

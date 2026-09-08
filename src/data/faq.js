@@ -6,8 +6,8 @@ export const faqData = [
   },
   {
     id: 2,
-    question: "Has the event started yet and how do I register as a weekly collaborator?",
-    answer: "The event is currently in its pre-launch stage! All 14 weekly collaborator slots are open for registration. You can contribute $20 to claim a specific week, feature your creative discipline, run 5km with Karshang in Perth, and co-host that week's podcast episode."
+    question: "Has the event started and how do I register as a weekly collaborator?",
+    answer: "Yes — the campaign is live! Karshang is logging daily Samsung Health runs toward 500 km. All 14 weekly collaborator slots remain open for registration. Contribute $20 to claim a specific week, feature your creative discipline, run 5km with Karshang in Perth, and co-host that week's podcast episode."
   },
   {
     id: 3,

@@ -3,6 +3,16 @@ import krashLogo from './assets/Krash_Productions.png';
 import { collaboratorsData } from './data/collaborators.js';
 import { faqData } from './data/faq.js';
 import { getCalculatedCampaignStats } from './utils/campaignCalculator.js';
+import {
+  renderProgressTracker,
+  renderAimAndGoal,
+  renderProducts,
+  renderWeeklyDonations,
+  renderPodcasts,
+  updateHeroProgress,
+  updateImpactStats,
+} from './utils/sectionRenderers.js';
+import { merchConfig } from './data/products.js';
 
 // Calculate campaign stats automatically
 const stats = getCalculatedCampaignStats();
@@ -36,11 +46,35 @@ const audioSeeker = document.getElementById('audioSeeker');
 
 // 1. UPDATE CAMPAIGN READINESS METRICS AUTOMATICALLY
 function updateAutoCalculatedUI() {
-  const dayText = document.getElementById('heroDayText');
-  const progressBar = document.getElementById('heroProgressBar');
+  updateHeroProgress(stats);
+  updateImpactStats(stats);
+}
 
-  if (dayText) dayText.textContent = stats.statusText;
-  if (progressBar) progressBar.style.width = `5%`;
+function handleProductEnquire(product) {
+  window.location.href = `mailto:${merchConfig.shopEmail}?subject=GetLoud Merch Enquiry: ${encodeURIComponent(product.name)}&body=Hi Karshang,%0D%0A%0D%0AI'd like to enquire about: ${encodeURIComponent(product.name)} (${encodeURIComponent(product.priceLabel)})%0D%0A%0D%0AThanks!`;
+}
+
+function openPodcastPlayer(episode) {
+  playerTitle.textContent = episode.title;
+  playerCollaborator.textContent = episode.guest;
+  playerWeekBadge.textContent = episode.week === 0 ? 'Preview' : `Week ${episode.week}`;
+
+  if (episode.audioUrl) {
+    audioElement.src = episode.audioUrl;
+  } else {
+    audioElement.removeAttribute('src');
+  }
+
+  podcastPlayerModal.classList.remove('hidden');
+  document.body.classList.add('modal-open');
+}
+
+function initDynamicSections() {
+  renderProgressTracker(document.getElementById('progressTrackerContainer'), stats);
+  renderAimAndGoal(document.getElementById('aimGoalContainer'), stats);
+  renderProducts(document.getElementById('merchContainer'), handleProductEnquire);
+  renderWeeklyDonations(document.getElementById('donationsContainer'), stats);
+  renderPodcasts(document.getElementById('podcastsContainer'), openPodcastPlayer);
 }
 
 // 2. RENDER COLLABORATORS REGISTRATION GRID (14 OPEN WEEKLY SLOTS)
@@ -156,6 +190,20 @@ function renderCollaborators(filterCategory = 'all') {
     }
 
     collaboratorsGrid.appendChild(card);
+  });
+
+  collaboratorsGrid.querySelectorAll('.play-podcast-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const collab = collaboratorsData.find(c => c.id === parseInt(btn.getAttribute('data-id'), 10));
+      if (collab) {
+        openPodcastPlayer({
+          title: collab.title,
+          guest: collab.name,
+          week: collab.week,
+          audioUrl: collab.audioUrl || null,
+        });
+      }
+    });
   });
 }
 
@@ -383,6 +431,7 @@ if (shareBtn) {
 // INITIALIZATION
 document.addEventListener('DOMContentLoaded', () => {
   updateAutoCalculatedUI();
+  initDynamicSections();
   renderCollaborators();
   renderFAQ();
 });
