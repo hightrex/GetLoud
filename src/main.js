@@ -44,6 +44,21 @@ const currentTimeEl = document.getElementById('currentTime');
 const totalDurationEl = document.getElementById('totalDuration');
 const audioSeeker = document.getElementById('audioSeeker');
 
+// Run Inspection Modal Elements
+const runInspectionModal = document.getElementById('runInspectionModal');
+const closeRunModalBtn = document.getElementById('closeRunModalBtn');
+const runModalDayBadge = document.getElementById('runModalDayBadge');
+const runModalDate = document.getElementById('runModalDate');
+const runModalTitle = document.getElementById('runModalTitle');
+const runModalLocation = document.getElementById('runModalLocation');
+const runModalRouteDesc = document.getElementById('runModalRouteDesc');
+const runModalQuote = document.getElementById('runModalQuote');
+const runModalMapImg = document.getElementById('runModalMapImg');
+const runModalProofImg = document.getElementById('runModalProofImg');
+const modalTabMapBtn = document.getElementById('modalTabMapBtn');
+const modalTabProofBtn = document.getElementById('modalTabProofBtn');
+const runModalStatsGrid = document.getElementById('runModalStatsGrid');
+
 // 1. UPDATE CAMPAIGN READINESS METRICS AUTOMATICALLY
 function updateAutoCalculatedUI() {
   updateHeroProgress(stats);
@@ -69,8 +84,57 @@ function openPodcastPlayer(episode) {
   document.body.classList.add('modal-open');
 }
 
+function openRunInspectionModal(log) {
+  if (!runInspectionModal) return;
+
+  if (runModalDayBadge) runModalDayBadge.textContent = `Day ${log.day}`;
+  if (runModalDate) runModalDate.textContent = `${log.fullDate} • ${log.time}`;
+  if (runModalTitle) runModalTitle.textContent = `${log.distanceKm} KM`;
+  if (runModalLocation) runModalLocation.textContent = log.routeLocation;
+  if (runModalRouteDesc) runModalRouteDesc.textContent = log.routeDescription;
+  if (runModalQuote) runModalQuote.textContent = log.quote;
+
+  if (runModalMapImg) runModalMapImg.src = log.mapCard;
+  if (runModalProofImg) runModalProofImg.src = log.image;
+
+  // Reset tab to Map by default
+  if (runModalMapImg) runModalMapImg.classList.remove('hidden');
+  if (runModalProofImg) runModalProofImg.classList.add('hidden');
+  if (modalTabMapBtn) modalTabMapBtn.className = 'px-3 py-1.5 rounded-lg text-xs font-bold bg-[#00f098] text-black transition-all';
+  if (modalTabProofBtn) modalTabProofBtn.className = 'px-3 py-1.5 rounded-lg text-xs font-bold bg-gray-800 text-gray-400 hover:text-white transition-all';
+
+  if (runModalStatsGrid) {
+    const metrics = [
+      { label: 'Distance', val: `${log.distanceKm} km` },
+      { label: 'Duration', val: log.duration },
+      { label: 'Avg Pace', val: `${log.pace}/km` },
+      { label: 'Best Pace', val: `${log.fastestPace}/km` },
+      { label: 'Avg Speed', val: `${log.avgSpeedKmh} km/h` },
+      { label: 'Total Steps', val: log.steps.toLocaleString() },
+      { label: 'Cadence', val: `~${log.cadenceSpm} spm` },
+      { label: 'Est. Calories', val: `~${log.calories} kcal` },
+    ];
+
+    runModalStatsGrid.innerHTML = metrics.map(m => `
+      <div class="p-2.5 rounded-xl bg-gray-950/80 border border-gray-800 text-center">
+        <p class="text-[9px] uppercase font-bold text-gray-400 tracking-wider">${m.label}</p>
+        <p class="text-sm font-extrabold text-[#00f098] font-mono mt-0.5">${m.val}</p>
+      </div>
+    `).join('');
+  }
+
+  runInspectionModal.classList.remove('hidden');
+  document.body.classList.add('modal-open');
+}
+
+function closeRunInspectionModal() {
+  if (!runInspectionModal) return;
+  runInspectionModal.classList.add('hidden');
+  document.body.classList.remove('modal-open');
+}
+
 function initDynamicSections() {
-  renderProgressTracker(document.getElementById('progressTrackerContainer'), stats);
+  renderProgressTracker(document.getElementById('progressTrackerContainer'), stats, openRunInspectionModal);
   renderAimAndGoal(document.getElementById('aimGoalContainer'), stats);
   renderProducts(document.getElementById('merchContainer'), handleProductEnquire);
   renderWeeklyDonations(document.getElementById('donationsContainer'), stats);
@@ -427,6 +491,47 @@ if (shareBtn) {
     }
   });
 }
+
+// 10. RUN INSPECTION MODAL EVENT LISTENERS
+if (closeRunModalBtn) {
+  closeRunModalBtn.addEventListener('click', closeRunInspectionModal);
+}
+
+if (runInspectionModal) {
+  runInspectionModal.addEventListener('click', (e) => {
+    if (e.target === runInspectionModal) {
+      closeRunInspectionModal();
+    }
+  });
+}
+
+if (modalTabMapBtn && modalTabProofBtn) {
+  modalTabMapBtn.addEventListener('click', () => {
+    if (runModalMapImg) runModalMapImg.classList.remove('hidden');
+    if (runModalProofImg) runModalProofImg.classList.add('hidden');
+    modalTabMapBtn.className = 'px-3 py-1.5 rounded-lg text-xs font-bold bg-[#00f098] text-black transition-all';
+    modalTabProofBtn.className = 'px-3 py-1.5 rounded-lg text-xs font-bold bg-gray-800 text-gray-400 hover:text-white transition-all';
+  });
+
+  modalTabProofBtn.addEventListener('click', () => {
+    if (runModalProofImg) runModalProofImg.classList.remove('hidden');
+    if (runModalMapImg) runModalMapImg.classList.add('hidden');
+    modalTabProofBtn.className = 'px-3 py-1.5 rounded-lg text-xs font-bold bg-[#00f098] text-black transition-all';
+    modalTabMapBtn.className = 'px-3 py-1.5 rounded-lg text-xs font-bold bg-gray-800 text-gray-400 hover:text-white transition-all';
+  });
+}
+
+// Global Escape Key listener for all modals
+window.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    closeRunInspectionModal();
+    closePodcastPlayer();
+    if (donationModal && !donationModal.classList.contains('hidden')) {
+      donationModal.classList.add('hidden');
+      document.body.classList.remove('modal-open');
+    }
+  }
+});
 
 // INITIALIZATION
 document.addEventListener('DOMContentLoaded', () => {
