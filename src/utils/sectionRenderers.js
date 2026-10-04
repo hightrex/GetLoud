@@ -57,7 +57,7 @@ export function renderProgressTracker(container, stats, onInspectRun) {
         </div>
         <div class="flex justify-between text-xs font-mono text-gray-400">
           <span>0 km</span>
-          <span class="text-[#00f098] font-bold">${formatKm(distanceCoveredKm)} km logged (Official Day 1 & Day 2)</span>
+          <span class="text-[#00f098] font-bold">${formatKm(distanceCoveredKm)} km logged</span>
           <span>500 km</span>
         </div>
         <div class="flex flex-wrap gap-4 pt-3 border-t border-gray-800/80 text-xs text-gray-300">
