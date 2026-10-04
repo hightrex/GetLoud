@@ -4,7 +4,6 @@ export const campaignStats = {
   distanceCoveredKm: 290,
   totalDistanceTargetKm: 500,
   fundsRaisedUsd: 6420,
-  targetFundsUsd: 10000,
   totalCollaborators: 14,
   activeCollaborators: 9,
   metrics: [

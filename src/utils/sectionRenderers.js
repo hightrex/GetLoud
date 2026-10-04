@@ -136,7 +136,8 @@ export function renderProgressTracker(container, stats, onInspectRun) {
 }
 
 function renderRunCard(log) {
-  const isDay2 = log.day === 2;
+  const hasPrevDay = log.gains !== undefined;
+  const hasMap = !!log.mapCard;
   const metrics = [
     { label: 'Distance', value: `${log.distanceKm} km`, highlight: true },
     { label: 'Duration', value: log.duration },
@@ -144,8 +145,7 @@ function renderRunCard(log) {
     { label: 'Best Pace', value: log.fastestPace, sub: '/km' },
     { label: 'Avg Speed', value: `${log.avgSpeedKmh} km/h` },
     { label: 'Total Steps', value: log.steps.toLocaleString() },
-    { label: 'Cadence', value: `~${log.cadenceSpm} spm` },
-    { label: 'Avg Stride', value: `${log.avgStrideM} m` },
+    { label: 'Calories', value: `${log.calories} kcal` },
   ];
 
   return `
@@ -154,7 +154,7 @@ function renderRunCard(log) {
         <!-- Top Badge Header -->
         <div class="p-5 pb-3 flex items-center justify-between border-b border-gray-800/80">
           <div class="flex items-center gap-3">
-            <span class="px-3.5 py-1 rounded-full ${isDay2 ? 'bg-[#f59e0b]/20 text-[#f59e0b] border border-[#f59e0b]/40' : 'bg-[#00f098]/20 text-[#00f098] border border-[#00f098]/40'} text-xs font-black uppercase font-mono tracking-wider">
+            <span class="px-3.5 py-1 rounded-full ${log.day === 1 ? 'bg-[#00f098]/20 text-[#00f098] border border-[#00f098]/40' : log.day === 2 ? 'bg-[#f59e0b]/20 text-[#f59e0b] border border-[#f59e0b]/40' : 'bg-sky-500/20 text-sky-400 border border-sky-500/40'} text-xs font-black uppercase font-mono tracking-wider">
               DAY ${log.day < 10 ? '0' + log.day : log.day}
             </span>
             <div>
@@ -171,8 +171,9 @@ function renderRunCard(log) {
         <!-- Interactive Visual Switcher & Frame -->
         <div class="p-5 pb-3 space-y-3">
           <div class="flex items-center justify-between">
-            <span class="text-[11px] font-bold uppercase tracking-wider text-gray-400">Route Map & Proof</span>
-            <!-- View Mode Switcher -->
+            <span class="text-[11px] font-bold uppercase tracking-wider text-gray-400">${hasMap ? 'Route Map & Proof' : 'Run Proof'}</span>
+            <!-- View Mode Switcher (only shown if map exists) -->
+            ${hasMap ? `
             <div class="inline-flex p-0.5 rounded-xl bg-gray-900 border border-gray-800">
               <button data-view-toggle data-day="${log.day}" data-view="map" class="px-3 py-1 rounded-lg text-[11px] font-extrabold bg-[#00f098] text-black shadow-md transition-all">
                 🛰️ GPS Map
@@ -180,11 +181,14 @@ function renderRunCard(log) {
               <button data-view-toggle data-day="${log.day}" data-view="proof" class="px-3 py-1 rounded-lg text-[11px] font-extrabold bg-gray-800/80 text-gray-400 hover:text-white transition-all">
                 📱 Proof
               </button>
-            </div>
+            </div>` : `
+            <span class="px-2.5 py-1 rounded-lg bg-gray-900 text-[10px] text-gray-500 border border-gray-800">📱 Samsung Health</span>
+            `}
           </div>
 
           <!-- Visual Display Container -->
           <div class="relative rounded-2xl overflow-hidden bg-gray-950/90 border border-gray-800 aspect-[16/10] sm:aspect-[16/9] flex items-center justify-center group/visual cursor-pointer" data-inspect-run="${log.day}" title="Click to inspect full route and telemetry">
+            ${hasMap ? `
             <!-- GPS Map View -->
             <div data-card-visual="map" class="w-full h-full relative">
               <img src="${log.mapCard}" alt="Day ${log.day} extracted GPS route map" class="w-full h-full object-cover group-hover/visual:scale-105 transition-transform duration-500" loading="lazy" />
@@ -192,10 +196,10 @@ function renderRunCard(log) {
                 <span class="w-1.5 h-1.5 rounded-full bg-[#00f098] animate-ping"></span>
                 Extracted GPS Trace
               </div>
-            </div>
+            </div>` : ''}
 
             <!-- Samsung Health Proof View -->
-            <div data-card-visual="proof" class="w-full h-full relative hidden">
+            <div data-card-visual="proof" class="w-full h-full relative ${hasMap ? 'hidden' : ''}">
               <img src="${log.image}" alt="Day ${log.day} official Samsung Health run screenshot" class="w-full h-full object-contain p-2 group-hover/visual:scale-105 transition-transform duration-500" loading="lazy" />
               <div class="absolute bottom-2 left-2 px-2.5 py-1 rounded-lg bg-black/75 backdrop-blur-sm text-[10px] font-bold text-white border border-white/20">
                 Samsung Health Card
@@ -236,13 +240,13 @@ function renderRunCard(log) {
             "${log.quote}"
           </div>
 
-          ${isDay2 && log.gains ? `
+          ${hasPrevDay && log.gains ? `
             <div class="p-3 rounded-2xl bg-gradient-to-r from-amber-500/10 via-[#00f098]/10 to-transparent border border-amber-500/30 space-y-1">
               <div class="flex items-center gap-1.5 text-xs font-bold text-[#f59e0b]">
                 <span>⚡ Day-over-Day Momentum Gain</span>
               </div>
               <div class="flex flex-wrap gap-2 text-[11px] font-mono text-gray-300">
-                <span class="text-[#00f098] font-bold">${log.gains.distanceDelta}</span> •
+                <span class="${log.gains.distanceDelta.startsWith('+') ? 'text-[#00f098]' : 'text-rose-400'} font-bold">${log.gains.distanceDelta}</span> •
                 <span class="text-amber-400 font-bold">${log.gains.paceDelta}</span> •
                 <span class="text-sky-400 font-bold">${log.gains.speedDelta}</span> •
                 <span class="text-purple-400 font-bold">${log.gains.stepsDelta}</span>
@@ -267,14 +271,19 @@ function renderRunCard(log) {
   `;
 }
 
+
 function renderProgressionCard(runningLogs) {
   if (runningLogs.length < 2) return '';
-  const day1 = runningLogs[0];
-  const day2 = runningLogs[1];
+  const prev = runningLogs[runningLogs.length - 2];
+  const curr = runningLogs[runningLogs.length - 1];
+  const totalDays = runningLogs.length;
 
-  const distDiff = (day2.distanceKm - day1.distanceKm).toFixed(2);
-  const stepsDiff = day2.steps - day1.steps;
-  const speedDiff = (day2.avgSpeedKmh - day1.avgSpeedKmh).toFixed(1);
+  const totalKm = runningLogs.reduce((sum, l) => sum + l.distanceKm, 0);
+  const totalSteps = runningLogs.reduce((sum, l) => sum + l.steps, 0);
+  const distDiff = (curr.distanceKm - prev.distanceKm).toFixed(2);
+  const stepsDiff = curr.steps - prev.steps;
+  const speedDiff = (curr.avgSpeedKmh - prev.avgSpeedKmh).toFixed(1);
+  const distPct = Math.abs(((curr.distanceKm - prev.distanceKm) / prev.distanceKm) * 100).toFixed(1);
 
   return `
     <div class="p-6 sm:p-8 rounded-3xl glass-card border border-amber-500/20 bg-gradient-to-br from-gray-950 via-gray-900 to-gray-950 space-y-6">
@@ -283,56 +292,57 @@ function renderProgressionCard(runningLogs) {
           <span class="px-3 py-1 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/30 text-xs font-extrabold uppercase">
             Performance Progression
           </span>
-          <h3 class="text-xl sm:text-2xl font-extrabold text-white mt-2">Day 1 ➔ Day 2 Momentum Surge</h3>
-          <p class="text-xs sm:text-sm text-gray-400">Karshang pushed past the 5km baseline on both days, accelerating his tempo on Day 2.</p>
+          <h3 class="text-xl sm:text-2xl font-extrabold text-white mt-2">Day ${prev.day} ➔ Day ${curr.day} Momentum</h3>
+          <p class="text-xs sm:text-sm text-gray-400">Karshang's ${totalDays}-day cumulative momentum — daily pace, distance, and step volume tracked.</p>
         </div>
         <div class="text-right shrink-0">
-          <p class="text-xs uppercase font-bold text-gray-500">48-Hour Combined</p>
-          <p class="text-2xl sm:text-3xl font-extrabold text-[#00f098] font-mono">14.84 KM</p>
-          <p class="text-xs text-gray-400">12,074 Total Steps</p>
+          <p class="text-xs uppercase font-bold text-gray-500">${totalDays}-Day Combined</p>
+          <p class="text-2xl sm:text-3xl font-extrabold text-[#00f098] font-mono">${totalKm.toFixed(2)} KM</p>
+          <p class="text-xs text-gray-400">${totalSteps.toLocaleString()} Total Steps</p>
         </div>
       </div>
 
       <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
         <div class="p-4 rounded-2xl bg-gray-900/90 border border-gray-800 space-y-1">
-          <p class="text-xs font-bold uppercase text-gray-400">Distance Expansion</p>
+          <p class="text-xs font-bold uppercase text-gray-400">Distance</p>
           <div class="flex items-baseline gap-2">
-            <span class="text-2xl font-black text-white font-mono">7.68</span>
-            <span class="text-xs font-bold text-[#00f098] font-mono">+${distDiff} km (+7.3%)</span>
+            <span class="text-2xl font-black text-white font-mono">${curr.distanceKm}</span>
+            <span class="text-xs font-bold ${parseFloat(distDiff) >= 0 ? 'text-[#00f098]' : 'text-rose-400'} font-mono">${parseFloat(distDiff) >= 0 ? '+' : ''}${distDiff} km (${parseFloat(distDiff) >= 0 ? '+' : ''}${distPct}%)</span>
           </div>
-          <p class="text-[11px] text-gray-500">7.16 km (Day 1) ➔ 7.68 km (Day 2)</p>
+          <p class="text-[11px] text-gray-500">${prev.distanceKm} km (Day ${prev.day}) ➔ ${curr.distanceKm} km (Day ${curr.day})</p>
         </div>
 
         <div class="p-4 rounded-2xl bg-gray-900/90 border border-gray-800 space-y-1">
-          <p class="text-xs font-bold uppercase text-gray-400">Pace Acceleration</p>
+          <p class="text-xs font-bold uppercase text-gray-400">Avg Pace</p>
           <div class="flex items-baseline gap-2">
-            <span class="text-2xl font-black text-white font-mono">05'06"</span>
-            <span class="text-xs font-bold text-amber-400 font-mono">-10 sec/km faster</span>
+            <span class="text-2xl font-black text-white font-mono">${curr.pace}</span>
+            <span class="text-xs font-bold text-amber-400 font-mono">${curr.gains?.paceDelta || '—'}</span>
           </div>
-          <p class="text-[11px] text-gray-500">05'16"/km (Day 1) ➔ 05'06"/km (Day 2)</p>
+          <p class="text-[11px] text-gray-500">${prev.pace}/km (Day ${prev.day}) ➔ ${curr.pace}/km (Day ${curr.day})</p>
         </div>
 
         <div class="p-4 rounded-2xl bg-gray-900/90 border border-gray-800 space-y-1">
-          <p class="text-xs font-bold uppercase text-gray-400">Average Speed</p>
+          <p class="text-xs font-bold uppercase text-gray-400">Avg Speed</p>
           <div class="flex items-baseline gap-2">
-            <span class="text-2xl font-black text-white font-mono">11.7</span>
-            <span class="text-xs font-bold text-sky-400 font-mono">+${speedDiff} km/h</span>
+            <span class="text-2xl font-black text-white font-mono">${curr.avgSpeedKmh}</span>
+            <span class="text-xs font-bold ${parseFloat(speedDiff) >= 0 ? 'text-sky-400' : 'text-rose-400'} font-mono">${parseFloat(speedDiff) >= 0 ? '+' : ''}${speedDiff} km/h</span>
           </div>
-          <p class="text-[11px] text-gray-500">11.3 km/h (Day 1) ➔ 11.7 km/h (Day 2)</p>
+          <p class="text-[11px] text-gray-500">${prev.avgSpeedKmh} km/h (Day ${prev.day}) ➔ ${curr.avgSpeedKmh} km/h (Day ${curr.day})</p>
         </div>
 
         <div class="p-4 rounded-2xl bg-gray-900/90 border border-gray-800 space-y-1">
           <p class="text-xs font-bold uppercase text-gray-400">Step Volume</p>
           <div class="flex items-baseline gap-2">
-            <span class="text-2xl font-black text-white font-mono">6,231</span>
-            <span class="text-xs font-bold text-purple-400 font-mono">+${stepsDiff.toLocaleString()} steps</span>
+            <span class="text-2xl font-black text-white font-mono">${curr.steps.toLocaleString()}</span>
+            <span class="text-xs font-bold ${stepsDiff >= 0 ? 'text-purple-400' : 'text-rose-400'} font-mono">${stepsDiff >= 0 ? '+' : ''}${stepsDiff.toLocaleString()} steps</span>
           </div>
-          <p class="text-[11px] text-gray-500">5,843 steps (Day 1) ➔ 6,231 steps (Day 2)</p>
+          <p class="text-[11px] text-gray-500">${prev.steps.toLocaleString()} steps (Day ${prev.day}) ➔ ${curr.steps.toLocaleString()} steps (Day ${curr.day})</p>
         </div>
       </div>
     </div>
   `;
 }
+
 
 export function renderAimAndGoal(container, stats) {
   if (!container) return;
@@ -342,10 +352,10 @@ export function renderAimAndGoal(container, stats) {
   const goalValues = {
     distance: `${formatKm(stats.distanceCoveredKm)} / 500 km`,
     days: `${stats.currentDay} / ${stats.totalDays} days`,
-    funds: `${formatUsd(stats.fundsRaisedUsd)} / ${formatUsd(stats.targetFundsUsd)}`,
+    funds: `${formatUsd(stats.fundsRaisedUsd)} raised`,
     collaborators: `${stats.confirmedCollaborators} / 14 guests`,
     podcasts: `${stats.publishedPodcasts} / ${stats.totalPodcastsPlanned} episodes`,
-    counseling: `${Math.floor(stats.fundsRaisedUsd / 12)}+ / ${stats.counselingHoursGoal}+ hrs`,
+    counseling: `${Math.floor(stats.fundsRaisedUsd / 12)}+ hrs funded`,
   };
 
   container.innerHTML = `
@@ -385,7 +395,7 @@ export function renderAimAndGoal(container, stats) {
             <div class="p-5 rounded-2xl glass-card border border-gray-800 space-y-2 hover:border-[#00f098]/30 transition-all">
               <div class="flex items-center justify-between">
                 <p class="text-xs font-bold uppercase text-gray-400">${goal.label}</p>
-                <span class="text-[10px] font-mono text-gray-500">Target: ${goal.target}</span>
+                <span class="text-[10px] font-mono text-gray-500">${goal.target === '100% donated' ? goal.target : `Target: ${goal.target}`}</span>
               </div>
               <p class="text-xl font-extrabold text-white font-mono">${goalValues[goal.id] || goal.target}</p>
               <p class="text-[11px] text-gray-500 leading-relaxed">${goal.description}</p>
@@ -446,9 +456,7 @@ export function renderProducts(container, onEnquire) {
 export function renderWeeklyDonations(container, stats) {
   if (!container) return;
 
-  const totalRaised = stats.weeklyDonationTotal + stats.fundsRaisedUsd;
-  const targetTotal = donationConfig.targetTotalUsd;
-  const overallPercent = Math.min(100, Math.round((totalRaised / targetTotal) * 100));
+  const totalRaised = stats.fundsRaisedUsd;
 
   container.innerHTML = `
     <div class="space-y-8">
@@ -459,14 +467,11 @@ export function renderWeeklyDonations(container, stats) {
             <p class="text-3xl sm:text-4xl font-extrabold text-[#f59e0b] font-mono">${formatUsd(totalRaised)}</p>
           </div>
           <div class="text-right">
-            <p class="text-xs font-bold uppercase text-gray-400">Goal</p>
-            <p class="text-xl font-extrabold text-white font-mono">${formatUsd(targetTotal)}</p>
+            <p class="text-xs font-bold uppercase text-gray-400">Donation Commitment</p>
+            <p class="text-xl font-extrabold text-white font-mono">100% donated</p>
           </div>
         </div>
-        <div class="relative w-full h-4 bg-gray-900 rounded-full overflow-hidden border border-gray-800">
-          <div class="h-full bg-gradient-to-r from-[#f59e0b] to-[#d97706] rounded-full transition-all duration-1000" style="width: ${Math.max(overallPercent, 2)}%"></div>
-        </div>
-        <p class="text-xs text-gray-500">${overallPercent}% of fundraising goal • ${formatUsd(donationConfig.collaboratorFeeUsd)} per weekly collaborator slot</p>
+        <p class="text-xs text-gray-500">100% of donations go directly to mental health partners • ${formatUsd(donationConfig.collaboratorFeeUsd)} per weekly collaborator slot</p>
       </div>
 
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
@@ -583,5 +588,5 @@ export function updateImpactStats(stats) {
 
   if (statKm) statKm.textContent = `${formatKm(stats.distanceCoveredKm)} / ${stats.targetKm}`;
   if (statDays) statDays.textContent = `${stats.currentDay} / ${stats.totalDays}`;
-  if (statFunds) statFunds.textContent = `${formatUsd(stats.fundsRaisedUsd)} / ${formatUsd(stats.targetFundsUsd)}`;
+  if (statFunds) statFunds.textContent = formatUsd(stats.fundsRaisedUsd);
 }

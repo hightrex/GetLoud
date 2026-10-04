@@ -111,8 +111,7 @@ function openRunInspectionModal(log) {
       { label: 'Best Pace', val: `${log.fastestPace}/km` },
       { label: 'Avg Speed', val: `${log.avgSpeedKmh} km/h` },
       { label: 'Total Steps', val: log.steps.toLocaleString() },
-      { label: 'Cadence', val: `~${log.cadenceSpm} spm` },
-      { label: 'Est. Calories', val: `~${log.calories} kcal` },
+      { label: 'Calories', val: `${log.calories} kcal` },
     ];
 
     runModalStatsGrid.innerHTML = metrics.map(m => `

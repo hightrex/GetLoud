@@ -145,5 +145,4 @@ export const weeklyDonations = [
 export const donationConfig = {
   currency: 'USD',
   collaboratorFeeUsd: 20,
-  targetTotalUsd: 10000,
 };

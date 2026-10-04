@@ -21,10 +21,8 @@ export function getCalculatedCampaignStats() {
 
   const weeklyDonationTotal = weeklyDonations.reduce((sum, w) => sum + w.amountUsd, 0);
   const totalFundsUsd = campaignConfig.fundsRaisedUsd + weeklyDonationTotal + confirmedCollaborators * campaignConfig.collaboratorFeeUsd;
-  const fundsPercent = Math.min(100, Math.round((totalFundsUsd / campaignConfig.targetFundsUsd) * 100));
 
   const publishedPodcasts = podcastEpisodes.filter((ep) => ep.status === 'available').length;
-  const counselingHoursGoal = Math.floor(campaignConfig.targetFundsUsd / 12);
 
   return {
     runnerName: campaignConfig.runnerName,
@@ -48,8 +46,6 @@ export function getCalculatedCampaignStats() {
     runningLogs,
 
     fundsRaisedUsd: totalFundsUsd,
-    targetFundsUsd: campaignConfig.targetFundsUsd,
-    fundsPercent,
     weeklyDonationTotal,
 
     confirmedCollaborators,
@@ -59,7 +55,6 @@ export function getCalculatedCampaignStats() {
 
     publishedPodcasts,
     totalPodcastsPlanned: 14,
-    counselingHoursGoal,
   };
 }
 

@@ -23,7 +23,7 @@ export const campaignGoals = {
         id: 'funding',
         title: 'Direct Crisis Funding',
         description:
-          'Raise $10,000 USD for verified mental health partners funding 24/7 crisis helplines and free youth tele-counseling in Nepal.',
+          '100% of donations go to verified mental health partners funding 24/7 crisis helplines and free youth tele-counseling in Nepal.',
         icon: 'heart',
       },
     ],
@@ -47,11 +47,11 @@ export const campaignGoals = {
     },
     {
       id: 'funds',
-      label: 'Fundraising Goal',
-      target: '$10,000 USD',
+      label: 'Fundraising',
+      target: '100% donated',
       current: null,
       unit: 'USD',
-      description: '100% transparent tracking toward crisis helpline funding',
+      description: 'Every donation goes directly to crisis helpline and mental health support.',
     },
     {
       id: 'collaborators',
@@ -72,10 +72,10 @@ export const campaignGoals = {
     {
       id: 'counseling',
       label: 'Counseling Hours Funded',
-      target: '830+ hrs',
+      target: 'Ongoing',
       current: null,
       unit: 'hrs',
-      description: 'Free tele-counseling hours unlocked at full fundraising goal',
+      description: 'Free tele-counseling hours funded through donations.',
     },
   ],
   missionStatement:

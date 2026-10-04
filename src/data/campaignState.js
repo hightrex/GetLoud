@@ -12,7 +12,6 @@ export const campaignConfig = {
   dailyDistanceKm: 5,
   targetDistanceKm: GOAL_DISTANCE_KM,
   fundsRaisedUsd: 0,
-  targetFundsUsd: 10000,
   collaboratorFeeUsd: 20,
 
   statusText: `Day ${runningLogs.length} of ${TOTAL_CHALLENGE_DAYS} — Campaign Live`,

@@ -1,11 +1,14 @@
 import day1Image from '../assets/day1.jpeg';
 import day2Image from '../assets/day2.jpeg';
+import day3Image from '../assets/day3.jpeg';
 import day1MapCard from '../assets/day1_map_card.png';
 import day2MapCard from '../assets/day2_map_card.png';
 import day1MapCrop from '../assets/day1_map.png';
 import day2MapCrop from '../assets/day2_map.png';
 import day1RouteSvg from '../assets/day1_route.svg';
 import day2RouteSvg from '../assets/day2_route.svg';
+import day4Image from '../assets/day4.jpeg';
+import day5Image from '../assets/day5.jpeg';
 
 /** Official Samsung Health run logs extracted from Karshang Ghising's verified runs */
 export const runningLogs = [
@@ -21,8 +24,8 @@ export const runningLogs = [
     avgSpeedKmh: 11.3,
     fastestPace: "04'02\"",
     steps: 5843,
-    cadenceSpm: 155,
-    avgStrideM: 1.22,
+    cadenceSpm: null,
+    avgStrideM: null,
     calories: 430,
     elevationM: null,
     routeType: 'Linear Trail',
@@ -48,8 +51,8 @@ export const runningLogs = [
     avgSpeedKmh: 11.7,
     fastestPace: "04'04\"",
     steps: 6231,
-    cadenceSpm: 159,
-    avgStrideM: 1.23,
+    cadenceSpm: null,
+    avgStrideM: null,
     calories: 465,
     elevationM: null,
     routeType: 'Parkland Loop Circuit',
@@ -69,6 +72,73 @@ export const runningLogs = [
       stepsDelta: '+388 steps',
     },
   },
+  {
+    day: 3,
+    date: '2026-10-03',
+    dateLabel: '3 Oct',
+    fullDate: 'Saturday, 3 Oct 2026',
+    time: '8:17 pm',
+    distanceKm: 6.03,
+    duration: '30:34',
+    pace: "05'04\"",
+    avgSpeedKmh: 11.8,
+    fastestPace: "04'18\"",
+    steps: 4842,
+    cadenceSpm: null,
+    avgStrideM: null,
+    calories: 343,
+    elevationM: null,
+    routeType: 'Evening Loop',
+    routeLocation: 'South Perth Apple Cross, WA',
+    routeDescription: "Saturday evening run. Tightest pace yet at 05'04\"/km — covering 6.03 km in just over 30 minutes. Best average pace across all 3 days.",
+    image: day3Image,
+    mapCard: null,
+    mapCrop: null,
+    routeSvg: null,
+    quote: "Day 3 done. 6.03 km at 05'04\" — best avg pace so far. The grind is real.",
+    source: 'Samsung Health',
+    verified: true,
+    gains: {
+      distanceDelta: '-1.65 km',
+      paceDelta: '-2s/km faster',
+      speedDelta: '+0.1 km/h',
+      stepsDelta: '-1,389 steps',
+    },
+  },
+  {
+    day: 4,
+    date: '2026-10-04',
+    dateLabel: '4 Oct',
+    fullDate: 'Sunday, 4 Oct 2026',
+    time: '6:03 pm',
+    distanceKm: 6.39,
+    duration: '32:17',
+    pace: "04'04",
+    avgSpeedKmh: 14.7,
+    fastestPace: "04'04\"",
+    steps: 5018,
+    cadenceSpm: null,
+    avgStrideM: null,
+    calories: 357,
+    elevationM: null,
+    routeType: 'Evening Loop',
+    routeLocation: 'Perth, WA',
+    routeDescription: "Day 4 evening run. 6.39 km covered in 32:17 at an average pace of 04'04\"/km.",
+    image: day4Image,
+    mapCard: null,
+    mapCrop: null,
+    routeSvg: null,
+    quote: "Day 4 done. 6.39 km at 04'04\" — keeping the grind alive.",
+    source: 'Samsung Health',
+    verified: true,
+    gains: {
+      distanceDelta: '+0.36 km',
+      paceDelta: '-60s/km faster',
+      speedDelta: '+2.9 km/h',
+      stepsDelta: '+176 steps',
+    },
+  },
+
 ];
 
 export const GOAL_DISTANCE_KM = 500;
