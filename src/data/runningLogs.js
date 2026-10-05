@@ -9,6 +9,7 @@ import day1RouteSvg from '../assets/day1_route.svg';
 import day2RouteSvg from '../assets/day2_route.svg';
 import day4Image from '../assets/day4.jpeg';
 import day5Image from '../assets/day5.jpeg';
+import day5Image from '../assets/day5.jpeg';
 
 /** Official Samsung Health run logs extracted from Karshang Ghising's verified runs */
 export const runningLogs = [
@@ -139,6 +140,39 @@ export const runningLogs = [
     },
   },
 
+  {
+    day: 5,
+    date: '2026-10-05',
+    dateLabel: '5 Oct',
+    fullDate: 'Monday, 5 Oct 2026',
+    time: '5:07 pm',
+    distanceKm: 6.34,
+    duration: '31:11',
+    pace: "04'54\"",
+    avgSpeedKmh: 12.2,
+    fastestPace: "04'15\"",
+    steps: 5027,
+    cadenceSpm: null,
+    avgStrideM: null,
+    calories: 358,
+    elevationM: null,
+    routeType: 'Evening Loop',
+    routeLocation: 'Perth, WA',
+    routeDescription: "Day 5 evening run. 6.34 km covered in 31:11 at an average pace of 04'54\"/km.",
+    image: day5Image,
+    mapCard: null,
+    mapCrop: null,
+    routeSvg: null,
+    quote: "Day 5 done. 6.34 km at 04'54\" — keeping the grind alive.",
+    source: 'Samsung Health',
+    verified: true,
+    gains: {
+      distanceDelta: '-0.05 km',
+      paceDelta: '+50s/km slower',
+      speedDelta: '-2.5 km/h',
+      stepsDelta: '+9 steps',
+    },
+  },
 ];
 
 export const GOAL_DISTANCE_KM = 500;

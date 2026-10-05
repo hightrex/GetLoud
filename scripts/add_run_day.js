@@ -5,18 +5,18 @@
  * Usage:
  *   node scripts/add_run_day.js <path-to-day.jpeg> [options]
  *
- * Required / Recommended flags (all values come from you):
- *   --date          YYYY-MM-DD          e.g. 2026-10-04
- *   --date-label    "D Mon"             e.g. "4 Oct"
+ * Required / Recommended flags:
+ *   --date          YYYY-MM-DD          e.g. 2026-10-05
+ *   --date-label    "D Mon"             e.g. "5 Oct"
  *   --full-date     "DayName, D Mon YYYY"
- *   --time          "H:MM am/pm"        e.g. "6:03 pm"
- *   --duration      "MM:SS"             e.g. "32:17"
- *   --distance      6.39                (km, number)
- *   --calories      357                 (integer)
- *   --pace          "MM'SS\""           e.g. "04'04\""
- *   --fastest-pace  "MM'SS\""           (optional, defaults to same as pace)
- *   --steps         5018                (integer, no commas)
- *   --avg-speed     14.7                (optional – calculated if omitted)
+ *   --time          "H:MM am/pm"        e.g. "5:07 pm"
+ *   --duration      "MM:SS"             e.g. "31:11"
+ *   --distance      6.34                (km, number)
+ *   --calories      358                 (integer)
+ *   --pace          "MM'SS\""           e.g. "04'54\""
+ *   --fastest-pace  "MM'SS\""           (optional)
+ *   --steps         5027                (integer, no commas)
+ *   --avg-speed     12.2                (optional – calculated if omitted)
  *
  * Optional:
  *   --route-type    "Evening Loop"      (default: "Evening Loop")
@@ -25,13 +25,10 @@
  *   --dry-run                           (preview only)
  *
  * Examples:
- *   node scripts/add_run_day.js ~/Downloads/day4.jpeg \
- *     --date 2026-10-04 --date-label "4 Oct" --full-date "Sunday, 4 Oct 2026" \
- *     --time "6:03 pm" --duration "32:17" --distance 6.39 --calories 357 \
- *     --pace "04'04\"" --steps 5018 --avg-speed 14.7
- *
- *   node scripts/add_run_day.js ~/Downloads/day4.jpeg --dry-run
- *   (will prompt you for any missing values)
+ *   node scripts/add_run_day.js ~/Downloads/day5.jpg \
+ *     --date 2026-10-05 --date-label "5 Oct" --full-date "Monday, 5 Oct 2026" \
+ *     --time "5:07 pm" --duration "31:11" --distance 6.34 --calories 358 \
+ *     --pace "04'54\"" --fastest-pace "04'15\"" --steps 5027 --avg-speed 12.2
  */
 
 import fs from 'fs';
@@ -106,16 +103,16 @@ async function collectRunData() {
 
   console.log('\n📋 Collecting run data (press Enter to keep default / skip if already provided via flag)\n');
 
-  if (!data.date) data.date = await ask('Date (YYYY-MM-DD)', '2026-10-04');
-  if (!data.dateLabel) data.dateLabel = await ask('Date label (e.g. "4 Oct")', '4 Oct');
-  if (!data.fullDate) data.fullDate = await ask('Full date (e.g. "Sunday, 4 Oct 2026")', 'Sunday, 4 Oct 2026');
-  if (!data.time) data.time = await ask('Time (e.g. "6:03 pm")', '6:03 pm');
-  if (!data.duration) data.duration = await ask('Duration (MM:SS)', '32:17');
-  if (data.distanceKm === null) data.distanceKm = parseFloat(await ask('Distance (km)', '6.39'));
-  if (data.calories === null) data.calories = parseInt(await ask('Calories (kcal)', '357'), 10);
-  if (!data.pace) data.pace = await ask('Average pace (e.g. 04\'04")', "04'04\"");
+  if (!data.date) data.date = await ask('Date (YYYY-MM-DD)', '2026-10-05');
+  if (!data.dateLabel) data.dateLabel = await ask('Date label (e.g. "5 Oct")', '5 Oct');
+  if (!data.fullDate) data.fullDate = await ask('Full date (e.g. "Monday, 5 Oct 2026")', 'Monday, 5 Oct 2026');
+  if (!data.time) data.time = await ask('Time (e.g. "5:07 pm")', '5:07 pm');
+  if (!data.duration) data.duration = await ask('Duration (MM:SS)', '31:11');
+  if (data.distanceKm === null) data.distanceKm = parseFloat(await ask('Distance (km)', '6.34'));
+  if (data.calories === null) data.calories = parseInt(await ask('Calories (kcal)', '358'), 10);
+  if (!data.pace) data.pace = await ask('Average pace (e.g. 04\'54")', "04'54\"");
   if (!data.fastestPace) data.fastestPace = await ask('Fastest pace (leave blank = same as avg)', data.pace);
-  if (data.steps === null) data.steps = parseInt((await ask('Steps', '5018')).replace(/,/g, ''), 10);
+  if (data.steps === null) data.steps = parseInt((await ask('Steps', '5027')).replace(/,/g, ''), 10);
 
   // Average speed – calculate if not given
   if (data.avgSpeedKmh === null) {
@@ -149,6 +146,7 @@ function computeAvgSpeed(distanceKm, duration) {
 }
 
 function paceToSeconds(pace) {
+  // Handles both "04'54\"" and "04'54"
   const m = pace?.match(/(\d+)'(\d+)/);
   if (!m) return null;
   return parseInt(m[1], 10) * 60 + parseInt(m[2], 10);
@@ -208,6 +206,12 @@ function computeGains(data, prev) {
   };
 }
 
+// ─── Safe string helper (the key fix) ─────────────────────────────────────────
+// Always produces a correctly quoted & escaped JS string literal
+function jsString(value) {
+  return JSON.stringify(String(value ?? ''));
+}
+
 // ─── Build the JS entry ───────────────────────────────────────────────────────
 
 function buildLogEntry(dayNum, data, gains, routeType, location, quote, varName) {
@@ -218,37 +222,37 @@ function buildLogEntry(dayNum, data, gains, routeType, location, quote, varName)
   const gainsBlock = gains
     ? `
     gains: {
-      distanceDelta: '${gains.distanceDelta}',
-      paceDelta: '${gains.paceDelta}',
-      speedDelta: '${gains.speedDelta}',
-      stepsDelta: '${gains.stepsDelta}',
+      distanceDelta: ${jsString(gains.distanceDelta)},
+      paceDelta: ${jsString(gains.paceDelta)},
+      speedDelta: ${jsString(gains.speedDelta)},
+      stepsDelta: ${jsString(gains.stepsDelta)},
     },`
     : '';
 
   return `  {
     day: ${dayNum},
-    date: '${data.date}',
-    dateLabel: '${data.dateLabel}',
-    fullDate: '${data.fullDate}',
-    time: '${data.time}',
+    date: ${jsString(data.date)},
+    dateLabel: ${jsString(data.dateLabel)},
+    fullDate: ${jsString(data.fullDate)},
+    time: ${jsString(data.time)},
     distanceKm: ${data.distanceKm},
-    duration: '${data.duration}',
-    pace: "${data.pace}",
+    duration: ${jsString(data.duration)},
+    pace: ${jsString(data.pace)},
     avgSpeedKmh: ${data.avgSpeedKmh},
-    fastestPace: "${data.fastestPace}",
+    fastestPace: ${jsString(data.fastestPace)},
     steps: ${data.steps},
     cadenceSpm: null,
     avgStrideM: null,
     calories: ${data.calories},
     elevationM: null,
-    routeType: '${routeType}',
-    routeLocation: '${location}',
-    routeDescription: "${autoRouteDescription}",
+    routeType: ${jsString(routeType)},
+    routeLocation: ${jsString(location)},
+    routeDescription: ${jsString(autoRouteDescription)},
     image: ${varName},
     mapCard: null,
     mapCrop: null,
     routeSvg: null,
-    quote: "${autoQuote}",
+    quote: ${jsString(autoQuote)},
     source: 'Samsung Health',
     verified: true,${gainsBlock}
   },`;
