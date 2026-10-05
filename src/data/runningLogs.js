@@ -9,7 +9,6 @@ import day1RouteSvg from '../assets/day1_route.svg';
 import day2RouteSvg from '../assets/day2_route.svg';
 import day4Image from '../assets/day4.jpeg';
 import day5Image from '../assets/day5.jpeg';
-import day5Image from '../assets/day5.jpeg';
 
 /** Official Samsung Health run logs extracted from Karshang Ghising's verified runs */
 export const runningLogs = [
