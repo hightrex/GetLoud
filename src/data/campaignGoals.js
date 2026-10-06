@@ -1,7 +1,7 @@
 /** Campaign aim, vision, and measurable goals — update copy as the challenge evolves */
 export const campaignGoals = {
   aim: {
-    headline: 'Break the Silence. Run the Distance. Get Loud.',
+    headline: 'Its OKAY to SPEAK UP. Run the Distance. Get Loud.',
     summary:
       'GetLoud is Karsang Ghising\'s 100-day endurance campaign — running every single day across Perth to turn physical discipline into a loud, visible statement for mental health awareness.',
     pillars: [

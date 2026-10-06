@@ -469,6 +469,7 @@ export function renderWeeklyDonations(container, stats) {
           <div class="text-right">
             <p class="text-xs font-bold uppercase text-gray-400">Donation Commitment</p>
             <p class="text-xl font-extrabold text-white font-mono">100% donated</p>
+            <p class="text-[10px] text-gray-500">Partners Loading...</p>
           </div>
         </div>
         <p class="text-xs text-gray-500">100% of donations go directly to mental health partners • ${formatUsd(donationConfig.collaboratorFeeUsd)} per weekly collaborator slot</p>

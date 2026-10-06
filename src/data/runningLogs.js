@@ -36,7 +36,7 @@ export const runningLogs = [
     mapCard: day1MapCard,
     mapCrop: day1MapCrop,
     routeSvg: day1RouteSvg,
-    quote: 'Official Day 1 launch. First 7.16 km logged on Perth soil to break the silence around mental health.',
+    quote: 'Official Day 1 launch. First 7.16 km logged on Perth soil to Its OKAY to SPEAK UP around mental health.',
     source: 'Samsung Health',
     verified: true,
   },
