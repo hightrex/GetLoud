@@ -11,7 +11,7 @@ import day4Image from '../assets/day4.jpeg';
 import day5Image from '../assets/day5.jpeg';
 import day6Image from '../assets/day6.jpeg';
 
-/** Official Samsung Health run logs extracted from Karshang Ghising's verified runs */
+/** Official Samsung Health run logs extracted from Karsang Ghising's verified runs */
 export const runningLogs = [
   {
     day: 1,

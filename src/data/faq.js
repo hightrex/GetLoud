@@ -2,12 +2,12 @@ export const faqData = [
   {
     id: 1,
     question: "What is the core vision of the upcoming GetLoud Perth initiative?",
-    answer: "GetLoud is a 100-consecutive-day endurance challenge led by Karshang Ghising—Perth-based singer, songwriter, and frontman of Snowcoal. Running 5km every single day across Perth WA (totaling 500km), Karshang uses daily athletic discipline and 14 weekly creative collaborations to break mental health stigma and support crisis helplines. 100% of donations go to mental health partners."
+    answer: "GetLoud is a 100-consecutive-day endurance challenge led by Karsang Ghising—Perth-based singer, songwriter, and frontman of Snowcoal. Running 5km every single day across Perth WA (totaling 500km), Karsang uses daily athletic discipline and 14 weekly creative collaborations to break mental health stigma and support crisis helplines. 100% of donations go to mental health partners."
   },
   {
     id: 2,
     question: "Has the event started and how do I register as a weekly collaborator?",
-    answer: "Yes — the campaign is live! Karshang is logging daily Samsung Health runs toward 500 km. All 14 weekly collaborator slots remain open for registration. Contribute $20 to claim a specific week, feature your creative discipline, run 5km with Karshang in Perth, and co-host that week's podcast episode."
+    answer: "Yes — the campaign is live! Karsang is logging daily Samsung Health runs toward 500 km. All 14 weekly collaborator slots remain open for registration. Contribute $20 to claim a specific week, feature your creative discipline, run 5km with Karsang in Perth, and co-host that week's podcast episode."
   },
   {
     id: 3,
@@ -22,7 +22,7 @@ export const faqData = [
   {
     id: 5,
     question: "What is Krash Productions and Snowcoal's involvement?",
-    answer: "Krash Productions is Karshang Ghising's production house overseeing campaign media, podcast production, and documentary videography. Snowcoal is Karshang's band, bringing authentic music and songwriting to the initiative."
+    answer: "Krash Productions is Karsang Ghising's production house overseeing campaign media, podcast production, and documentary videography. Snowcoal is Karsang's band, bringing authentic music and songwriting to the initiative."
   },
   {
     id: 6,

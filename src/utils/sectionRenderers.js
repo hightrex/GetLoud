@@ -293,7 +293,7 @@ function renderProgressionCard(runningLogs) {
             Performance Progression
           </span>
           <h3 class="text-xl sm:text-2xl font-extrabold text-white mt-2">Day ${prev.day} ➔ Day ${curr.day} Momentum</h3>
-          <p class="text-xs sm:text-sm text-gray-400">Karshang's ${totalDays}-day cumulative momentum — daily pace, distance, and step volume tracked.</p>
+          <p class="text-xs sm:text-sm text-gray-400">Karsang's ${totalDays}-day cumulative momentum — daily pace, distance, and step volume tracked.</p>
         </div>
         <div class="text-right shrink-0">
           <p class="text-xs uppercase font-bold text-gray-500">${totalDays}-Day Combined</p>

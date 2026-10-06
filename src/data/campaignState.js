@@ -3,7 +3,7 @@
 import { runningLogs, GOAL_DISTANCE_KM, TOTAL_CHALLENGE_DAYS } from './runningLogs.js';
 
 export const campaignConfig = {
-  runnerName: 'Karshang Ghising',
+  runnerName: 'Karsang Ghising',
   runnerTitle: 'Singer, Songwriter & Frontman of Snowcoal',
   runnerLocation: 'Perth, Western Australia',
   productionHouse: 'Krash Productions',
@@ -17,7 +17,7 @@ export const campaignConfig = {
   statusText: `Day ${runningLogs.length} of ${TOTAL_CHALLENGE_DAYS} — Campaign Live`,
   startDateText: 'Launched in Perth, WA',
 
-  bio: 'Perth-based singer, songwriter, and frontman of Snowcoal, Karshang Ghising is running 5km+ every single day for 100 consecutive days across Perth WA. Supported by Krash Productions, Karshang is opening 14 weekly collaborator spots to get loud for mental health awareness.',
+  bio: 'Perth-based singer, songwriter, and frontman of Snowcoal, Karsang Ghising is running 5km+ every single day for 100 consecutive days across Perth WA. Supported by Krash Productions, Karsang is opening 14 weekly collaborator spots to get loud for mental health awareness.',
 
   perthRoutes: [
     'Swan River Foreshore & Elizabeth Quay',

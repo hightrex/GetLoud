@@ -4,12 +4,12 @@ export const podcastEpisodes = [
     id: 'ep-preview',
     week: 0,
     title: 'GetLoud Perth — Campaign Preview',
-    guest: 'Karshang Ghising (Solo Intro)',
+    guest: 'Karsang Ghising (Solo Intro)',
     discipline: 'Founder / Snowcoal',
     duration: '8 min',
     status: 'available',
     description:
-      'Karshang introduces the 100-day challenge, the mental health mission, and what collaborators can expect when they join a weekly run + podcast session in Perth.',
+      'Karsang introduces the 100-day challenge, the mental health mission, and what collaborators can expect when they join a weekly run + podcast session in Perth.',
     audioUrl: null,
     spotifyUrl: null,
     appleUrl: null,
@@ -55,7 +55,7 @@ export const podcastEpisodes = [
 
 export const podcastConfig = {
   seriesTitle: 'GetLoud Podcast',
-  host: 'Karshang Ghising',
+  host: 'Karsang Ghising',
   production: 'Krash Productions',
   totalEpisodesPlanned: 14,
   platforms: [

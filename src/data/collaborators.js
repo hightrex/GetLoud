@@ -1,5 +1,5 @@
 // 14-WEEK COLLABORATOR REGISTRATION ROSTER (ALL 14 SLOTS OPEN FOR REGISTRATION)
-// As guests register or complete their weeks, Karshang can easily fill in their name, discipline, and episode details!
+// As guests register or complete their weeks, Karsang can easily fill in their name, discipline, and episode details!
 
 export const collaboratorsData = [
   {
@@ -15,7 +15,7 @@ export const collaboratorsData = [
     badge: "$20 Registration Open",
     perthLocation: "Kings Park & Swan River Launch Loop",
     title: "Episode 1: Launching 100 Days in Perth",
-    description: "Kick off Day 1 with Karshang! Run a 5km sunrise loop around Kings Park and co-host the inaugural podcast episode on music & mental wellbeing.",
+    description: "Kick off Day 1 with Karsang! Run a 5km sunrise loop around Kings Park and co-host the inaugural podcast episode on music & mental wellbeing.",
     duration: "25-30 Min Podcast",
     quote: "Be part of the launch week. Turn early morning endurance into a loud statement for mental health.",
     avatar: ""
@@ -33,7 +33,7 @@ export const collaboratorsData = [
     badge: "$20 Registration Open",
     perthLocation: "Matagarup Bridge & Optus Stadium",
     title: "Episode 2: Pounding Pavement for Mental Health",
-    description: "Join Karshang for a 5km run across Matagarup Bridge and share how physical movement helps reset your mind.",
+    description: "Join Karsang for a 5km run across Matagarup Bridge and share how physical movement helps reset your mind.",
     duration: "25-30 Min Podcast",
     quote: "Physical movement releases mental pressure. Step onto the pavement with us in Perth.",
     avatar: ""
@@ -141,7 +141,7 @@ export const collaboratorsData = [
     badge: "$20 Registration Open",
     perthLocation: "Kings Park Lookout (50-Day Milestone)",
     title: "Episode 8: 50 Days Loud — Halfway Celebration",
-    description: "Celebrate the 50th day and 250km milestone with Karshang at Kings Park! Open for a special collaborator spot.",
+    description: "Celebrate the 50th day and 250km milestone with Karsang at Kings Park! Open for a special collaborator spot.",
     duration: "30-35 Min Special Episode",
     quote: "50 days down, 50 days to go. Celebrate the halfway milestone with us in Perth.",
     avatar: ""
@@ -249,7 +249,7 @@ export const collaboratorsData = [
     badge: "$20 Registration Open",
     perthLocation: "Kings Park Grand Finale Stretch",
     title: "Episode 14: Grand Finale — 100 Days Completed",
-    description: "The 100th day culmination! Join Karshang, Snowcoal, and supporters for the final 5km stretch to reach 500km.",
+    description: "The 100th day culmination! Join Karsang, Snowcoal, and supporters for the final 5km stretch to reach 500km.",
     duration: "35-40 Min Grand Finale Episode",
     quote: "100 days completed! We ran 500km and got loud for mental health together.",
     avatar: ""

@@ -3,7 +3,7 @@ export const campaignGoals = {
   aim: {
     headline: 'Break the Silence. Run the Distance. Get Loud.',
     summary:
-      'GetLoud is Karshang Ghising\'s 100-day endurance campaign — running every single day across Perth to turn physical discipline into a loud, visible statement for mental health awareness.',
+      'GetLoud is Karsang Ghising\'s 100-day endurance campaign — running every single day across Perth to turn physical discipline into a loud, visible statement for mental health awareness.',
     pillars: [
       {
         id: 'endurance',
@@ -16,7 +16,7 @@ export const campaignGoals = {
         id: 'community',
         title: 'Community & Collaboration',
         description:
-          '14 weekly guest collaborators — musicians, artists, runners — join Karshang for a 5km run and co-host an unscripted mental health podcast episode.',
+          '14 weekly guest collaborators — musicians, artists, runners — join Karsang for a 5km run and co-host an unscripted mental health podcast episode.',
         icon: 'people',
       },
       {
@@ -80,5 +80,5 @@ export const campaignGoals = {
   ],
   missionStatement:
     '"Every day we run is a day we break the silence surrounding mental health. This isn\'t just a fitness challenge — it\'s a movement from Perth to Nepal, powered by music, community, and courage."',
-  missionAuthor: 'Karshang Ghising — Snowcoal / Krash Productions',
+  missionAuthor: 'Karsang Ghising — Snowcoal / Krash Productions',
 };

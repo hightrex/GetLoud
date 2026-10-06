@@ -66,7 +66,7 @@ function updateAutoCalculatedUI() {
 }
 
 function handleProductEnquire(product) {
-  window.location.href = `mailto:${merchConfig.shopEmail}?subject=GetLoud Merch Enquiry: ${encodeURIComponent(product.name)}&body=Hi Karshang,%0D%0A%0D%0AI'd like to enquire about: ${encodeURIComponent(product.name)} (${encodeURIComponent(product.priceLabel)})%0D%0A%0D%0AThanks!`;
+  window.location.href = `mailto:${merchConfig.shopEmail}?subject=GetLoud Merch Enquiry: ${encodeURIComponent(product.name)}&body=Hi Karsang,%0D%0A%0D%0AI'd like to enquire about: ${encodeURIComponent(product.name)} (${encodeURIComponent(product.priceLabel)})%0D%0A%0D%0AThanks!`;
 }
 
 function openPodcastPlayer(episode) {
@@ -218,7 +218,7 @@ function renderCollaborators(filterCategory = 'all') {
       card.querySelector('.open-slot-btn').addEventListener('click', openDonationModal);
 
     } else {
-      // CONFIRMED GUEST CARD (WHEN KARSHANG UPDATES GUESTS)
+      // CONFIRMED GUEST CARD (WHEN Karsang UPDATES GUESTS)
       card.className = `p-6 rounded-3xl glass-card border border-white/10 flex flex-col justify-between space-y-5 transition-all duration-300 relative group`;
       card.innerHTML = `
         <div class="space-y-4">
@@ -399,8 +399,8 @@ donationForm.addEventListener('submit', (e) => {
   submitBtn.textContent = 'Submitting Registration...';
   submitBtn.disabled = true;
 
-  // 100% FREE Instant Email Delivery to Karshang via FormSubmit.co API
-  // Replace target email below with Karshang's real email address when deploying!
+  // 100% FREE Instant Email Delivery to Karsang via FormSubmit.co API
+  // Replace target email below with Karsang's real email address when deploying!
   const targetEmail = 'krashworks0@gmail.com'; 
 
   fetch(`https://formsubmit.co/ajax/${targetEmail}`, {
@@ -424,7 +424,7 @@ donationForm.addEventListener('submit', (e) => {
     submitBtn.textContent = originalBtnText;
     submitBtn.disabled = false;
     closeDonationModal();
-    showToast(`🎉 Thank you, ${name}! Your registration was sent directly to Karshang's inbox.`);
+    showToast(`🎉 Thank you, ${name}! Your registration was sent directly to Karsang's inbox.`);
     donationForm.reset();
   })
   .catch(err => {
@@ -480,8 +480,8 @@ if (shareBtn) {
   shareBtn.addEventListener('click', () => {
     if (navigator.share) {
       navigator.share({
-        title: 'GetLoud Perth — Karshang Ghising (Snowcoal)',
-        text: 'Learn about Karshang Ghising’s upcoming 100-day 5km daily Perth running journey raising funds for mental health initiatives!',
+        title: 'GetLoud Perth — Karsang Ghising (Snowcoal)',
+        text: 'Learn about Karsang Ghising’s upcoming 100-day 5km daily Perth running journey raising funds for mental health initiatives!',
         url: window.location.href
       });
     } else {
