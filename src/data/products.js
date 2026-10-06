@@ -51,7 +51,7 @@ export const products = [
 ];
 
 export const merchConfig = {
-  shopEmail: 'krashproductionsperth@gmail.com',
+  shopEmail: 'krashworks0@gmail.com',
   shopNote: 'Online store launching soon — email us to pre-order or enquire about custom sizes.',
   currency: 'AUD',
 };

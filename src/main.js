@@ -401,7 +401,7 @@ donationForm.addEventListener('submit', (e) => {
 
   // 100% FREE Instant Email Delivery to Karshang via FormSubmit.co API
   // Replace target email below with Karshang's real email address when deploying!
-  const targetEmail = 'krashproductionsperth@gmail.com'; 
+  const targetEmail = 'krashworks0@gmail.com'; 
 
   fetch(`https://formsubmit.co/ajax/${targetEmail}`, {
     method: 'POST',
