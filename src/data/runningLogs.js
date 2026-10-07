@@ -10,6 +10,7 @@ import day2RouteSvg from '../assets/day2_route.svg';
 import day4Image from '../assets/day4.jpeg';
 import day5Image from '../assets/day5.jpeg';
 import day6Image from '../assets/day6.jpeg';
+import day7Image from '../assets/day7.jpeg';
 
 /** Official Samsung Health run logs extracted from Karsang Ghising's verified runs */
 export const runningLogs = [
@@ -36,7 +37,7 @@ export const runningLogs = [
     mapCard: day1MapCard,
     mapCrop: day1MapCrop,
     routeSvg: day1RouteSvg,
-    quote: 'Official Day 1 launch. First 7.16 km logged on Perth soil to Its OKAY to SPEAK UP around mental health.',
+    quote: 'Official Day 1 launch. First 7.16 km logged on Perth soil to break the silence around mental health.',
     source: 'Samsung Health',
     verified: true,
   },
@@ -204,6 +205,39 @@ export const runningLogs = [
       paceDelta: "+1s/km slower",
       speedDelta: "+0.0 km/h",
       stepsDelta: "-189 steps",
+    },
+  },
+  {
+    day: 7,
+    date: "2026-10-07",
+    dateLabel: "7 Oct",
+    fullDate: "Wednesday, 7 Oct 2026",
+    time: "7:30 pm",
+    distanceKm: 6.04,
+    duration: "29:51",
+    pace: "04'56\"",
+    avgSpeedKmh: 12.1,
+    fastestPace: "04'56\"",
+    steps: 0,
+    cadenceSpm: 162,
+    avgStrideM: null,
+    calories: 334,
+    elevationM: 34,
+    routeType: "Evening Loop",
+    routeLocation: "Perth, WA",
+    routeDescription: "Day 7 evening run. 6.04 km covered in 29:51 at an average pace of 04'56\"/km.",
+    image: day7Image,
+    mapCard: null,
+    mapCrop: null,
+    routeSvg: null,
+    quote: "Day 7 done. 6.04 km at 04'56\" — keeping the grind alive.",
+    source: 'Samsung Health',
+    verified: true,
+    gains: {
+      distanceDelta: "-0.05 km",
+      paceDelta: "+1s/km slower",
+      speedDelta: "-0.1 km/h",
+      stepsDelta: "-4,838 steps",
     },
   },
 ];

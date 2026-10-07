@@ -6,17 +6,19 @@
  *   node scripts/add_run_day.js <path-to-day.jpeg> [options]
  *
  * Required / Recommended flags:
- *   --date          YYYY-MM-DD          e.g. 2026-10-05
- *   --date-label    "D Mon"             e.g. "5 Oct"
+ *   --date          YYYY-MM-DD          e.g. 2026-10-07
+ *   --date-label    "D Mon"             e.g. "7 Oct"
  *   --full-date     "DayName, D Mon YYYY"
- *   --time          "H:MM am/pm"        e.g. "5:07 pm"
- *   --duration      "MM:SS"             e.g. "31:11"
- *   --distance      6.34                (km, number)
- *   --calories      358                 (integer)
- *   --pace          "MM'SS\""           e.g. "04'54\""
+ *   --time          "H:MM am/pm"        e.g. "7:30 pm"
+ *   --duration      "MM:SS"             e.g. "29:51"
+ *   --distance      6.04                (km, number)
+ *   --calories      334                 (integer)
+ *   --pace          "MM'SS\""           e.g. "04'56\""
  *   --fastest-pace  "MM'SS\""           (optional)
- *   --steps         5027                (integer, no commas)
- *   --avg-speed     12.2                (optional – calculated if omitted)
+ *   --steps         4838                (integer, no commas)
+ *   --avg-speed     12.1                (optional – calculated if omitted)
+ *   --cadence       162                 (spm, optional)
+ *   --elevation     34                  (meters, optional)
  *
  * Optional:
  *   --route-type    "Evening Loop"      (default: "Evening Loop")
@@ -25,10 +27,10 @@
  *   --dry-run                           (preview only)
  *
  * Examples:
- *   node scripts/add_run_day.js ~/Downloads/day5.jpg \
- *     --date 2026-10-05 --date-label "5 Oct" --full-date "Monday, 5 Oct 2026" \
- *     --time "5:07 pm" --duration "31:11" --distance 6.34 --calories 358 \
- *     --pace "04'54\"" --fastest-pace "04'15\"" --steps 5027 --avg-speed 12.2
+ *   node scripts/add_run_day.js ~/Downloads/day7.jpeg \
+ *     --date 2026-10-07 --date-label "7 Oct" --full-date "Wednesday, 7 Oct 2026" \
+ *     --time "7:30 pm" --duration "29:51" --distance 6.04 --calories 334 \
+ *     --pace "04'56\"" --steps 0 --avg-speed 12.1 --cadence 162 --elevation 34
  */
 
 import fs from 'fs';
@@ -95,6 +97,8 @@ async function collectRunData() {
     fastestPace: getFlag('--fastest-pace'),
     steps: getFlag('--steps') ? parseInt(getFlag('--steps').replace(/,/g, ''), 10) : null,
     avgSpeedKmh: getFlag('--avg-speed') ? parseFloat(getFlag('--avg-speed')) : null,
+    cadenceSpm: getFlag('--cadence') ? parseInt(getFlag('--cadence'), 10) : null,
+    elevationM: getFlag('--elevation') ? parseInt(getFlag('--elevation'), 10) : null,
   };
 
   const routeType = getFlag('--route-type', 'Evening Loop');
@@ -103,16 +107,26 @@ async function collectRunData() {
 
   console.log('\n📋 Collecting run data (press Enter to keep default / skip if already provided via flag)\n');
 
-  if (!data.date) data.date = await ask('Date (YYYY-MM-DD)', '2026-10-05');
-  if (!data.dateLabel) data.dateLabel = await ask('Date label (e.g. "5 Oct")', '5 Oct');
-  if (!data.fullDate) data.fullDate = await ask('Full date (e.g. "Monday, 5 Oct 2026")', 'Monday, 5 Oct 2026');
-  if (!data.time) data.time = await ask('Time (e.g. "5:07 pm")', '5:07 pm');
-  if (!data.duration) data.duration = await ask('Duration (MM:SS)', '31:11');
-  if (data.distanceKm === null) data.distanceKm = parseFloat(await ask('Distance (km)', '6.34'));
-  if (data.calories === null) data.calories = parseInt(await ask('Calories (kcal)', '358'), 10);
-  if (!data.pace) data.pace = await ask('Average pace (e.g. 04\'54")', "04'54\"");
+  if (!data.date) data.date = await ask('Date (YYYY-MM-DD)', '2026-10-07');
+  if (!data.dateLabel) data.dateLabel = await ask('Date label (e.g. "7 Oct")', '7 Oct');
+  if (!data.fullDate) data.fullDate = await ask('Full date (e.g. "Wednesday, 7 Oct 2026")', 'Wednesday, 7 Oct 2026');
+  if (!data.time) data.time = await ask('Time (e.g. "7:30 pm")', '7:30 pm');
+  if (!data.duration) data.duration = await ask('Duration (MM:SS)', '29:51');
+  if (data.distanceKm === null) data.distanceKm = parseFloat(await ask('Distance (km)', '6.04'));
+  if (data.calories === null) data.calories = parseInt(await ask('Calories (kcal)', '334'), 10);
+  if (!data.pace) data.pace = await ask('Average pace (e.g. 04\'56")', "04'56\"");
   if (!data.fastestPace) data.fastestPace = await ask('Fastest pace (leave blank = same as avg)', data.pace);
-  if (data.steps === null) data.steps = parseInt((await ask('Steps', '5027')).replace(/,/g, ''), 10);
+  if (data.steps === null) data.steps = parseInt((await ask('Steps (0 if unknown)', '0')).replace(/,/g, ''), 10);
+
+  // Optional fields – only ask if not provided via flag
+  if (data.cadenceSpm === null) {
+    const cad = await ask('Cadence (spm, leave blank for null)', '');
+    data.cadenceSpm = cad ? parseInt(cad, 10) : null;
+  }
+  if (data.elevationM === null) {
+    const elev = await ask('Elevation gain (m, leave blank for null)', '');
+    data.elevationM = elev ? parseInt(elev, 10) : null;
+  }
 
   // Average speed – calculate if not given
   if (data.avgSpeedKmh === null) {
@@ -146,7 +160,7 @@ function computeAvgSpeed(distanceKm, duration) {
 }
 
 function paceToSeconds(pace) {
-  // Handles both "04'54\"" and "04'54"
+  // Handles both "04'56\"" and "04'56"
   const m = pace?.match(/(\d+)'(\d+)/);
   if (!m) return null;
   return parseInt(m[1], 10) * 60 + parseInt(m[2], 10);
@@ -206,8 +220,7 @@ function computeGains(data, prev) {
   };
 }
 
-// ─── Safe string helper (the key fix) ─────────────────────────────────────────
-// Always produces a correctly quoted & escaped JS string literal
+// ─── Safe string helper ───────────────────────────────────────────────────────
 function jsString(value) {
   return JSON.stringify(String(value ?? ''));
 }
@@ -241,10 +254,10 @@ function buildLogEntry(dayNum, data, gains, routeType, location, quote, varName)
     avgSpeedKmh: ${data.avgSpeedKmh},
     fastestPace: ${jsString(data.fastestPace)},
     steps: ${data.steps},
-    cadenceSpm: null,
+    cadenceSpm: ${data.cadenceSpm === null ? 'null' : data.cadenceSpm},
     avgStrideM: null,
     calories: ${data.calories},
-    elevationM: null,
+    elevationM: ${data.elevationM === null ? 'null' : data.elevationM},
     routeType: ${jsString(routeType)},
     routeLocation: ${jsString(location)},
     routeDescription: ${jsString(autoRouteDescription)},
@@ -312,6 +325,8 @@ async function main() {
   console.log(`   Speed:      ${data.avgSpeedKmh} km/h`);
   console.log(`   Steps:      ${data.steps.toLocaleString()}`);
   console.log(`   Calories:   ${data.calories} kcal`);
+  if (data.cadenceSpm !== null) console.log(`   Cadence:    ${data.cadenceSpm} spm`);
+  if (data.elevationM !== null) console.log(`   Elevation:  ${data.elevationM} m`);
 
   const gains = computeGains(data, prev);
   if (gains) {
