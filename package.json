@@ -7,7 +7,12 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "add-day": "node scripts/add_run_day.js"
+    "add-day": "node scripts/add_run_day.js",
+    "add-collaborator": "node scripts/add_collaborator.js",
+    "publish-episode": "node scripts/publish_episode.js",
+    "update-funds": "node scripts/update_funds.js",
+    "deploy": "node scripts/deploy.js",
+    "deploy:prod": "node scripts/deploy.js --prod"
   },
   "devDependencies": {
     "@tailwindcss/vite": "^4.3.3",
