@@ -1,7 +1,7 @@
 import { campaignConfig } from '../data/campaignState.js';
 import { collaboratorsData } from '../data/collaborators.js';
 import { runningLogs, GOAL_DISTANCE_KM, TOTAL_CHALLENGE_DAYS } from '../data/runningLogs.js';
-import { weeklyDonations, donationConfig } from '../data/weeklyDonations.js';
+import { weeklyDonations } from '../data/weeklyDonations.js';
 import { podcastEpisodes } from '../data/podcasts.js';
 
 export function getCalculatedCampaignStats() {
@@ -15,12 +15,21 @@ export function getCalculatedCampaignStats() {
   const totalCalories = runningLogs.reduce((sum, log) => sum + (log.calories || 0), 0);
   const totalSteps = runningLogs.reduce((sum, log) => sum + (log.steps || 0), 0);
 
+  // Dynamic telemetry metrics computed directly from verified running logs
+  const avgSpeedKmh = completedDays > 0
+    ? Math.round((runningLogs.reduce((sum, log) => sum + (log.avgSpeedKmh || 0), 0) / completedDays) * 10) / 10
+    : 0;
+  const aboveTargetKm = Math.round(Math.max(0, avgDistanceKm - campaignConfig.dailyDistanceKm) * 100) / 100;
+
   const completedWeeks = collaboratorsData.filter((c) => c.status === 'Completed').length;
   const confirmedCollaborators = collaboratorsData.filter((c) => c.isConfirmed).length;
   const openSlotsCount = collaboratorsData.length - confirmedCollaborators;
 
-  const weeklyDonationTotal = weeklyDonations.reduce((sum, w) => sum + w.amountUsd, 0);
-  const totalFundsUsd = campaignConfig.fundsRaisedUsd + weeklyDonationTotal + confirmedCollaborators * campaignConfig.collaboratorFeeUsd;
+  const weeklyDonationTotal = weeklyDonations.reduce((sum, w) => sum + (w.amountUsd || 0), 0);
+
+  // Single source of truth: campaignConfig.fundsRaisedUsd.
+  // We do NOT add confirmedCollaborators * 20 on top of recorded amounts.
+  const totalFundsUsd = campaignConfig.fundsRaisedUsd;
 
   const publishedPodcasts = podcastEpisodes.filter((ep) => ep.status === 'available').length;
 
@@ -41,6 +50,8 @@ export function getCalculatedCampaignStats() {
     daysProgressPercent,
 
     avgDistanceKm: Math.round(avgDistanceKm * 100) / 100,
+    avgSpeedKmh,
+    aboveTargetKm,
     totalCalories,
     totalSteps,
     runningLogs,
