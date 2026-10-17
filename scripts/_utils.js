@@ -31,6 +31,14 @@ export function hasFlag(args, flag) {
   return args.includes(flag);
 }
 
+export function shouldBuild(args) {
+  return !hasFlag(args, '--no-build');
+}
+
+export function shouldCommit(args) {
+  return !hasFlag(args, '--no-commit');
+}
+
 // ─── Interactive readline prompt ───────────────────────────────────────────────
 
 export function ask(question, defaultValue = '') {
@@ -51,6 +59,19 @@ export function jsStr(value) {
   return JSON.stringify(String(value ?? ''));
 }
 
+// ─── Syntax & file sanity verification ────────────────────────────────────────
+
+/** Verifies that a JS file compiles without syntax errors. */
+export function validateJsSyntax(filePath) {
+  try {
+    execSync(`node -c "${filePath}"`, { stdio: 'pipe' });
+    return true;
+  } catch (err) {
+    console.error(`❌ Syntax error detected in ${filePath}:`, err.message);
+    return false;
+  }
+}
+
 // ─── Build runner ──────────────────────────────────────────────────────────────
 
 export function runBuild() {
@@ -59,7 +80,7 @@ export function runBuild() {
     execSync('npm run build', { cwd: PROJECT_ROOT, stdio: 'inherit' });
     return true;
   } catch {
-    console.error('\n❌  Build failed — check the error above.');
+    console.error('\n❌ Build failed — check the error above.');
     return false;
   }
 }
@@ -70,7 +91,7 @@ export function gitAddAll() {
   try {
     execSync('git add -A', { cwd: PROJECT_ROOT, stdio: 'pipe' });
   } catch (e) {
-    console.warn('⚠️  git add failed:', e.message);
+    console.warn('⚠️ git add failed:', e.message);
   }
 }
 
@@ -81,9 +102,9 @@ export function gitCommit(message) {
       stdio: 'inherit',
     });
     return true;
-  } catch (e) {
+  } catch {
     // Nothing to commit, or git not configured — not fatal
-    console.warn('⚠️  git commit skipped (nothing new or git not configured).');
+    console.warn('⚠️ git commit skipped (nothing new or git not configured).');
     return false;
   }
 }

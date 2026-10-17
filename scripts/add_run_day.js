@@ -38,7 +38,7 @@
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { PROJECT_ROOT, getFlag, hasFlag, ask, jsStr, runBuild, gitCommitAndLog } from './_utils.js';
+import { PROJECT_ROOT, getFlag, hasFlag, ask, jsStr, runBuild, gitCommitAndLog, shouldBuild, shouldCommit, validateJsSyntax } from './_utils.js';
 
 const ASSETS_DIR = path.join(PROJECT_ROOT, 'src', 'assets');
 const RUNNING_LOGS_PATH = path.join(PROJECT_ROOT, 'src', 'data', 'runningLogs.js');
@@ -84,27 +84,34 @@ async function collectRunData() {
   const location  = getFlag(args, '--location',   'Perth, WA');
   const quote     = getFlag(args, '--quote');
 
-  console.log('\n📋 Enter run data (press Enter to accept the default shown in [brackets])\n');
+  const isInteractive = !data.date || !data.duration || data.distanceKm === null;
 
-  if (!data.date)       data.date       = await ask('Date (YYYY-MM-DD)');
-  if (!data.dateLabel)  data.dateLabel  = await ask('Date label (e.g. "7 Oct")');
-  if (!data.fullDate)   data.fullDate   = await ask('Full date (e.g. "Wednesday, 7 Oct 2026")');
-  if (!data.time)       data.time       = await ask('Time (e.g. "7:30 pm")');
-  if (!data.duration)   data.duration   = await ask('Duration (MM:SS)');
-  if (data.distanceKm === null) data.distanceKm = parseFloat(await ask('Distance (km)'));
-  if (data.calories   === null) data.calories   = parseInt(await ask('Calories (kcal)'), 10);
-  if (!data.pace)       data.pace       = await ask("Average pace (e.g. 05'04\")");
-  if (!data.fastestPace) data.fastestPace = await ask('Fastest pace (leave blank = same as avg)', data.pace);
-  if (data.steps === null) data.steps   = parseInt((await ask('Steps (0 if unknown)', '0')).replace(/,/g, ''), 10);
+  if (isInteractive) {
+    console.log('\n📋 Enter run data (press Enter to accept the default shown in [brackets])\n');
 
-  // Optional fields
-  if (data.cadenceSpm === null) {
-    const cad = await ask('Cadence (spm, blank = skip)', '');
-    data.cadenceSpm = cad ? parseInt(cad, 10) : null;
-  }
-  if (data.elevationM === null) {
-    const elev = await ask('Elevation gain (m, blank = skip)', '');
-    data.elevationM = elev ? parseInt(elev, 10) : null;
+    if (!data.date)       data.date       = await ask('Date (YYYY-MM-DD)');
+    if (!data.dateLabel)  data.dateLabel  = await ask('Date label (e.g. "7 Oct")');
+    if (!data.fullDate)   data.fullDate   = await ask('Full date (e.g. "Wednesday, 7 Oct 2026")');
+    if (!data.time)       data.time       = await ask('Time (e.g. "7:30 pm")');
+    if (!data.duration)   data.duration   = await ask('Duration (MM:SS)');
+    if (data.distanceKm === null) data.distanceKm = parseFloat(await ask('Distance (km)'));
+    if (data.calories   === null) data.calories   = parseInt(await ask('Calories (kcal)'), 10);
+    if (!data.pace)       data.pace       = await ask("Average pace (e.g. 05'04\")");
+    if (!data.fastestPace) data.fastestPace = await ask('Fastest pace (leave blank = same as avg)', data.pace);
+    if (data.steps === null) data.steps   = parseInt((await ask('Steps (0 if unknown)', '0')).replace(/,/g, ''), 10);
+
+    // Optional fields
+    if (data.cadenceSpm === null) {
+      const cad = await ask('Cadence (spm, blank = skip)', '');
+      data.cadenceSpm = cad ? parseInt(cad, 10) : null;
+    }
+    if (data.elevationM === null) {
+      const elev = await ask('Elevation gain (m, blank = skip)', '');
+      data.elevationM = elev ? parseInt(elev, 10) : null;
+    }
+  } else {
+    if (!data.fastestPace) data.fastestPace = data.pace;
+    if (data.steps === null) data.steps = 0;
   }
 
   // Compute avg speed from distance + duration if not provided
@@ -293,12 +300,22 @@ async function main() {
   fs.writeFileSync(RUNNING_LOGS_PATH, updated, 'utf8');
   console.log(`✅ runningLogs.js updated`);
 
-  // 3. Build
-  const ok = runBuild();
-  if (!ok) { console.error('    Fix the build error, then re-run or patch manually.'); process.exit(1); }
+  validateJsSyntax(RUNNING_LOGS_PATH);
 
-  // 4. Git commit
-  gitCommitAndLog(`feat: add Day ${dayNum} run — ${data.distanceKm}km · ${data.duration} · ${data.pace}/km`);
+  // 3. Build (optional)
+  if (shouldBuild(args)) {
+    const ok = runBuild();
+    if (!ok) { console.error('    Fix the build error, then re-run or patch manually.'); process.exit(1); }
+  } else {
+    console.log('⏭️  Build skipped (--no-build)');
+  }
+
+  // 4. Git commit (optional)
+  if (shouldCommit(args)) {
+    gitCommitAndLog(`feat: add Day ${dayNum} run — ${data.distanceKm}km · ${data.duration} · ${data.pace}/km`);
+  } else {
+    console.log('⏭️  Git commit skipped (--no-commit)');
+  }
 
   console.log(`\n🎉 Day ${dayNum} is live. Deploy or run \`npm run dev\` to preview.`);
 }
