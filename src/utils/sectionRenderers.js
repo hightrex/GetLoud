@@ -13,7 +13,7 @@ const GOAL_ICONS = {
 export function renderProgressTracker(container, stats, onInspectRun) {
   if (!container) return;
 
-  const { runningLogs, distanceCoveredKm, remainingKm, progressPercent, currentDay, totalDays, avgDistanceKm, totalCalories, totalSteps } = stats;
+  const { runningLogs, distanceCoveredKm, remainingKm, progressPercent, currentDay, totalDays, avgDistanceKm, totalCalories, totalSteps, avgSpeedKmh, aboveTargetKm } = stats;
 
   container.innerHTML = `
     <div class="space-y-12">
@@ -37,7 +37,7 @@ export function renderProgressTracker(container, stats, onInspectRun) {
         <div class="p-5 rounded-2xl glass-card border border-gray-800 text-center space-y-1">
           <p class="text-xs font-bold uppercase text-gray-400">Avg per Run</p>
           <p class="text-3xl sm:text-4xl font-extrabold text-[#f59e0b] font-mono">${formatKm(avgDistanceKm)} <span class="text-base text-gray-400 font-sans">KM</span></p>
-          <p class="text-xs text-emerald-400">+2.42 km above daily target</p>
+          <p class="text-xs text-emerald-400">${aboveTargetKm > 0 ? `+${aboveTargetKm} km above daily target` : 'On target daily'}</p>
         </div>
       </div>
 
@@ -63,7 +63,7 @@ export function renderProgressTracker(container, stats, onInspectRun) {
         <div class="flex flex-wrap gap-4 pt-3 border-t border-gray-800/80 text-xs text-gray-300">
           <span class="inline-flex items-center gap-1.5">🔥 <strong class="text-white font-mono">${totalCalories.toLocaleString()}</strong> kcal burned</span>
           <span class="inline-flex items-center gap-1.5">👟 <strong class="text-white font-mono">${totalSteps.toLocaleString()}</strong> steps logged</span>
-          <span class="inline-flex items-center gap-1.5">⚡ <strong class="text-white font-mono">11.5 km/h</strong> avg speed</span>
+          <span class="inline-flex items-center gap-1.5">⚡ <strong class="text-white font-mono">${avgSpeedKmh ? `${avgSpeedKmh} km/h` : '—'}</strong> avg speed</span>
           <span class="inline-flex items-center gap-1.5 text-[#00f098]">📱 Samsung Health GPS Verified</span>
         </div>
       </div>
@@ -468,11 +468,11 @@ export function renderWeeklyDonations(container, stats) {
           </div>
           <div class="text-right">
             <p class="text-xs font-bold uppercase text-gray-400">Donation Commitment</p>
-            <p class="text-xl font-extrabold text-white font-mono">100% donated</p>
-            <p class="text-[10px] text-gray-500">Partners Loading...</p>
+            <p class="text-xl font-extrabold text-white font-mono">100% intended for mental health</p>
+            <p class="text-[10px] text-gray-500">Partners being confirmed • Coordinated by Krash Productions</p>
           </div>
         </div>
-        <p class="text-xs text-gray-500">100% of donations go directly to mental health partners • ${formatUsd(donationConfig.collaboratorFeeUsd)} per weekly collaborator slot</p>
+        <p class="text-xs text-gray-400">100% of donations go directly to mental health partners • ${formatUsd(donationConfig.collaboratorFeeUsd)} per weekly collaborator slot</p>
       </div>
 
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">

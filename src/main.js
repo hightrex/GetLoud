@@ -23,9 +23,11 @@ const categoryTabs = document.getElementById('categoryTabs');
 const faqAccordionContainer = document.getElementById('faqAccordionContainer');
 const donationModal = document.getElementById('donationModal');
 const closeModalBtn = document.getElementById('closeModalBtn');
-const donationForm = document.getElementById('donationForm');
-const customAmountGroup = document.getElementById('customAmountGroup');
-const submitDonationBtn = document.getElementById('submitDonationBtn');
+const tabCollaboratorBtn = document.getElementById('tabCollaboratorBtn');
+const tabDonationBtn = document.getElementById('tabDonationBtn');
+const collaboratorForm = document.getElementById('collaboratorForm');
+const generalDonationForm = document.getElementById('generalDonationForm');
+const collabWeekSelect = document.getElementById('collabWeek');
 const toastContainer = document.getElementById('toastContainer');
 const mobileMenuBtn = document.getElementById('mobileMenuBtn');
 const mobileMenu = document.getElementById('mobileMenu');
@@ -211,11 +213,11 @@ function renderCollaborators(filterCategory = 'all') {
         </div>
 
         <button class="open-slot-btn w-full mt-4 py-3 rounded-xl bg-gradient-to-r from-[#00f098] to-[#10b981] text-black font-extrabold text-xs shadow-md shadow-[#00f098]/20 hover:scale-[1.02] active:scale-95 transition-all">
-          Claim Week ${collab.week} Spot ($20)
+          Request Week ${collab.week} Spot
         </button>
       `;
 
-      card.querySelector('.open-slot-btn').addEventListener('click', openDonationModal);
+      card.querySelector('.open-slot-btn').addEventListener('click', () => openDonationModal(collab.week, 'collaborator'));
 
     } else {
       // CONFIRMED GUEST CARD (WHEN Karsang UPDATES GUESTS)
@@ -336,104 +338,147 @@ function renderFAQ() {
   });
 }
 
-// 5. MODAL SYSTEM (DONATION & COLLABORATOR SIGNUP)
-function openDonationModal() {
-  donationModal.classList.remove('hidden');
+// 5. MODAL SYSTEM (HONEST COLLABORATOR & DONATION INTEREST FLOW)
+function setModalTab(tab = 'collaborator') {
+  if (tab === 'collaborator') {
+    tabCollaboratorBtn?.classList.add('bg-[#00f098]', 'text-black', 'shadow-md');
+    tabCollaboratorBtn?.classList.remove('text-gray-400');
+    tabDonationBtn?.classList.remove('bg-[#00f098]', 'text-black', 'shadow-md');
+    tabDonationBtn?.classList.add('text-gray-400');
+    collaboratorForm?.classList.remove('hidden');
+    generalDonationForm?.classList.add('hidden');
+  } else {
+    tabDonationBtn?.classList.add('bg-[#00f098]', 'text-black', 'shadow-md');
+    tabDonationBtn?.classList.remove('text-gray-400');
+    tabCollaboratorBtn?.classList.remove('bg-[#00f098]', 'text-black', 'shadow-md');
+    tabCollaboratorBtn?.classList.add('text-gray-400');
+    generalDonationForm?.classList.remove('hidden');
+    collaboratorForm?.classList.add('hidden');
+  }
+}
+
+tabCollaboratorBtn?.addEventListener('click', () => setModalTab('collaborator'));
+tabDonationBtn?.addEventListener('click', () => setModalTab('donation'));
+
+function openDonationModal(weekNumber = null, initialTab = 'collaborator') {
+  if (collabWeekSelect && weekNumber) {
+    collabWeekSelect.value = String(weekNumber);
+  }
+  setModalTab(initialTab);
+  donationModal?.classList.remove('hidden');
   document.body.classList.add('modal-open');
 }
 
 function closeDonationModal() {
-  donationModal.classList.add('hidden');
+  donationModal?.classList.add('hidden');
   document.body.classList.remove('modal-open');
 }
 
 ['navDonateBtn', 'mobileDonateBtn', 'heroDonateBtn', 'ctaDonateBtn'].forEach(id => {
   const btn = document.getElementById(id);
   if (btn) {
-    btn.addEventListener('click', openDonationModal);
+    btn.addEventListener('click', () => openDonationModal(null, 'collaborator'));
   }
 });
 
-closeModalBtn.addEventListener('click', closeDonationModal);
-donationModal.addEventListener('click', (e) => {
+closeModalBtn?.addEventListener('click', closeDonationModal);
+donationModal?.addEventListener('click', (e) => {
   if (e.target === donationModal) closeDonationModal();
 });
 
-let selectedAmount = '20';
-document.querySelectorAll('.tier-btn').forEach(btn => {
-  btn.addEventListener('click', (e) => {
-    document.querySelectorAll('.tier-btn').forEach(b => {
-      b.className = 'tier-btn p-3 rounded-xl border border-gray-700 bg-gray-900/60 text-gray-300 font-bold text-center text-sm hover:border-[#00f098] transition-all';
-    });
-    const targetBtn = e.currentTarget;
-    targetBtn.className = 'tier-btn p-3 rounded-xl border-2 border-[#00f098] bg-[#00f098]/10 text-white font-bold text-center text-sm transition-all';
+const TARGET_EMAIL = 'krashworks0@gmail.com';
 
-    selectedAmount = targetBtn.getAttribute('data-amount');
-    const hiddenInput = document.getElementById('hiddenSupportAmount');
-    if (selectedAmount === 'custom') {
-      customAmountGroup.classList.remove('hidden');
-      submitDonationBtn.textContent = 'Complete Custom Registration';
-      if (hiddenInput) hiddenInput.value = document.getElementById('customAmount').value || '50';
-    } else {
-      customAmountGroup.classList.add('hidden');
-      submitDonationBtn.textContent = `Complete $${selectedAmount} Registration`;
-      if (hiddenInput) hiddenInput.value = selectedAmount;
-    }
-  });
-});
-
-donationForm.addEventListener('submit', (e) => {
+// Collaborator Interest Submission
+collaboratorForm?.addEventListener('submit', (e) => {
   e.preventDefault();
-  const name = document.getElementById('donorName').value;
-  const email = document.getElementById('donorEmail').value;
-  const discipline = document.getElementById('donorDiscipline').value || 'Not specified';
-  const amount = selectedAmount === 'custom'
-    ? (document.getElementById('customAmount').value || '50')
-    : selectedAmount;
+  const name = document.getElementById('collabName')?.value?.trim();
+  const email = document.getElementById('collabEmail')?.value?.trim();
+  const week = document.getElementById('collabWeek')?.value;
+  const discipline = document.getElementById('collabDiscipline')?.value?.trim() || 'Not specified';
+  const location = document.getElementById('collabLocation')?.value?.trim() || 'Not specified';
+  const message = document.getElementById('collabMessage')?.value?.trim() || 'None';
 
-  const hiddenInput = document.getElementById('hiddenSupportAmount');
-  if (hiddenInput) hiddenInput.value = amount;
-
-  const submitBtn = document.getElementById('submitDonationBtn');
-  const originalBtnText = submitBtn.textContent;
-  submitBtn.textContent = 'Submitting Registration...';
+  const submitBtn = document.getElementById('submitCollabBtn');
+  const originalText = submitBtn.textContent;
+  submitBtn.textContent = 'Sending Interest...';
   submitBtn.disabled = true;
 
-  // 100% FREE Instant Email Delivery to Karsang via FormSubmit.co API
-  // Replace target email below with Karsang's real email address when deploying!
-  const targetEmail = 'krashworks0@gmail.com'; 
-
-  fetch(`https://formsubmit.co/ajax/${targetEmail}`, {
+  fetch(`https://formsubmit.co/ajax/${TARGET_EMAIL}`, {
     method: 'POST',
-    headers: { 
+    headers: {
       'Content-Type': 'application/json',
       'Accept': 'application/json'
     },
     body: JSON.stringify({
-      _subject: `⚡ New GetLoud Perth Registration: ${name} ($${amount})`,
+      _subject: `[GetLoud] Collaborator interest — Week ${week}`,
       "Collaborator Name": name,
       "Email Address": email,
-      "Creative Discipline / Week": discipline,
-      "Support Tier": `$${amount} USD`,
-      "Payment Choice": document.querySelector('input[name="paymentGateway"]:checked')?.value || 'Stripe/Card',
+      "Preferred Week": `Week ${week}`,
+      "Creative / Professional Discipline": discipline,
+      "Perth Area": location,
+      "Message / Availability": message,
       "_template": "table"
     })
   })
-  .then(response => response.json())
-  .then(data => {
-    submitBtn.textContent = originalBtnText;
+  .then(() => {
+    submitBtn.textContent = originalText;
     submitBtn.disabled = false;
     closeDonationModal();
-    showToast(`🎉 Thank you, ${name}! Your registration was sent directly to Karsang's inbox.`);
-    donationForm.reset();
+    showToast(`Thank you, ${name}! Your interest was sent to Karsang. He will email you to confirm and arrange payment & scheduling.`);
+    collaboratorForm.reset();
   })
   .catch(err => {
     console.warn('FormSubmit fallback:', err);
-    submitBtn.textContent = originalBtnText;
+    submitBtn.textContent = originalText;
     submitBtn.disabled = false;
     closeDonationModal();
-    showToast(`🎉 Registration received, ${name}! Welcome to GetLoud Perth.`);
-    donationForm.reset();
+    showToast(`Thank you, ${name}! Your interest was sent to Karsang. He will email you to confirm and arrange payment.`);
+    collaboratorForm.reset();
+  });
+});
+
+// General Donation Interest Submission
+generalDonationForm?.addEventListener('submit', (e) => {
+  e.preventDefault();
+  const name = document.getElementById('donorNameInput')?.value?.trim();
+  const email = document.getElementById('donorEmailInput')?.value?.trim();
+  const amount = document.getElementById('donationAmountInput')?.value?.trim();
+  const message = document.getElementById('donationMessageInput')?.value?.trim() || 'None';
+
+  const submitBtn = document.getElementById('submitGeneralDonationBtn');
+  const originalText = submitBtn.textContent;
+  submitBtn.textContent = 'Sending Interest...';
+  submitBtn.disabled = true;
+
+  fetch(`https://formsubmit.co/ajax/${TARGET_EMAIL}`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    },
+    body: JSON.stringify({
+      _subject: `[GetLoud] Donation interest — $${amount}`,
+      "Donor Name": name,
+      "Email Address": email,
+      "Intended Donation Amount": `$${amount} USD`,
+      "Message / Note of Support": message,
+      "_template": "table"
+    })
+  })
+  .then(() => {
+    submitBtn.textContent = originalText;
+    submitBtn.disabled = false;
+    closeDonationModal();
+    showToast(`Thank you, ${name}! Your donation interest was sent to Karsang. He will email you with contribution details.`);
+    generalDonationForm.reset();
+  })
+  .catch(err => {
+    console.warn('FormSubmit fallback:', err);
+    submitBtn.textContent = originalText;
+    submitBtn.disabled = false;
+    closeDonationModal();
+    showToast(`Thank you, ${name}! Your donation interest was sent to Karsang. He will email you with contribution details.`);
+    generalDonationForm.reset();
   });
 });
 

@@ -29,8 +29,19 @@
 
 <body class="bg-[#080c14] text-gray-100 min-h-screen selection:bg-[#00f098] selection:text-black">
 
+  <!-- CRISIS SUPPORT STRIP (CALM TONE) -->
+  <aside aria-label="Crisis Support" class="bg-gray-950 border-b border-gray-800 text-[11px] sm:text-xs text-gray-300 py-1.5 px-4 text-center fixed top-0 left-0 right-0 z-50">
+    <p class="max-w-7xl mx-auto flex items-center justify-center gap-1.5 sm:gap-2 flex-wrap">
+      <span class="text-emerald-400 font-semibold">Immediate Support:</span>
+      <span>If you or someone you know needs support now:</span>
+      <a href="tel:131114" class="text-white font-bold underline hover:text-[#00f098] transition-colors">Lifeline 13 11 14</a>
+      <span>·</span>
+      <a href="tel:1300224636" class="text-white font-bold underline hover:text-[#00f098] transition-colors">Beyond Blue 1300 22 4636</a>
+    </p>
+  </aside>
+
   <!-- STICKY GLASSMORPHIC NAVBAR WITH KRASH PRODUCTIONS LOGO -->
-  <header class="fixed top-0 left-0 right-0 z-50 glass-nav transition-all duration-300">
+  <header class="fixed top-8 left-0 right-0 z-40 glass-nav transition-all duration-300">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
 
       <!-- Brand Logo & Krash Productions Integration -->
@@ -71,7 +82,7 @@
               d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
               clip-rule="evenodd" />
           </svg>
-          Register ($20) / Donate
+          Support Campaign
         </button>
 
         <!-- Mobile Hamburger -->
@@ -105,12 +116,12 @@
         class="mobile-nav-link block py-2 px-3 rounded-lg text-base font-semibold text-gray-200 hover:bg-[#00f098]/10 hover:text-[#00f098]">FAQ</a>
       <button id="mobileDonateBtn"
         class="w-full mt-2 flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-gradient-to-r from-[#00f098] to-[#10b981] text-black font-bold text-sm shadow-md">
-        Register ($20) / Join Feature
+        Support Campaign
       </button>
     </div>
   </header>
 
-  <main class="pt-24">
+  <main class="pt-32">
 
     <!-- HERO SECTION (EVENT PREVIEW & LAUNCH FOCUS) -->
     <section id="hero"
@@ -191,7 +202,7 @@
                   d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z"
                   clip-rule="evenodd" />
               </svg>
-              <span>Register as Weekly Collaborator ($20)</span>
+              <span>Support the Campaign</span>
             </button>
 
             <a href="#progress"
@@ -529,11 +540,10 @@
             Collaborator Hub • 14 Weekly Slots Open
           </div>
           <h2 class="text-3xl sm:text-4xl font-extrabold text-white">
-            Claim Your Week as a Guest Collaborator
+            Join as a Guest Collaborator
           </h2>
           <p class="text-base text-gray-400">
-            Members are added as the campaign unfolds! Contribute $20 to reserve your week spot, feature your creative
-            discipline, run 5km with Karsang in Perth, and co-host an episode.
+            Request an open weekly slot ($20 contribution), feature your creative discipline, run 5km with Karsang in Perth, and co-host an unscripted podcast episode.
           </p>
         </div>
 
@@ -655,8 +665,8 @@
           </div>
           <p id="statFunds" class="text-3xl sm:text-4xl font-extrabold text-white font-mono">$0</p>
           <p class="text-xs font-bold uppercase text-gray-400">Funds Raised</p>
-          <p class="text-xs text-gray-500">100% donated to mental health partners</p>
-          <p class="text-xs text-gray-500">Partners Loading...</p>
+          <p class="text-xs text-gray-400">100% intended for mental health services</p>
+          <p class="text-[11px] text-gray-500">Partners being confirmed • Coordinated by Krash Productions</p>
         </div>
 
         <div
@@ -689,7 +699,7 @@
           Frequently Asked Questions
         </h2>
         <p class="text-base text-gray-400">
-          Everything you need to know about Karsang's upcoming 100-day run and how to get involved.
+          Everything you need to know about Karsang's 100-day run and how to get involved.
         </p>
       </div>
 
@@ -718,16 +728,16 @@
             </span>
           </div>
           <h2 class="text-3xl sm:text-5xl font-extrabold text-white tracking-tight leading-tight">
-            Be Part of the Launch. Get Loud.
+            Be Part of the Journey. Get Loud.
           </h2>
           <p class="text-base sm:text-lg text-gray-300">
-            Claim one of the 14 open weekly collaborator spots ($20 contribution) to run 5km with Karsang in Perth and
+            Request one of the 14 open weekly collaborator spots ($20 contribution) to run 5km with Karsang in Perth and
             record a podcast episode.
           </p>
           <div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
             <button id="ctaDonateBtn"
               class="w-full sm:w-auto px-8 py-4 rounded-xl bg-gradient-to-r from-[#00f098] to-[#10b981] text-black font-extrabold text-base shadow-xl shadow-[#00f098]/30 hover:scale-105 active:scale-95 transition-all">
-              Register Week Spot ($20)
+              Request a Week Spot
             </button>
             <button id="shareCampaignBtn"
               class="w-full sm:w-auto px-8 py-4 rounded-xl bg-gray-800 hover:bg-gray-700 text-white font-bold text-base border border-gray-700 transition-all flex items-center justify-center gap-2">
@@ -744,43 +754,53 @@
 
   </main>
 
-  <!-- FOOTER WITH KRASH PRODUCTIONS BRANDING -->
+  <!-- FOOTER WITH KRASH PRODUCTIONS BRANDING & CRISIS RESOURCES -->
   <footer class="bg-[#05080f] border-t border-gray-800 py-12 px-4 sm:px-6 lg:px-8">
-    <div
-      class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
-
-      <div class="flex items-center gap-4">
-        <img src="/src/assets/Krash_Productions.png" alt="Krash Productions Logo" class="h-10 w-auto" />
-        <div>
-          <div class="flex items-center justify-center md:justify-start gap-2">
-            <span class="font-extrabold text-lg text-white">GET<span class="text-[#00f098]">LOUD</span></span>
-            <span class="text-xs text-gray-400">• Perth, WA</span>
+    <div class="max-w-7xl mx-auto space-y-8">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
+        <div class="flex items-center gap-4">
+          <img src="/src/assets/Krash_Productions.png" alt="Krash Productions Logo" class="h-10 w-auto" />
+          <div>
+            <div class="flex items-center justify-center md:justify-start gap-2">
+              <span class="font-extrabold text-lg text-white">GET<span class="text-[#00f098]">LOUD</span></span>
+              <span class="text-xs text-gray-400">• Perth, WA</span>
+            </div>
+            <p class="text-xs text-gray-500 mt-0.5">A Krash Productions initiative by Karsang Ghising.</p>
           </div>
-          <p class="text-xs text-gray-500 mt-0.5">A Krash Productions initiative by Karsang Ghising.</p>
+        </div>
+
+        <div class="flex flex-wrap items-center justify-center gap-5 text-sm text-gray-400">
+          <a href="#progress" class="hover:text-[#00f098]">Run Progress</a>
+          <a href="#podcasts" class="hover:text-[#00f098]">Podcasts</a>
+          <a href="#collaborators" class="hover:text-[#00f098]">Collaborators</a>
+          <a href="#merch" class="hover:text-[#00f098]">Merch</a>
+          <a href="#donations" class="hover:text-[#00f098]">Donations</a>
+          <a href="#faq" class="hover:text-[#00f098]">FAQ</a>
+        </div>
+
+        <div class="text-xs text-gray-500">
+          © 2026 Krash Productions & GetLoud. Hosted on Netlify.
         </div>
       </div>
 
-      <div class="flex flex-wrap items-center justify-center gap-5 text-sm text-gray-400">
-        <a href="#progress" class="hover:text-[#00f098]">Run Progress</a>
-        <a href="#podcasts" class="hover:text-[#00f098]">Podcasts</a>
-        <a href="#collaborators" class="hover:text-[#00f098]">Collaborators</a>
-        <a href="#merch" class="hover:text-[#00f098]">Merch</a>
-        <a href="#donations" class="hover:text-[#00f098]">Donations</a>
-        <a href="#faq" class="hover:text-[#00f098]">FAQ</a>
-      </div>
-
-      <div class="text-xs text-gray-500">
-        © 2026 Krash Productions & GetLoud. Hosted on Netlify.
+      <!-- Crisis Resources & Healthcare Disclaimer -->
+      <div class="pt-6 border-t border-gray-800/80 text-xs text-gray-400 space-y-2 text-center md:text-left">
+        <p class="font-medium text-gray-300">
+          <strong class="text-emerald-400">Need support now?</strong> Lifeline <a href="tel:131114" class="text-white underline hover:text-[#00f098]">13 11 14</a> (24/7) · Beyond Blue <a href="tel:1300224636" class="text-white underline hover:text-[#00f098]">1300 22 4636</a> · Kids Helpline <a href="tel:1800551800" class="text-white underline hover:text-[#00f098]">1800 55 1800</a>. In an emergency, always call <a href="tel:000" class="text-white underline">000</a>.
+        </p>
+        <p class="text-[11px] text-gray-500">
+          Disclaimer: GetLoud is a community running and mental health awareness initiative coordinated by Krash Productions. This site is not a substitute for clinical or emergency mental health care.
+        </p>
       </div>
     </div>
   </footer>
 
-  <!-- DONATION / WEEKLY COLLABORATOR REGISTRATION MODAL -->
+  <!-- SUPPORT / REGISTRATION MODAL (HONEST NO-PAYMENT FLOW) -->
   <div id="donationModal"
-    class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-black/80 backdrop-blur-md transition-all duration-300">
+    class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-black/85 backdrop-blur-md transition-all duration-300">
     <div class="relative w-full max-w-xl glass-modal p-6 sm:p-8 rounded-3xl space-y-6 max-h-[90vh] overflow-y-auto">
 
-      <button id="closeModalBtn" aria-label="Close Donation Modal"
+      <button id="closeModalBtn" aria-label="Close Modal"
         class="absolute top-5 right-5 p-2 rounded-xl bg-gray-800/80 text-gray-400 hover:text-white hover:bg-gray-700 transition-all focus:outline-none">
         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
@@ -790,103 +810,126 @@
       <div class="space-y-2 text-left">
         <div
           class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#00f098]/15 text-[#00f098] text-xs font-bold uppercase">
-          Krash Productions • Supporter Registration
+          Support GetLoud Perth
         </div>
-        <h3 class="text-2xl font-extrabold text-white">Register Weekly Spot ($20) or Donate</h3>
-        <p class="text-xs text-gray-400">
-          Join Karsang Ghising for a 5km run in Perth, record a podcast episode, or support mental health crisis
-          helplines.
+        <h3 class="text-2xl font-extrabold text-white">Get Involved & Support</h3>
+        <p class="text-xs text-gray-300 leading-relaxed">
+          Visitors do not pay on this website. Send your registration or donation interest below, and Karsang will personally email you to confirm details, arrange payment, and schedule your session.
         </p>
       </div>
 
-      <div class="space-y-3">
-        <label class="block text-xs font-bold uppercase text-gray-300">Select Support Tier</label>
-        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
-          <button type="button" data-amount="20"
-            class="tier-btn p-3 rounded-xl border-2 border-[#00f098] bg-[#00f098]/10 text-white font-bold text-center text-sm hover:border-[#00f098] transition-all">
-            <span class="block text-xs text-[#00f098]">Weekly Spot</span>
-            $20
-          </button>
-          <button type="button" data-amount="50"
-            class="tier-btn p-3 rounded-xl border border-gray-700 bg-gray-900/60 text-gray-300 font-bold text-center text-sm hover:border-[#00f098] transition-all">
-            <span class="block text-xs text-gray-400">Supporter</span>
-            $50
-          </button>
-          <button type="button" data-amount="100"
-            class="tier-btn p-3 rounded-xl border border-gray-700 bg-gray-900/60 text-gray-300 font-bold text-center text-sm hover:border-[#00f098] transition-all">
-            <span class="block text-xs text-gray-400">Champion</span>
-            $100
-          </button>
-          <button type="button" data-amount="custom"
-            class="tier-btn p-3 rounded-xl border border-gray-700 bg-gray-900/60 text-gray-300 font-bold text-center text-sm hover:border-[#00f098] transition-all">
-            <span class="block text-xs text-gray-400">Custom</span>
-            Other
-          </button>
-        </div>
+      <!-- Mode Chooser Tabs -->
+      <div class="grid grid-cols-2 gap-2 bg-gray-900/90 p-1.5 rounded-2xl border border-gray-800">
+        <button id="tabCollaboratorBtn" type="button"
+          class="py-2.5 px-3 rounded-xl text-xs font-extrabold bg-[#00f098] text-black shadow-md transition-all text-center">
+          Request a Week Spot ($20)
+        </button>
+        <button id="tabDonationBtn" type="button"
+          class="py-2.5 px-3 rounded-xl text-xs font-extrabold text-gray-400 hover:text-white hover:bg-gray-800 transition-all text-center">
+          General Donation Interest
+        </button>
       </div>
 
-      <div id="customAmountGroup" class="hidden">
-        <label for="customAmount" class="block text-xs font-bold uppercase text-gray-300 mb-1">Enter Custom Amount ($
-          USD)</label>
-        <input type="number" id="customAmount" min="5" placeholder="e.g. 150"
-          class="w-full px-4 py-3 rounded-xl bg-gray-900 border border-gray-700 text-white focus:border-[#00f098] focus:outline-none" />
-      </div>
-
-      <form id="donationForm" name="collaborator-registration" data-netlify="true" class="space-y-4 text-left">
-        <input type="hidden" name="form-name" value="collaborator-registration" />
-        <input type="hidden" id="hiddenSupportAmount" name="supportAmount" value="20" />
-
+      <!-- PATH 1: COLLABORATOR REGISTRATION INTEREST FORM -->
+      <form id="collaboratorForm" class="space-y-4 text-left">
         <div>
-          <label for="donorName" class="block text-xs font-bold uppercase text-gray-300 mb-1">Full Name / Collaborator
-            Name</label>
-          <input type="text" id="donorName" name="fullName" required placeholder="e.g. Sarah Jenkins"
+          <label for="collabName" class="block text-xs font-bold uppercase text-gray-300 mb-1">Your Name *</label>
+          <input type="text" id="collabName" required placeholder="e.g. Sarah Jenkins"
             class="w-full px-4 py-3 rounded-xl bg-gray-900 border border-gray-700 text-white text-sm focus:border-[#00f098] focus:outline-none" />
         </div>
 
         <div>
-          <label for="donorEmail" class="block text-xs font-bold uppercase text-gray-300 mb-1">Email Address</label>
-          <input type="email" id="donorEmail" name="email" required placeholder="your.email@example.com"
+          <label for="collabEmail" class="block text-xs font-bold uppercase text-gray-300 mb-1">Email Address *</label>
+          <input type="email" id="collabEmail" required placeholder="your.email@example.com"
             class="w-full px-4 py-3 rounded-xl bg-gray-900 border border-gray-700 text-white text-sm focus:border-[#00f098] focus:outline-none" />
         </div>
 
-        <div>
-          <label for="donorDiscipline" class="block text-xs font-bold uppercase text-gray-300 mb-1">Creative Discipline
-            / Preferred Week (Optional)</label>
-          <input type="text" id="donorDiscipline" name="creativeDiscipline"
-            placeholder="e.g. Acoustic Guitarist, Perth Trail Runner, Week 3 Slot"
-            class="w-full px-4 py-3 rounded-xl bg-gray-900 border border-gray-700 text-white text-sm focus:border-[#00f098] focus:outline-none" />
-        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label for="collabWeek" class="block text-xs font-bold uppercase text-gray-300 mb-1">Preferred Week *</label>
+            <select id="collabWeek" required
+              class="w-full px-4 py-3 rounded-xl bg-gray-900 border border-gray-700 text-white text-sm focus:border-[#00f098] focus:outline-none">
+              <option value="1">Week 1 (Days 1–7)</option>
+              <option value="2">Week 2 (Days 8–14)</option>
+              <option value="3">Week 3 (Days 15–21)</option>
+              <option value="4">Week 4 (Days 22–28)</option>
+              <option value="5">Week 5 (Days 29–35)</option>
+              <option value="6">Week 6 (Days 36–42)</option>
+              <option value="7">Week 7 (Days 43–49)</option>
+              <option value="8">Week 8 (Days 50–56)</option>
+              <option value="9">Week 9 (Days 57–63)</option>
+              <option value="10">Week 10 (Days 64–70)</option>
+              <option value="11">Week 11 (Days 71–77)</option>
+              <option value="12">Week 12 (Days 78–84)</option>
+              <option value="13">Week 13 (Days 85–91)</option>
+              <option value="14">Week 14 (Days 92–100)</option>
+            </select>
+          </div>
 
-        <div>
-          <label class="block text-xs font-bold uppercase text-gray-300 mb-2">Preferred Contribution Gateway</label>
-          <div class="grid grid-cols-3 gap-2">
-            <label
-              class="flex items-center justify-center p-3 rounded-xl border border-[#00f098] bg-[#00f098]/10 cursor-pointer text-xs font-bold text-white">
-              <input type="radio" name="paymentGateway" value="Credit Card / Stripe" checked class="mr-1" />
-              Card / Stripe
-            </label>
-            <label
-              class="flex items-center justify-center p-3 rounded-xl border border-gray-700 bg-gray-900 cursor-pointer text-xs font-bold text-gray-400 hover:border-gray-600">
-              <input type="radio" name="paymentGateway" value="PayPal" class="mr-1" />
-              PayPal
-            </label>
-            <label
-              class="flex items-center justify-center p-3 rounded-xl border border-gray-700 bg-gray-900 cursor-pointer text-xs font-bold text-gray-400 hover:border-gray-600">
-              <input type="radio" name="paymentGateway" value="eSewa / Khalti" class="mr-1" />
-              eSewa / Khalti
-            </label>
+          <div>
+            <label for="collabDiscipline" class="block text-xs font-bold uppercase text-gray-300 mb-1">Creative / Professional Role *</label>
+            <input type="text" id="collabDiscipline" required placeholder="e.g. Guitarist, Runner, Artist"
+              class="w-full px-4 py-3 rounded-xl bg-gray-900 border border-gray-700 text-white text-sm focus:border-[#00f098] focus:outline-none" />
           </div>
         </div>
 
-        <button type="submit" id="submitDonationBtn"
-          class="w-full py-4 rounded-xl bg-gradient-to-r from-[#00f098] to-[#10b981] text-black font-extrabold text-base shadow-lg shadow-[#00f098]/30 hover:scale-[1.01] active:scale-95 transition-all">
-          Complete $20 Registration
+        <div>
+          <label for="collabLocation" class="block text-xs font-bold uppercase text-gray-300 mb-1">Perth Area / Suburb (Optional)</label>
+          <input type="text" id="collabLocation" placeholder="e.g. Fremantle, Scarborough, South Perth"
+            class="w-full px-4 py-3 rounded-xl bg-gray-900 border border-gray-700 text-white text-sm focus:border-[#00f098] focus:outline-none" />
+        </div>
+
+        <div>
+          <label for="collabMessage" class="block text-xs font-bold uppercase text-gray-300 mb-1">Message or Availability (Optional)</label>
+          <textarea id="collabMessage" rows="2" placeholder="Tell Karsang a bit about why you want to run or topics you'd like to discuss on the podcast..."
+            class="w-full px-4 py-2.5 rounded-xl bg-gray-900 border border-gray-700 text-white text-sm focus:border-[#00f098] focus:outline-none"></textarea>
+        </div>
+
+        <button type="submit" id="submitCollabBtn"
+          class="w-full py-3.5 rounded-xl bg-gradient-to-r from-[#00f098] to-[#10b981] text-black font-extrabold text-sm shadow-lg shadow-[#00f098]/30 hover:scale-[1.01] active:scale-95 transition-all">
+          Send Registration Interest
         </button>
+
+        <p class="text-[11px] text-gray-400 text-center">
+          Karsang will email you to confirm and arrange the $20 contribution and run timing.
+        </p>
       </form>
 
-      <p class="text-[11px] text-gray-500 text-center">
-        🔒 Encrypted SSL transaction. Managed by Krash Productions for verified mental health initiatives.
-      </p>
+      <!-- PATH 2: GENERAL DONATION INTEREST FORM -->
+      <form id="generalDonationForm" class="space-y-4 text-left hidden">
+        <div>
+          <label for="donorNameInput" class="block text-xs font-bold uppercase text-gray-300 mb-1">Your Name *</label>
+          <input type="text" id="donorNameInput" required placeholder="e.g. David Miller"
+            class="w-full px-4 py-3 rounded-xl bg-gray-900 border border-gray-700 text-white text-sm focus:border-[#00f098] focus:outline-none" />
+        </div>
+
+        <div>
+          <label for="donorEmailInput" class="block text-xs font-bold uppercase text-gray-300 mb-1">Email Address *</label>
+          <input type="email" id="donorEmailInput" required placeholder="your.email@example.com"
+            class="w-full px-4 py-3 rounded-xl bg-gray-900 border border-gray-700 text-white text-sm focus:border-[#00f098] focus:outline-none" />
+        </div>
+
+        <div>
+          <label for="donationAmountInput" class="block text-xs font-bold uppercase text-gray-300 mb-1">Intended Contribution ($ USD) *</label>
+          <input type="number" id="donationAmountInput" min="5" required placeholder="e.g. 50"
+            class="w-full px-4 py-3 rounded-xl bg-gray-900 border border-gray-700 text-white text-sm focus:border-[#00f098] focus:outline-none" />
+        </div>
+
+        <div>
+          <label for="donationMessageInput" class="block text-xs font-bold uppercase text-gray-300 mb-1">Message of Support (Optional)</label>
+          <textarea id="donationMessageInput" rows="2" placeholder="Leave an encouraging note for Karsang..."
+            class="w-full px-4 py-2.5 rounded-xl bg-gray-900 border border-gray-700 text-white text-sm focus:border-[#00f098] focus:outline-none"></textarea>
+        </div>
+
+        <button type="submit" id="submitGeneralDonationBtn"
+          class="w-full py-3.5 rounded-xl bg-gradient-to-r from-[#00f098] to-[#10b981] text-black font-extrabold text-sm shadow-lg shadow-[#00f098]/30 hover:scale-[1.01] active:scale-95 transition-all">
+          Send Donation Interest
+        </button>
+
+        <p class="text-[11px] text-gray-400 text-center">
+          Karsang will email you with secure contribution details. 100% is intended for verified mental health initiatives.
+        </p>
+      </form>
 
     </div>
   </div>
