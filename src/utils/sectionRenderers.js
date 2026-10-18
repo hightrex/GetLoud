@@ -68,6 +68,9 @@ export function renderProgressTracker(container, stats, onInspectRun) {
         </div>
       </div>
 
+      <!-- Daily Shorts Scroller -->
+      ${renderDailyShortsScroller(runningLogs)}
+
       <!-- Daily Run Cards Showcase -->
       <div class="space-y-6">
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
@@ -81,9 +84,21 @@ export function renderProgressTracker(container, stats, onInspectRun) {
           </div>
         </div>
 
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          ${runningLogs.map((log) => renderRunCard(log)).join('')}
+        <div id="runCardsGrid" class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          ${runningLogs.map((log, idx) => {
+            const isHiddenOnMobile = idx < runningLogs.length - 3;
+            return `<div class="run-card-wrapper${isHiddenOnMobile ? ' mobile-hidden-card md:block hidden' : ''}">${renderRunCard(log)}</div>`;
+          }).join('')}
         </div>
+
+        ${runningLogs.length > 3 ? `
+        <div id="showAllRunsWrap" class="md:hidden text-center">
+          <button id="showAllRunsBtn"
+            class="px-6 py-3 rounded-xl bg-gray-900/80 hover:bg-gray-800 text-white font-bold text-sm border border-gray-700/60 hover:border-[#00f098]/40 transition-all inline-flex items-center gap-2">
+            <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+            Show all ${runningLogs.length} days
+          </button>
+        </div>` : ''}
       </div>
 
       <!-- Day-over-Day Momentum & Progression Spotlight -->
@@ -133,6 +148,16 @@ export function renderProgressTracker(container, stats, onInspectRun) {
       }
     });
   });
+
+  // Show all runs toggle (mobile only)
+  const showAllBtn = container.querySelector('#showAllRunsBtn');
+  const showAllWrap = container.querySelector('#showAllRunsWrap');
+  if (showAllBtn) {
+    showAllBtn.addEventListener('click', () => {
+      container.querySelectorAll('.mobile-hidden-card').forEach(el => el.classList.remove('hidden'));
+      if (showAllWrap) showAllWrap.classList.add('hidden');
+    });
+  }
 }
 
 function renderRunCard(log) {
@@ -257,20 +282,78 @@ function renderRunCard(log) {
       </div>
 
       <!-- Footer Action -->
-      <div class="p-5 pt-3 border-t border-gray-800/80 flex items-center justify-between">
+      <div class="p-5 pt-3 border-t border-gray-800/80 flex items-center justify-between gap-2 flex-wrap">
         <span class="inline-flex items-center gap-1.5 text-[11px] font-semibold text-gray-400">
           <svg class="w-3.5 h-3.5 text-[#00f098]" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
           Samsung Health Tracked
         </span>
-        <button data-inspect-run="${log.day}" class="text-xs font-bold text-[#00f098] hover:text-white flex items-center gap-1 hover:underline transition-all">
-          <span>Full Telemetry</span>
-          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-        </button>
+        <div class="flex items-center gap-2">
+          ${log.youtubeShortUrl ? `
+          <a href="${log.youtubeShortUrl}" target="_blank" rel="noopener noreferrer"
+            class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-red-600/15 hover:bg-red-600 text-red-400 hover:text-white border border-red-500/30 text-[11px] font-bold transition-all">
+            <svg class="w-3 h-3 fill-current" viewBox="0 0 24 24"><path d="M10 15l5.19-3L10 9v6m11.56-7.83c.13.47.22 1.1.28 1.9.07.8.1 1.49.1 2.09L22 12c0 2.19-.16 3.8-.44 4.83-.25.9-.83 1.48-1.73 1.73-.47.13-1.33.22-2.65.28-1.3.07-2.49.1-3.59.1L12 22c-4.19 0-6.8-.16-7.83-.44-.9-.25-1.48-.83-1.73-1.73-.13-.47-.22-1.1-.28-1.9-.07-.8-.1-1.49-.1-2.09L2 12c0-2.19.16-3.8.44-4.83.25-.9.83-1.48 1.73-1.73.47-.13 1.33-.22 2.65-.28 1.3-.07 2.49-.1 3.59-.1L12 2c4.19 0 6.8.16 7.83.44.9.25 1.48.83 1.73 1.73z"/></svg>
+            Short
+          </a>` : ''}
+          <button data-inspect-run="${log.day}" class="text-xs font-bold text-[#00f098] hover:text-white flex items-center gap-1 hover:underline transition-all">
+            <span>Full Telemetry</span>
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+          </button>
+        </div>
       </div>
     </article>
   `;
 }
 
+
+function renderDailyShortsScroller(runningLogs) {
+  const CHANNEL_URL = 'https://www.youtube.com/@Krashworks/shorts';
+  const shorts = runningLogs.filter(l => l.youtubeShortUrl);
+  if (shorts.length === 0) return '';
+
+  const cards = shorts.map(log => `
+    <a href="${log.youtubeShortUrl}" target="_blank" rel="noopener noreferrer"
+      class="shrink-0 w-36 sm:w-44 rounded-2xl bg-gray-900/90 border border-gray-800 hover:border-red-500/60 transition-all overflow-hidden group flex flex-col">
+      <div class="relative bg-gray-950 aspect-[9/16] flex items-center justify-center">
+        <div class="absolute inset-0 flex items-center justify-center">
+          <div class="w-10 h-10 rounded-full bg-red-600/90 flex items-center justify-center group-hover:scale-110 transition-transform shadow-lg shadow-red-600/30">
+            <svg class="w-5 h-5 fill-white ml-0.5" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+          </div>
+        </div>
+        <img src="${log.image}" alt="Day ${log.day} Short" class="w-full h-full object-cover opacity-30 group-hover:opacity-50 transition-opacity" loading="lazy" />
+      </div>
+      <div class="p-2.5">
+        <p class="text-[11px] font-extrabold text-white">Day ${log.day}</p>
+        <p class="text-[10px] text-gray-400 truncate">${log.dateLabel} · ${log.distanceKm} km</p>
+      </div>
+    </a>
+  `).join('');
+
+  return `
+    <div class="space-y-3">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <svg class="w-4 h-4 fill-red-500" viewBox="0 0 24 24"><path d="M10 15l5.19-3L10 9v6m11.56-7.83c.13.47.22 1.1.28 1.9.07.8.1 1.49.1 2.09L22 12c0 2.19-.16 3.8-.44 4.83-.25.9-.83 1.48-1.73 1.73-.47.13-1.33.22-2.65.28-1.3.07-2.49.1-3.59.1L12 22c-4.19 0-6.8-.16-7.83-.44-.9-.25-1.48-.83-1.73-1.73-.13-.47-.22-1.1-.28-1.9-.07-.8-.1-1.49-.1-2.09L2 12c0-2.19.16-3.8.44-4.83.25-.9.83-1.48 1.73-1.73.47-.13 1.33-.22 2.65-.28 1.3-.07 2.49-.1 3.59-.1L12 2c4.19 0 6.8.16 7.83.44.9.25 1.48.83 1.73 1.73z"/></svg>
+          <h3 class="text-base font-extrabold text-white">Daily Shorts</h3>
+          <span class="text-[11px] text-gray-400 font-medium">${shorts.length} available</span>
+        </div>
+        <a href="${CHANNEL_URL}" target="_blank" rel="noopener noreferrer"
+          class="text-[11px] font-bold text-red-400 hover:text-white flex items-center gap-1 transition-colors">
+          @Krashworks
+          <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+        </a>
+      </div>
+      <div class="flex gap-3 overflow-x-auto pb-2 snap-x snap-mandatory scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-transparent" style="scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch">
+        ${cards}
+        <a href="${CHANNEL_URL}" target="_blank" rel="noopener noreferrer"
+          class="shrink-0 w-36 sm:w-44 rounded-2xl bg-gray-900/60 border border-red-500/30 hover:border-red-500 transition-all flex flex-col items-center justify-center gap-2 p-4 text-center group min-h-[200px]">
+          <svg class="w-8 h-8 fill-red-500 group-hover:scale-110 transition-transform" viewBox="0 0 24 24"><path d="M10 15l5.19-3L10 9v6m11.56-7.83c.13.47.22 1.1.28 1.9.07.8.1 1.49.1 2.09L22 12c0 2.19-.16 3.8-.44 4.83-.25.9-.83 1.48-1.73 1.73-.47.13-1.33.22-2.65.28-1.3.07-2.49.1-3.59.1L12 22c-4.19 0-6.8-.16-7.83-.44-.9-.25-1.48-.83-1.73-1.73-.13-.47-.22-1.1-.28-1.9-.07-.8-.1-1.49-.1-2.09L2 12c0-2.19.16-3.8.44-4.83.25-.9.83-1.48 1.73-1.73.47-.13 1.33-.22 2.65-.28 1.3-.07 2.49-.1 3.59-.1L12 2c4.19 0 6.8.16 7.83.44.9.25 1.48.83 1.73 1.73z"/></svg>
+          <p class="text-[11px] font-bold text-red-400 group-hover:text-white transition-colors">All Daily Shorts</p>
+          <p class="text-[10px] text-gray-500">@Krashworks/shorts</p>
+        </a>
+      </div>
+    </div>
+  `;
+}
 
 function renderProgressionCard(runningLogs) {
   if (runningLogs.length < 2) return '';

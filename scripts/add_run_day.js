@@ -24,6 +24,9 @@
  *   --route-type    "Evening Loop"      (default: "Evening Loop")
  *   --location      "Perth, WA"         (default: "Perth, WA")
  *   --quote         "Custom quote..."   (optional)
+ *   --youtube-short "https://..."       (YouTube Shorts URL for this day's run Short)
+ *                                       Find each day's short at:
+ *                                       https://www.youtube.com/@Krashworks/shorts
  *   --dry-run                           (preview only, no files written)
  *
  * Examples:
@@ -32,7 +35,8 @@
  *   node scripts/add_run_day.js ~/Downloads/day7.jpeg \
  *     --date 2026-10-07 --date-label "7 Oct" --full-date "Wednesday, 7 Oct 2026" \
  *     --time "7:30 pm" --duration "29:51" --distance 6.04 --calories 334 \
- *     --pace "04'56\"" --steps 4838
+ *     --pace "04'56\"" --steps 4838 \
+ *     --youtube-short "https://www.youtube.com/shorts/XXXXX"
  */
 
 import fs from 'fs';
@@ -78,6 +82,7 @@ async function collectRunData() {
     avgSpeedKmh: getFlag(args, '--avg-speed') ? parseFloat(getFlag(args, '--avg-speed')) : null,
     cadenceSpm:  getFlag(args, '--cadence')   ? parseInt(getFlag(args, '--cadence'), 10) : null,
     elevationM:  getFlag(args, '--elevation') ? parseInt(getFlag(args, '--elevation'), 10) : null,
+    youtubeShortUrl: getFlag(args, '--youtube-short'),
   };
 
   const routeType = getFlag(args, '--route-type', 'Evening Loop');
@@ -108,6 +113,10 @@ async function collectRunData() {
     if (data.elevationM === null) {
       const elev = await ask('Elevation gain (m, blank = skip)', '');
       data.elevationM = elev ? parseInt(elev, 10) : null;
+    }
+    if (!data.youtubeShortUrl) {
+      const yt = await ask('YouTube Short URL (optional, blank = skip)', '');
+      data.youtubeShortUrl = yt.trim() || null;
     }
   } else {
     if (!data.fastestPace) data.fastestPace = data.pace;
@@ -229,7 +238,8 @@ function buildLogEntry(dayNum, data, gains, routeType, location, quote, varName)
     routeSvg: null,
     quote: ${jsStr(autoQuote)},
     source: 'Samsung Health',
-    verified: true,${gainsBlock}
+    verified: true,
+    youtubeShortUrl: ${data.youtubeShortUrl ? jsStr(data.youtubeShortUrl) : 'null'},${gainsBlock}
   },`;
 }
 

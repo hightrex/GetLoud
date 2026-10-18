@@ -29,36 +29,37 @@
 
 <body class="bg-[#080c14] text-gray-100 min-h-screen selection:bg-[#00f098] selection:text-black">
 
-  <!-- CRISIS SUPPORT STRIP (CALM TONE) -->
-  <aside aria-label="Crisis Support" class="bg-gray-950 border-b border-gray-800 text-[11px] sm:text-xs text-gray-300 py-1.5 px-4 text-center fixed top-0 left-0 right-0 z-50">
-    <p class="max-w-7xl mx-auto flex items-center justify-center gap-1.5 sm:gap-2 flex-wrap">
-      <span class="text-emerald-400 font-semibold">Immediate Support:</span>
-      <span>If you or someone you know needs support now:</span>
-      <a href="tel:131114" class="text-white font-bold underline hover:text-[#00f098] transition-colors">Lifeline 13 11 14</a>
+  <!-- CRISIS SUPPORT STRIP (CALM TONE — COMPACT MOBILE-FIRST) -->
+  <aside aria-label="Crisis Support" class="bg-gray-950/95 backdrop-blur-sm border-b border-gray-800 text-[10px] sm:text-xs text-gray-300 py-1 px-3 text-center fixed top-0 left-0 right-0 z-50 h-7 flex items-center justify-center">
+    <p class="max-w-7xl mx-auto truncate flex items-center justify-center gap-1.5 sm:gap-2">
+      <span class="text-emerald-400 font-semibold hidden sm:inline">Immediate Support:</span>
+      <span class="text-gray-400 hidden md:inline">If you or someone you know needs support:</span>
+      <span class="md:hidden text-emerald-400 font-semibold">Crisis lines:</span>
+      <a href="tel:131114" class="text-white font-bold underline hover:text-[#00f098] transition-colors whitespace-nowrap">Lifeline 13 11 14</a>
       <span>·</span>
-      <a href="tel:1300224636" class="text-white font-bold underline hover:text-[#00f098] transition-colors">Beyond Blue 1300 22 4636</a>
+      <a href="tel:1300224636" class="text-white font-bold underline hover:text-[#00f098] transition-colors whitespace-nowrap">Beyond Blue 1300 22 4636</a>
     </p>
   </aside>
 
   <!-- STICKY GLASSMORPHIC NAVBAR WITH KRASH PRODUCTIONS LOGO -->
-  <header class="fixed top-8 left-0 right-0 z-40 glass-nav transition-all duration-300">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+  <header class="fixed top-7 left-0 right-0 z-40 glass-nav transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between">
 
       <!-- Brand Logo & Krash Productions Integration -->
-      <a href="#" class="flex items-center gap-3.5 group focus:outline-none">
+      <a href="#" class="flex items-center gap-2.5 sm:gap-3.5 group focus:outline-none">
         <div
-          class="h-11 px-2 py-1 rounded-xl bg-gray-900/90 border border-gray-700/80 flex items-center justify-center group-hover:border-[#00f098] transition-all">
-          <img src="/src/assets/Krash_Productions.png" alt="Krash Productions" class="h-8 w-auto object-contain" />
+          class="h-9 sm:h-11 px-2 py-1 rounded-xl bg-gray-900/90 border border-gray-700/80 flex items-center justify-center group-hover:border-[#00f098] transition-all shrink-0">
+          <img src="/src/assets/Krash_Productions.png" alt="Krash Productions" class="h-6 sm:h-8 w-auto object-contain" />
         </div>
         <div class="hidden sm:block w-[1px] h-7 bg-gray-800"></div>
         <div>
-          <div class="flex items-center gap-2">
-            <span class="font-extrabold text-xl tracking-wider text-white">GET<span
+          <div class="flex items-center gap-1.5 sm:gap-2">
+            <span class="font-extrabold text-lg sm:text-xl tracking-wider text-white">GET<span
                 class="text-[#00f098]">LOUD</span></span>
             <span
-              class="text-[10px] font-bold uppercase tracking-widest px-2 py-0.5 rounded-full bg-[#00f098]/10 text-[#00f098] border border-[#00f098]/30">PERTH</span>
+              class="text-[9px] sm:text-[10px] font-bold uppercase tracking-widest px-1.5 sm:px-2 py-0.5 rounded-full bg-[#00f098]/10 text-[#00f098] border border-[#00f098]/30">PERTH</span>
           </div>
-          <p class="text-[10px] text-gray-400 font-medium">Karsang Ghising • Krash Productions</p>
+          <p class="text-[9px] sm:text-[10px] text-gray-400 font-medium truncate">Karsang Ghising • Krash Productions</p>
         </div>
       </a>
 
@@ -87,7 +88,7 @@
 
         <!-- Mobile Hamburger -->
         <button id="mobileMenuBtn" aria-label="Toggle Navigation Menu"
-          class="md:hidden p-2.5 rounded-xl bg-gray-800/80 text-gray-300 hover:text-white border border-gray-700/50 focus:outline-none">
+          class="md:hidden p-2 rounded-xl bg-gray-800/80 text-gray-300 hover:text-white border border-gray-700/50 focus:outline-none">
           <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path id="hamburgerIcon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
               d="M4 6h16M4 12h16M4 18h16" />
@@ -121,7 +122,7 @@
     </div>
   </header>
 
-  <main class="pt-32">
+  <main class="pt-24 sm:pt-28 md:pt-32">
 
     <!-- HERO SECTION (EVENT PREVIEW & LAUNCH FOCUS) -->
     <section id="hero"
@@ -158,16 +159,16 @@
           </p>
 
           <!-- Pre-Launch Readiness Box -->
-          <div class="p-6 rounded-2xl glass-card border border-white/10 space-y-4">
-            <div class="flex items-center justify-between text-sm font-bold">
+          <div class="p-5 sm:p-6 rounded-2xl glass-card border border-white/10 space-y-4">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 text-sm font-bold">
               <span class="flex items-center gap-2 text-white">
-                <svg class="w-5 h-5 text-[#00f098]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg class="w-5 h-5 text-[#00f098] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                     d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
-                Status: <span id="heroDayText" class="text-[#00f098] font-mono text-base">Day 2 of 100</span>
+                <span>Status: <strong id="heroDayText" class="text-[#00f098] font-mono text-base font-extrabold">Day 2 of 100</strong></span>
               </span>
-              <span id="heroRemainingText" class="text-[#f59e0b] font-mono">485.16 KM LEFT</span>
+              <span id="heroRemainingText" class="text-[#f59e0b] font-mono text-xs sm:text-sm font-extrabold tracking-wide">485.16 KM LEFT</span>
             </div>
 
             <div class="relative w-full h-3 bg-gray-900 rounded-full overflow-hidden p-0.5 border border-gray-800">
@@ -176,26 +177,26 @@
                 style="width: 3%;"></div>
             </div>
 
-            <div class="grid grid-cols-3 gap-4 pt-2 text-center border-t border-gray-800/80">
-              <div>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-4 pt-2 border-t border-gray-800/80">
+              <div class="flex sm:flex-col items-center justify-between sm:justify-center p-2 sm:p-0 rounded-xl bg-gray-900/40 sm:bg-transparent">
                 <p class="text-xs text-gray-400 uppercase font-semibold">Logged So Far</p>
-                <p id="heroKmText" class="text-lg font-extrabold text-[#00f098] font-mono">14.84 KM</p>
+                <p id="heroKmText" class="text-base sm:text-lg font-extrabold text-[#00f098] font-mono">14.84 KM</p>
               </div>
-              <div>
+              <div class="flex sm:flex-col items-center justify-between sm:justify-center p-2 sm:p-0 rounded-xl bg-gray-900/40 sm:bg-transparent">
                 <p class="text-xs text-gray-400 uppercase font-semibold">Total Target</p>
-                <p class="text-lg font-extrabold text-white font-mono">500 KM</p>
+                <p class="text-base sm:text-lg font-extrabold text-white font-mono">500 KM</p>
               </div>
-              <div>
-                <p class="text-xs text-gray-400 uppercase font-semibold">Donation Commitment</p>
-                <p class="text-lg font-extrabold text-[#f59e0b] font-mono">100% donated</p>
+              <div class="flex sm:flex-col items-center justify-between sm:justify-center p-2 sm:p-0 rounded-xl bg-gray-900/40 sm:bg-transparent">
+                <p class="text-xs text-gray-400 uppercase font-semibold">Donations</p>
+                <p class="text-base sm:text-lg font-extrabold text-[#f59e0b] font-mono">100% donated</p>
               </div>
             </div>
           </div>
 
           <!-- CTA Buttons -->
-          <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 pt-2">
+          <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 pt-2">
             <button id="heroDonateBtn"
-              class="px-8 py-4 rounded-xl bg-gradient-to-r from-[#00f098] via-[#10b981] to-[#059669] text-black font-extrabold text-base shadow-xl shadow-[#00f098]/30 hover:shadow-[#00f098]/50 hover:scale-[1.02] active:scale-95 transition-all flex items-center justify-center gap-3 group">
+              class="w-full sm:w-auto px-8 py-4 rounded-xl bg-gradient-to-r from-[#00f098] via-[#10b981] to-[#059669] text-black font-extrabold text-base shadow-xl shadow-[#00f098]/30 hover:shadow-[#00f098]/50 hover:scale-[1.02] active:scale-95 transition-all flex items-center justify-center gap-3 group">
               <svg class="w-5 h-5 text-black group-hover:scale-110 transition-transform" fill="currentColor"
                 viewBox="0 0 20 20">
                 <path fill-rule="evenodd"
@@ -206,7 +207,7 @@
             </button>
 
             <a href="#progress"
-              class="px-7 py-4 rounded-xl bg-gray-900/80 hover:bg-gray-800 text-white font-bold text-base border border-gray-700/60 hover:border-[#00f098]/40 transition-all flex items-center justify-center gap-2 group">
+              class="w-full sm:w-auto px-7 py-4 rounded-xl bg-gray-900/80 hover:bg-gray-800 text-white font-bold text-base border border-gray-700/60 hover:border-[#00f098]/40 transition-all flex items-center justify-center gap-2 group">
               <span>View Run Progress</span>
               <svg class="w-4 h-4 text-gray-400 group-hover:text-[#00f098] group-hover:translate-x-1 transition-all"
                 fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -795,13 +796,13 @@
     </div>
   </footer>
 
-  <!-- SUPPORT / REGISTRATION MODAL (HONEST NO-PAYMENT FLOW) -->
+  <!-- SUPPORT / REGISTRATION MODAL (HONEST NO-PAYMENT FLOW — BOTTOM SHEET ON MOBILE) -->
   <div id="donationModal"
-    class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-black/85 backdrop-blur-md transition-all duration-300">
-    <div class="relative w-full max-w-xl glass-modal p-6 sm:p-8 rounded-3xl space-y-6 max-h-[90vh] overflow-y-auto">
+    class="fixed inset-0 z-50 hidden flex items-end sm:items-center justify-center p-0 sm:p-4 bg-black/85 backdrop-blur-md transition-all duration-300">
+    <div class="relative w-full max-w-xl glass-modal p-5 sm:p-8 rounded-t-3xl sm:rounded-3xl space-y-5 sm:space-y-6 max-h-[92vh] sm:max-h-[90vh] overflow-y-auto">
 
       <button id="closeModalBtn" aria-label="Close Modal"
-        class="absolute top-5 right-5 p-2 rounded-xl bg-gray-800/80 text-gray-400 hover:text-white hover:bg-gray-700 transition-all focus:outline-none">
+        class="absolute top-4 right-4 sm:top-5 sm:right-5 p-2 rounded-xl bg-gray-800/80 text-gray-400 hover:text-white hover:bg-gray-700 transition-all focus:outline-none">
         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
         </svg>
@@ -1018,16 +1019,23 @@
         </svg>
       </button>
 
-      <div class="flex flex-wrap items-center gap-3">
-        <span id="runModalDayBadge"
-          class="px-3.5 py-1 rounded-full bg-[#00f098]/20 text-[#00f098] border border-[#00f098]/40 text-xs font-extrabold uppercase font-mono">
-          Day 1
-        </span>
-        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 text-xs font-bold">
-          <svg class="w-3.5 h-3.5 text-[#00f098]" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-          Samsung Health Verified
-        </span>
-        <span id="runModalDate" class="text-xs text-gray-400 font-medium">1 Oct 2026, 6:38 pm</span>
+      <div class="flex flex-wrap items-center justify-between gap-3 pr-8 sm:pr-0">
+        <div class="flex flex-wrap items-center gap-2.5">
+          <span id="runModalDayBadge"
+            class="px-3.5 py-1 rounded-full bg-[#00f098]/20 text-[#00f098] border border-[#00f098]/40 text-xs font-extrabold uppercase font-mono">
+            Day 1
+          </span>
+          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 text-xs font-bold">
+            <svg class="w-3.5 h-3.5 text-[#00f098]" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+            Samsung Health Verified
+          </span>
+          <span id="runModalDate" class="text-xs text-gray-400 font-medium">1 Oct 2026, 6:38 pm</span>
+        </div>
+        <a id="runModalShortBtn" href="#" target="_blank" rel="noopener noreferrer"
+          class="hidden inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-red-600/20 hover:bg-red-600 text-red-400 hover:text-white border border-red-500/40 text-xs font-bold transition-all shadow-md">
+          <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M10 15l5.19-3L10 9v6m11.56-7.83c.13.47.22 1.1.28 1.9.07.8.1 1.49.1 2.09L22 12c0 2.19-.16 3.8-.44 4.83-.25.9-.83 1.48-1.73 1.73-.47.13-1.33.22-2.65.28-1.3.07-2.49.1-3.59.1L12 22c-4.19 0-6.8-.16-7.83-.44-.9-.25-1.48-.83-1.73-1.73-.13-.47-.22-1.1-.28-1.9-.07-.8-.1-1.49-.1-2.09L2 12c0-2.19.16-3.8.44-4.83.25-.9.83-1.48 1.73-1.73.47-.13 1.33-.22 2.65-.28 1.3-.07 2.49-.1 3.59-.1L12 22c4.19 0 6.8.16 7.83.44.9.25 1.48.83 1.73 1.73z"/></svg>
+          <span id="runModalShortBtnText">Watch Day 1 Short</span>
+        </a>
       </div>
 
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">

@@ -96,14 +96,35 @@ function openRunInspectionModal(log) {
   if (runModalRouteDesc) runModalRouteDesc.textContent = log.routeDescription;
   if (runModalQuote) runModalQuote.textContent = log.quote;
 
-  if (runModalMapImg) runModalMapImg.src = log.mapCard;
-  if (runModalProofImg) runModalProofImg.src = log.image;
+  if (runModalMapImg) runModalMapImg.src = log.mapCard || '';
+  if (runModalProofImg) runModalProofImg.src = log.image || '';
 
-  // Reset tab to Map by default
-  if (runModalMapImg) runModalMapImg.classList.remove('hidden');
-  if (runModalProofImg) runModalProofImg.classList.add('hidden');
-  if (modalTabMapBtn) modalTabMapBtn.className = 'px-3 py-1.5 rounded-lg text-xs font-bold bg-[#00f098] text-black transition-all';
-  if (modalTabProofBtn) modalTabProofBtn.className = 'px-3 py-1.5 rounded-lg text-xs font-bold bg-gray-800 text-gray-400 hover:text-white transition-all';
+  // Tab & visual display state
+  if (log.mapCard) {
+    if (modalTabMapBtn) modalTabMapBtn.classList.remove('hidden');
+    if (runModalMapImg) runModalMapImg.classList.remove('hidden');
+    if (runModalProofImg) runModalProofImg.classList.add('hidden');
+    if (modalTabMapBtn) modalTabMapBtn.className = 'px-3 py-1.5 rounded-lg text-xs font-bold bg-[#00f098] text-black transition-all';
+    if (modalTabProofBtn) modalTabProofBtn.className = 'px-3 py-1.5 rounded-lg text-xs font-bold bg-gray-800 text-gray-400 hover:text-white transition-all';
+  } else {
+    if (modalTabMapBtn) modalTabMapBtn.classList.add('hidden');
+    if (runModalMapImg) runModalMapImg.classList.add('hidden');
+    if (runModalProofImg) runModalProofImg.classList.remove('hidden');
+    if (modalTabProofBtn) modalTabProofBtn.className = 'px-3 py-1.5 rounded-lg text-xs font-bold bg-[#00f098] text-black transition-all';
+  }
+
+  // YouTube Short link
+  const runModalShortBtn = document.getElementById('runModalShortBtn');
+  const runModalShortBtnText = document.getElementById('runModalShortBtnText');
+  if (runModalShortBtn) {
+    if (log.youtubeShortUrl) {
+      runModalShortBtn.href = log.youtubeShortUrl;
+      if (runModalShortBtnText) runModalShortBtnText.textContent = `Watch Day ${log.day} Short`;
+      runModalShortBtn.classList.remove('hidden');
+    } else {
+      runModalShortBtn.classList.add('hidden');
+    }
+  }
 
   if (runModalStatsGrid) {
     const metrics = [
