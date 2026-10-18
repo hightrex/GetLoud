@@ -274,7 +274,7 @@ function renderCollaborators(filterCategory = 'all') {
         </button>
       `;
     }
-
+    card.classList.add('h-card-wide');
     collaboratorsGrid.appendChild(card);
   });
 
@@ -604,4 +604,17 @@ document.addEventListener('DOMContentLoaded', () => {
   initDynamicSections();
   renderCollaborators();
   renderFAQ();
+});
+
+// Collapse toggles for long sections
+document.querySelectorAll('[data-collapse-target]').forEach((btn) => {
+  btn.addEventListener('click', () => {
+    const id = btn.getAttribute('data-collapse-target');
+    const panel = document.getElementById(id);
+    if (!panel) return;
+    const open = panel.classList.toggle('hidden') === false;
+    btn.textContent = open
+      ? 'Hide details'
+      : (btn.getAttribute('data-label') || btn.textContent.replace('Hide details', '').trim() || 'Show details');
+  });
 });

@@ -157,3 +157,143 @@ body.modal-open {
 .product-card:hover {
   transform: translateY(-4px);
 }
+
+/* ===== PAGE LENGTH FIX ===== */
+
+/* Shrink every major section */
+section[id],
+section.py-20 {
+  padding-top: 2.5rem !important;
+  padding-bottom: 2.5rem !important;
+}
+
+@media (min-width: 640px) {
+  section[id],
+  section.py-20 {
+    padding-top: 3.5rem !important;
+    padding-bottom: 3.5rem !important;
+  }
+}
+
+/* Shrink section intro blocks */
+section .mb-16,
+section .mb-14,
+section .mb-12 {
+  margin-bottom: 1.5rem !important;
+}
+
+/* Hero: don't force nearly full viewport height */
+#hero {
+  min-height: auto !important;
+  padding-top: 2rem !important;
+  padding-bottom: 2rem !important;
+}
+
+@media (min-width: 1024px) {
+  #hero {
+    padding-top: 3rem !important;
+    padding-bottom: 3rem !important;
+  }
+}
+
+/* Run cards denser */
+#runCardsGrid {
+  gap: 1rem !important;
+}
+
+/* Hide secondary story sections by default; open via details */
+.collapse-section > .collapse-body {
+  display: none;
+}
+.collapse-section.is-open > .collapse-body {
+  display: block;
+}
+
+/* ===== HORIZONTAL CARD ROWS (phone-first) ===== */
+
+.h-scroll {
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding-bottom: 0.75rem;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+}
+
+.h-scroll > * {
+  scroll-snap-align: start;
+  flex-shrink: 0;
+}
+
+/* Card widths inside horizontal rows */
+.h-scroll .run-card-wrapper,
+.h-scroll .h-card {
+  width: min(85vw, 320px);
+}
+
+.h-scroll .h-card-wide {
+  width: min(88vw, 360px);
+}
+
+.h-scroll .h-card-sm {
+  width: min(70vw, 220px);
+}
+
+/* Hide ugly scrollbar a bit but keep usable */
+.h-scroll::-webkit-scrollbar {
+  height: 6px;
+}
+.h-scroll::-webkit-scrollbar-thumb {
+  background: #1f293d;
+  border-radius: 4px;
+}
+
+/* From tablet up: optional grid again for some sections */
+@media (min-width: 1024px) {
+  .h-scroll-lg-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    overflow: visible;
+    scroll-snap-type: none;
+  }
+  .h-scroll-lg-grid > * {
+    width: auto !important;
+    flex-shrink: 1;
+  }
+
+  .h-scroll-lg-grid-3 {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    overflow: visible;
+    scroll-snap-type: none;
+  }
+  .h-scroll-lg-grid-3 > * {
+    width: auto !important;
+  }
+
+  .h-scroll-lg-grid-4 {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    overflow: visible;
+    scroll-snap-type: none;
+  }
+  .h-scroll-lg-grid-4 > * {
+    width: auto !important;
+  }
+}
+
+/* Hint under scroll rows on mobile */
+.h-scroll-hint {
+  display: block;
+  font-size: 11px;
+  color: #6b7280;
+  margin-top: -0.25rem;
+  margin-bottom: 0.5rem;
+}
+@media (min-width: 1024px) {
+  .h-scroll-hint {
+    display: none;
+  }
+}

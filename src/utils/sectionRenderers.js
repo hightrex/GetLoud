@@ -76,7 +76,7 @@ export function renderProgressTracker(container, stats, onInspectRun) {
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div>
             <h3 class="text-2xl font-extrabold text-white">Official Daily Run Logs & GPS Route Maps</h3>
-            <p class="text-xs sm:text-sm text-gray-400">Click tabs to switch between extracted GPS route maps and Samsung Health proof</p>
+            <p class="text-xs sm:text-sm text-gray-400">Swipe on phone · tap a card for full telemetry</p>
           </div>
           <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-bold self-start sm:self-auto">
             <span class="w-2 h-2 rounded-full bg-[#00f098] animate-ping"></span>
@@ -84,21 +84,12 @@ export function renderProgressTracker(container, stats, onInspectRun) {
           </div>
         </div>
 
-        <div id="runCardsGrid" class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          ${runningLogs.map((log, idx) => {
-            const isHiddenOnMobile = idx < runningLogs.length - 3;
-            return `<div class="run-card-wrapper${isHiddenOnMobile ? ' mobile-hidden-card md:block hidden' : ''}">${renderRunCard(log)}</div>`;
-          }).join('')}
+        <p class="h-scroll-hint">Swipe for more runs →</p>
+        <div id="runCardsGrid" class="h-scroll h-scroll-lg-grid">
+          ${[...runningLogs].reverse().map((log) => `
+            <div class="run-card-wrapper h-card-wide">${renderRunCard(log)}</div>
+          `).join('')}
         </div>
-
-        ${runningLogs.length > 3 ? `
-        <div id="showAllRunsWrap" class="md:hidden text-center">
-          <button id="showAllRunsBtn"
-            class="px-6 py-3 rounded-xl bg-gray-900/80 hover:bg-gray-800 text-white font-bold text-sm border border-gray-700/60 hover:border-[#00f098]/40 transition-all inline-flex items-center gap-2">
-            <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-            Show all ${runningLogs.length} days
-          </button>
-        </div>` : ''}
       </div>
 
       <!-- Day-over-Day Momentum & Progression Spotlight -->
@@ -148,18 +139,7 @@ export function renderProgressTracker(container, stats, onInspectRun) {
       }
     });
   });
-
-  // Show all runs toggle (mobile only)
-  const showAllBtn = container.querySelector('#showAllRunsBtn');
-  const showAllWrap = container.querySelector('#showAllRunsWrap');
-  if (showAllBtn) {
-    showAllBtn.addEventListener('click', () => {
-      container.querySelectorAll('.mobile-hidden-card').forEach(el => el.classList.remove('hidden'));
-      if (showAllWrap) showAllWrap.classList.add('hidden');
-    });
-  }
 }
-
 function renderRunCard(log) {
   const hasPrevDay = log.gains !== undefined;
   const hasMap = !!log.mapCard;
@@ -558,8 +538,11 @@ export function renderWeeklyDonations(container, stats) {
         <p class="text-xs text-gray-400">100% of donations go directly to mental health partners • ${formatUsd(donationConfig.collaboratorFeeUsd)} per weekly collaborator slot</p>
       </div>
 
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-        ${weeklyDonations.map((week) => renderDonationWeekCard(week)).join('')}
+      <p class="h-scroll-hint">Swipe weeks →</p>
+      <div class="h-scroll h-scroll-lg-grid-4">
+        ${weeklyDonations.map((week) => `
+          <div class="h-card-sm">${renderDonationWeekCard(week)}</div>
+        `).join('')}
       </div>
     </div>
   `;
@@ -612,8 +595,11 @@ export function renderPodcasts(container, onPlayEpisode) {
       </div>
       <p class="text-xs text-gray-500 italic text-center">${podcastConfig.subscribeNote}</p>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        ${podcastEpisodes.map((ep) => renderPodcastCard(ep)).join('')}
+           <p class="h-scroll-hint">Swipe for more episodes →</p>
+      <div class="h-scroll h-scroll-lg-grid-3">
+        ${podcastEpisodes.map((ep) => `
+          <div class="h-card-wide">${renderPodcastCard(ep)}</div>
+        `).join('')}
       </div>
     </div>
   `;

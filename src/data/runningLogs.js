@@ -78,7 +78,7 @@ export const runningLogs = [
     quote: 'Day 2 complete. Pushed the pace to 05\'06" and logged 7.68 km around the circuit. 14.84 km in 48 hours!',
     source: 'Samsung Health',
     verified: true,
-    youtubeShortUrl: null,
+    youtubeShortUrl: 'https://youtube.com/shorts/ojjKc_8Fy0E?si=ofbezg1G0EUJL8mw',
     gains: {
       distanceDelta: '+0.52 km',
       paceDelta: '-10s/km faster',
@@ -112,7 +112,7 @@ export const runningLogs = [
     quote: "Day 3 done. 6.03 km at 05'04\" — best avg pace so far. The grind is real.",
     source: 'Samsung Health',
     verified: true,
-    youtubeShortUrl: null,
+    youtubeShortUrl: 'https://youtube.com/shorts/gS4IRvazlCA?si=_QA7kG_De8p_H47Z',
     gains: {
       distanceDelta: '-1.65 km',
       paceDelta: '-2s/km faster',
@@ -146,7 +146,7 @@ export const runningLogs = [
     quote: "Day 4 done. 6.39 km at 04'04\" — keeping the grind alive.",
     source: 'Samsung Health',
     verified: true,
-    youtubeShortUrl: null,
+    youtubeShortUrl: 'https://youtube.com/shorts/MqLnUYRnXz8?si=ImBz5dVbyNajygYa',
     gains: {
       distanceDelta: '+0.36 km',
       paceDelta: '-60s/km faster',
@@ -181,7 +181,7 @@ export const runningLogs = [
     quote: "Day 5 done. 6.34 km at 04'54\" — keeping the grind alive.",
     source: 'Samsung Health',
     verified: true,
-    youtubeShortUrl: null,
+    youtubeShortUrl: 'https://youtube.com/shorts/F6-UrZYyvrU?si=RwBEDH8sNy1EN-z9',
     gains: {
       distanceDelta: '-0.05 km',
       paceDelta: '+50s/km slower',
@@ -215,7 +215,7 @@ export const runningLogs = [
     quote: "Day 6 done. 6.09 km at 04'55\" — keeping the grind alive.",
     source: 'Samsung Health',
     verified: true,
-    youtubeShortUrl: null,
+    youtubeShortUrl: 'https://youtube.com/shorts/-Rg78e4bToI?si=3ObuP7QUcU6lEnOG',
     gains: {
       distanceDelta: "-0.25 km",
       paceDelta: "+1s/km slower",
@@ -250,7 +250,7 @@ export const runningLogs = [
     quote: "Day 7 done. 6.04 km at 04'56\" — keeping the grind alive.",
     source: 'Samsung Health',
     verified: true,
-    youtubeShortUrl: null,
+    youtubeShortUrl: 'https://youtube.com/shorts/wrl4fnZtlLs?si=hEmqUvNk4s106VSh',
     gains: {
       distanceDelta: "-0.05 km",
       paceDelta: "+1s/km slower",
@@ -284,7 +284,7 @@ export const runningLogs = [
     quote: "Day 8 done. 6.01 km at 04'46\" — keeping the grind alive.",
     source: 'Samsung Health',
     verified: true,
-    youtubeShortUrl: null,
+    youtubeShortUrl: 'https://youtube.com/shorts/w1xhQkpzcEo?si=5xEdl3WOpeMbdOvG',
     gains: {
       distanceDelta: "-0.03 km",
       paceDelta: "-10s/km faster",
@@ -318,7 +318,7 @@ export const runningLogs = [
     quote: "Day 9 done. 6.55 km at 04'55\" — keeping the grind alive.",
     source: 'Samsung Health',
     verified: true,
-    youtubeShortUrl: null,
+    youtubeShortUrl: 'https://youtube.com/shorts/foGyRADQE-U?si=6aJStRKWZYKW1bO8',
     gains: {
       distanceDelta: "+0.54 km",
       paceDelta: "+9s/km slower",
@@ -352,7 +352,7 @@ export const runningLogs = [
     quote: "Day 10 done. 6.07 km at 05'19\" — keeping the grind alive.",
     source: 'Samsung Health',
     verified: true,
-    youtubeShortUrl: null,
+    youtubeShortUrl: 'https://youtube.com/shorts/Ro93MaMwww0?si=i6fk81YhWQ8t92nM',
     gains: {
       distanceDelta: "-0.48 km",
       paceDelta: "+24s/km slower",
@@ -420,7 +420,7 @@ export const runningLogs = [
     quote: "Day 12 done. 6.37 km at 04'50\" — keeping the grind alive.",
     source: 'Samsung Health',
     verified: true,
-    youtubeShortUrl: null,
+    youtubeShortUrl: 'https://youtube.com/shorts/AZcyNoH9r2Q?si=2q8nNl4spuPgUN31',
     gains: {
       distanceDelta: "+0.35 km",
       paceDelta:     "-40s/km faster",
@@ -454,7 +454,7 @@ export const runningLogs = [
     quote: "Day 13 done. 6.11 km at 05'02\" — keeping the grind alive.",
     source: 'Samsung Health',
     verified: true,
-    youtubeShortUrl: null,
+    youtubeShortUrl: 'https://youtube.com/shorts/YRbm5ULoIrs?si=sDy96iJL0Ah8PF3n',
     gains: {
       distanceDelta: "-0.26 km",
       paceDelta:     "+12s/km slower",
@@ -488,7 +488,7 @@ export const runningLogs = [
     quote: "Day 14 done. 6.02 km at 05'03\" — keeping the grind alive.",
     source: 'Samsung Health',
     verified: true,
-    youtubeShortUrl: null,
+    youtubeShortUrl: 'https://youtube.com/shorts/jRsorecti58?si=34RzKej-XDXP9IOP',
     gains: {
       distanceDelta: "-0.09 km",
       paceDelta:     "+1s/km slower",
@@ -522,7 +522,7 @@ export const runningLogs = [
     quote: "Day 15 done. 6.08 km at 04'42\" — keeping the grind alive.",
     source: 'Samsung Health',
     verified: true,
-    youtubeShortUrl: null,
+    youtubeShortUrl: 'https://youtube.com/shorts/VmaBpY4mcHw?si=hipwb9wv4QMkirFC',
     gains: {
       distanceDelta: "+0.06 km",
       paceDelta:     "-21s/km faster",
@@ -556,7 +556,7 @@ export const runningLogs = [
     quote: "Day 16 done. 6.02 km at 04'49\" — keeping the grind alive.",
     source: 'Samsung Health',
     verified: true,
-    youtubeShortUrl: null,
+    youtubeShortUrl: 'https://youtube.com/shorts/Pd7Icp9RFJs?si=BPHsS54pvopCpmIx',
     gains: {
       distanceDelta: "-0.06 km",
       paceDelta:     "+7s/km slower",
@@ -590,7 +590,7 @@ export const runningLogs = [
     quote: "Day 17 done. 6.03 km at 04'49\" — keeping the grind alive.",
     source: 'Samsung Health',
     verified: true,
-    youtubeShortUrl: null,
+    youtubeShortUrl: 'https://youtube.com/shorts/E_sk2S09X4E?si=9OBsTt4g9uyAHFzz',
     gains: {
       distanceDelta: "+0.01 km",
       paceDelta:     "+0s/km slower",
