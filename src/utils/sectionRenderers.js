@@ -141,144 +141,70 @@ export function renderProgressTracker(container, stats, onInspectRun) {
   });
 }
 function renderRunCard(log) {
-  const hasPrevDay = log.gains !== undefined;
-  const hasMap = !!log.mapCard;
-  const metrics = [
-    { label: 'Distance', value: `${log.distanceKm} km`, highlight: true },
-    { label: 'Duration', value: log.duration },
-    { label: 'Avg Pace', value: log.pace, sub: '/km', highlight: true },
-    { label: 'Best Pace', value: log.fastestPace, sub: '/km' },
-    { label: 'Avg Speed', value: `${log.avgSpeedKmh} km/h` },
-    { label: 'Total Steps', value: log.steps.toLocaleString() },
-    { label: 'Calories', value: `${log.calories} kcal` },
-  ];
-
   return `
-    <article data-run-card="${log.day}" class="run-card rounded-3xl glass-card border border-gray-800 hover:border-[#00f098]/40 transition-all overflow-hidden flex flex-col justify-between group">
-      <div>
-        <!-- Top Badge Header -->
-        <div class="p-5 pb-3 flex items-center justify-between border-b border-gray-800/80">
-          <div class="flex items-center gap-3">
-            <span class="px-3.5 py-1 rounded-full ${log.day === 1 ? 'bg-[#00f098]/20 text-[#00f098] border border-[#00f098]/40' : log.day === 2 ? 'bg-[#f59e0b]/20 text-[#f59e0b] border border-[#f59e0b]/40' : 'bg-sky-500/20 text-sky-400 border border-sky-500/40'} text-xs font-black uppercase font-mono tracking-wider">
-              DAY ${log.day < 10 ? '0' + log.day : log.day}
+    <article data-run-card="${log.day}"
+      class="run-card h-full rounded-2xl glass-card border border-gray-800 hover:border-[#00f098]/40 transition-all overflow-hidden flex flex-col">
+      
+      <!-- Header -->
+      <div class="p-3 sm:p-4 flex items-start justify-between gap-2 border-b border-gray-800/80">
+        <div class="min-w-0">
+          <div class="flex items-center gap-2 flex-wrap">
+            <span class="px-2.5 py-0.5 rounded-full bg-[#00f098]/15 text-[#00f098] border border-[#00f098]/30 text-[10px] font-black font-mono">
+              DAY ${log.day}
             </span>
-            <div>
-              <p class="text-sm font-extrabold text-white">${log.dateLabel} • ${log.time}</p>
-              <p class="text-[11px] text-gray-400">${log.fullDate}</p>
-            </div>
+            <span class="text-[10px] text-gray-500 font-medium truncate">${log.routeType || 'Run'}</span>
           </div>
-          <div class="text-right">
-            <span class="text-xl font-extrabold text-[#00f098] font-mono">${log.distanceKm} KM</span>
-            <span class="block text-[10px] uppercase font-bold text-gray-400">${log.routeType}</span>
-          </div>
+          <p class="text-sm font-bold text-white mt-1 truncate">${log.dateLabel} · ${log.time}</p>
+          <p class="text-[11px] text-gray-500 truncate">${log.routeLocation || 'Perth, WA'}</p>
         </div>
-
-        <!-- Interactive Visual Switcher & Frame -->
-        <div class="p-5 pb-3 space-y-3">
-          <div class="flex items-center justify-between">
-            <span class="text-[11px] font-bold uppercase tracking-wider text-gray-400">${hasMap ? 'Route Map & Proof' : 'Run Proof'}</span>
-            <!-- View Mode Switcher (only shown if map exists) -->
-            ${hasMap ? `
-            <div class="inline-flex p-0.5 rounded-xl bg-gray-900 border border-gray-800">
-              <button data-view-toggle data-day="${log.day}" data-view="map" class="px-3 py-1 rounded-lg text-[11px] font-extrabold bg-[#00f098] text-black shadow-md transition-all">
-                🛰️ GPS Map
-              </button>
-              <button data-view-toggle data-day="${log.day}" data-view="proof" class="px-3 py-1 rounded-lg text-[11px] font-extrabold bg-gray-800/80 text-gray-400 hover:text-white transition-all">
-                📱 Proof
-              </button>
-            </div>` : `
-            <span class="px-2.5 py-1 rounded-lg bg-gray-900 text-[10px] text-gray-500 border border-gray-800">📱 Samsung Health</span>
-            `}
-          </div>
-
-          <!-- Visual Display Container -->
-          <div class="relative rounded-2xl overflow-hidden bg-gray-950/90 border border-gray-800 aspect-[16/10] sm:aspect-[16/9] flex items-center justify-center group/visual cursor-pointer" data-inspect-run="${log.day}" title="Click to inspect full route and telemetry">
-            ${hasMap ? `
-            <!-- GPS Map View -->
-            <div data-card-visual="map" class="w-full h-full relative">
-              <img src="${log.mapCard}" alt="Day ${log.day} extracted GPS route map" class="w-full h-full object-cover group-hover/visual:scale-105 transition-transform duration-500" loading="lazy" />
-              <div class="absolute bottom-2 left-2 px-2.5 py-1 rounded-lg bg-black/75 backdrop-blur-sm text-[10px] font-bold text-[#00f098] border border-[#00f098]/30 flex items-center gap-1.5">
-                <span class="w-1.5 h-1.5 rounded-full bg-[#00f098] animate-ping"></span>
-                Extracted GPS Trace
-              </div>
-            </div>` : ''}
-
-            <!-- Samsung Health Proof View -->
-            <div data-card-visual="proof" class="w-full h-full relative ${hasMap ? 'hidden' : ''}">
-              <img src="${log.image}" alt="Day ${log.day} official Samsung Health run screenshot" class="w-full h-full object-contain p-2 group-hover/visual:scale-105 transition-transform duration-500" loading="lazy" />
-              <div class="absolute bottom-2 left-2 px-2.5 py-1 rounded-lg bg-black/75 backdrop-blur-sm text-[10px] font-bold text-white border border-white/20">
-                Samsung Health Card
-              </div>
-            </div>
-
-            <!-- Hover overlay button -->
-            <div class="absolute top-2 right-2 px-2.5 py-1 rounded-lg bg-black/70 backdrop-blur-sm text-[10px] font-bold text-gray-300 opacity-90 group-hover/visual:opacity-100 group-hover/visual:bg-[#00f098] group-hover/visual:text-black transition-all flex items-center gap-1 border border-white/10">
-              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"/></svg>
-              <span>Inspect</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Telemetry Metrics Grid -->
-        <div class="px-5 pb-3">
-          <div class="grid grid-cols-4 gap-2">
-            ${metrics.map((m) => `
-              <div class="p-2.5 rounded-xl bg-gray-900/90 border border-gray-800 text-center">
-                <p class="text-[9px] uppercase font-bold text-gray-400 tracking-wider">${m.label}</p>
-                <p class="text-xs sm:text-sm font-extrabold ${m.highlight ? 'text-[#00f098]' : 'text-white'} font-mono mt-0.5">
-                  ${m.value}
-                </p>
-              </div>
-            `).join('')}
-          </div>
-        </div>
-
-        <!-- Route Details & Notes -->
-        <div class="px-5 pb-4 space-y-2.5">
-          <div class="flex items-center gap-2 text-xs text-[#00f098] font-bold">
-            <svg class="w-4 h-4 shrink-0 text-[#00f098]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-            <span>${log.routeLocation}</span>
-          </div>
-          <p class="text-xs text-gray-300 leading-relaxed">${log.routeDescription}</p>
-
-          <div class="p-3 rounded-2xl bg-gray-900/60 border border-gray-800 text-xs text-gray-300 italic">
-            "${log.quote}"
-          </div>
-
-          ${hasPrevDay && log.gains ? `
-            <div class="p-3 rounded-2xl bg-gradient-to-r from-amber-500/10 via-[#00f098]/10 to-transparent border border-amber-500/30 space-y-1">
-              <div class="flex items-center gap-1.5 text-xs font-bold text-[#f59e0b]">
-                <span>⚡ Day-over-Day Momentum Gain</span>
-              </div>
-              <div class="flex flex-wrap gap-2 text-[11px] font-mono text-gray-300">
-                <span class="${log.gains.distanceDelta.startsWith('+') ? 'text-[#00f098]' : 'text-rose-400'} font-bold">${log.gains.distanceDelta}</span> •
-                <span class="text-amber-400 font-bold">${log.gains.paceDelta}</span> •
-                <span class="text-sky-400 font-bold">${log.gains.speedDelta}</span> •
-                <span class="text-purple-400 font-bold">${log.gains.stepsDelta}</span>
-              </div>
-            </div>
-          ` : ''}
+        <div class="text-right shrink-0">
+          <p class="text-xl sm:text-2xl font-extrabold text-[#00f098] font-mono leading-none">${log.distanceKm}</p>
+          <p class="text-[10px] text-gray-500 uppercase font-bold mt-0.5">km</p>
         </div>
       </div>
 
-      <!-- Footer Action -->
-      <div class="p-5 pt-3 border-t border-gray-800/80 flex items-center justify-between gap-2 flex-wrap">
-        <span class="inline-flex items-center gap-1.5 text-[11px] font-semibold text-gray-400">
-          <svg class="w-3.5 h-3.5 text-[#00f098]" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-          Samsung Health Tracked
+      <!-- Proof image: contain so it is not zoomed/cropped -->
+      <button type="button" data-inspect-run="${log.day}"
+        class="relative w-full bg-gray-950 border-b border-gray-800 flex items-center justify-center"
+        style="aspect-ratio: 4 / 3;">
+        <img
+          src="${log.image}"
+          alt="Day ${log.day} Samsung Health proof"
+          class="max-w-full max-h-full w-auto h-auto object-contain p-2"
+          loading="lazy"
+        />
+        <span class="absolute bottom-2 left-2 px-2 py-0.5 rounded-md bg-black/70 text-[10px] font-bold text-white pointer-events-none">
+          Samsung Health
         </span>
-        <div class="flex items-center gap-2">
-          ${log.youtubeShortUrl ? `
-          <a href="${log.youtubeShortUrl}" target="_blank" rel="noopener noreferrer"
-            class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-red-600/15 hover:bg-red-600 text-red-400 hover:text-white border border-red-500/30 text-[11px] font-bold transition-all">
-            <svg class="w-3 h-3 fill-current" viewBox="0 0 24 24"><path d="M10 15l5.19-3L10 9v6m11.56-7.83c.13.47.22 1.1.28 1.9.07.8.1 1.49.1 2.09L22 12c0 2.19-.16 3.8-.44 4.83-.25.9-.83 1.48-1.73 1.73-.47.13-1.33.22-2.65.28-1.3.07-2.49.1-3.59.1L12 22c-4.19 0-6.8-.16-7.83-.44-.9-.25-1.48-.83-1.73-1.73-.13-.47-.22-1.1-.28-1.9-.07-.8-.1-1.49-.1-2.09L2 12c0-2.19.16-3.8.44-4.83.25-.9.83-1.48 1.73-1.73.47-.13 1.33-.22 2.65-.28 1.3-.07 2.49-.1 3.59-.1L12 2c4.19 0 6.8.16 7.83.44.9.25 1.48.83 1.73 1.73z"/></svg>
-            Short
-          </a>` : ''}
-          <button data-inspect-run="${log.day}" class="text-xs font-bold text-[#00f098] hover:text-white flex items-center gap-1 hover:underline transition-all">
-            <span>Full Telemetry</span>
-            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-          </button>
+      </button>
+
+      <!-- Metrics -->
+      <div class="p-3 grid grid-cols-3 gap-2 text-center border-b border-gray-800/60">
+        <div>
+          <p class="text-[9px] uppercase text-gray-500 font-bold">Pace</p>
+          <p class="text-xs sm:text-sm font-extrabold text-white font-mono">${log.pace || '—'}</p>
         </div>
+        <div>
+          <p class="text-[9px] uppercase text-gray-500 font-bold">Time</p>
+          <p class="text-xs sm:text-sm font-extrabold text-white font-mono">${log.duration || '—'}</p>
+        </div>
+        <div>
+          <p class="text-[9px] uppercase text-gray-500 font-bold">Speed</p>
+          <p class="text-xs sm:text-sm font-extrabold text-white font-mono">${log.avgSpeedKmh != null ? log.avgSpeedKmh : '—'}</p>
+        </div>
+      </div>
+
+      <!-- Actions -->
+      <div class="p-3 flex items-center justify-between gap-2 mt-auto">
+        ${log.youtubeShortUrl ? `
+        <a href="${log.youtubeShortUrl}" target="_blank" rel="noopener noreferrer"
+          class="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-red-600/15 text-red-400 border border-red-500/30 text-[11px] font-bold hover:bg-red-600 hover:text-white transition-all">
+          Short
+        </a>` : `<span class="text-[10px] text-gray-600">—</span>`}
+        <button type="button" data-inspect-run="${log.day}"
+          class="text-[11px] font-bold text-[#00f098] hover:underline">
+          Full details →
+        </button>
       </div>
     </article>
   `;
@@ -287,7 +213,7 @@ function renderRunCard(log) {
 
 function renderDailyShortsScroller(runningLogs) {
   const CHANNEL_URL = 'https://www.youtube.com/@Krashworks/shorts';
-  const shorts = runningLogs.filter(l => l.youtubeShortUrl);
+  const shorts = runningLogs.filter(l => l.youtubeShortUrl).slice().reverse();
   if (shorts.length === 0) return '';
 
   const cards = shorts.map(log => `
@@ -473,49 +399,88 @@ export function renderAimAndGoal(container, stats) {
 export function renderProducts(container, onEnquire) {
   if (!container) return;
 
+  const items = [
+    { id: 'tee', label: 'Official Tee', emoji: '👕', hint: 'Soft cotton · Perth emblem' },
+    { id: 'cap', label: 'Running Cap', emoji: '🧢', hint: 'Sunrise-run friendly' },
+    { id: 'stickers', label: 'Sticker Pack', emoji: '✨', hint: 'Bottle & laptop' },
+  ];
+
   container.innerHTML = `
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-      ${products.map((product) => `
-        <article class="product-card rounded-3xl glass-card border border-gray-800 overflow-hidden flex flex-col hover:border-[#00f098]/40 transition-all group">
-          <div class="relative h-44 bg-gradient-to-br from-gray-900 via-[#0d1726] to-gray-900 flex items-center justify-center border-b border-gray-800">
-            <div class="w-20 h-20 rounded-2xl bg-[#00f098]/10 border border-[#00f098]/30 flex items-center justify-center text-[#00f098] group-hover:scale-110 transition-transform">
-              <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/>
-              </svg>
-            </div>
-            ${product.badge ? `<span class="absolute top-3 right-3 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-[#f59e0b]/20 text-[#f59e0b] border border-[#f59e0b]/30">${product.badge}</span>` : ''}
-            ${!product.inStock ? `<span class="absolute top-3 left-3 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-gray-800 text-gray-400 border border-gray-700">Coming Soon</span>` : ''}
+    <div class="max-w-3xl mx-auto space-y-8">
+      <!-- Interactive: pick a favourite (local only) -->
+      <div class="p-5 sm:p-6 rounded-3xl glass-card border border-purple-500/20 space-y-4">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+          <div>
+            <p class="text-xs font-bold uppercase text-purple-400">Coming soon · teaser</p>
+            <h3 class="text-lg font-extrabold text-white">Which drop should we ship first?</h3>
           </div>
-          <div class="p-5 flex flex-col flex-1 space-y-3">
-            <div>
-              <span class="text-[10px] font-bold uppercase text-gray-500">${product.category}</span>
-              <h4 class="text-base font-extrabold text-white mt-0.5">${product.name}</h4>
-            </div>
-            <p class="text-xs text-gray-400 leading-relaxed flex-1">${product.description}</p>
-            <div class="flex items-center justify-between pt-2 border-t border-gray-800">
-              <span class="text-lg font-extrabold text-[#00f098] font-mono">${product.priceLabel}</span>
-              <button data-product-id="${product.id}" class="product-enquire-btn px-4 py-2 rounded-xl text-xs font-bold ${product.inStock ? 'bg-[#00f098]/10 text-[#00f098] border border-[#00f098]/30 hover:bg-[#00f098] hover:text-black' : 'bg-gray-800 text-gray-500 border border-gray-700 cursor-not-allowed'} transition-all">
-                ${product.inStock ? (product.shopUrl ? 'Shop Now' : 'Enquire') : 'Notify Me'}
-              </button>
-            </div>
-          </div>
-        </article>
-      `).join('')}
+          <span id="merchVoteStatus" class="text-xs text-gray-500">Tap one — saved on this device</span>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3" id="merchVoteGrid">
+          ${items.map((item) => `
+            <button type="button" data-merch-vote="${item.id}"
+              class="merch-vote-btn p-4 rounded-2xl bg-gray-900/80 border border-gray-800 hover:border-purple-400/50 text-left transition-all space-y-2">
+              <span class="text-2xl">${item.emoji}</span>
+              <p class="text-sm font-extrabold text-white">${item.label}</p>
+              <p class="text-[11px] text-gray-500">${item.hint}</p>
+              <span class="inline-flex items-center gap-1.5 text-[10px] font-bold text-purple-300">
+                <span class="w-1.5 h-1.5 rounded-full bg-purple-400 animate-pulse"></span>
+                Coming soon
+              </span>
+            </button>
+          `).join('')}
+        </div>
+      </div>
+
+      <!-- Notify form -->
+      <form id="merchNotifyForm"
+        action="https://formsubmit.co/krashworks0@gmail.com"
+        method="POST"
+        class="p-5 sm:p-6 rounded-3xl glass-card border border-gray-800 space-y-4">
+        <input type="hidden" name="_subject" value="GetLoud Merch — Launch notify" />
+        <input type="hidden" name="_captcha" value="false" />
+        <input type="hidden" name="_template" value="table" />
+        <input type="hidden" name="vote" id="merchVoteField" value="" />
+        <input type="text" name="_honey" class="hidden" tabindex="-1" autocomplete="off" />
+
+        <p class="text-sm font-extrabold text-white">Get notified when the shop opens</p>
+        <div class="flex flex-col sm:flex-row gap-3">
+          <input required type="email" name="email" placeholder="you@email.com"
+            class="flex-1 px-4 py-3 rounded-xl bg-gray-950 border border-gray-700 text-white text-sm focus:border-purple-400 outline-none" />
+          <button type="submit"
+            class="px-6 py-3 rounded-xl bg-purple-500 hover:bg-purple-400 text-white font-bold text-sm transition-all shrink-0">
+            Notify me
+          </button>
+        </div>
+        <p class="text-[11px] text-gray-500">Goes to Krash Productions · no spam · no payment on this site</p>
+      </form>
     </div>
-    <p class="text-center text-xs text-gray-500 mt-8 italic">${merchConfig.shopNote}</p>
   `;
 
-  container.querySelectorAll('.product-enquire-btn').forEach((btn) => {
-    const productId = btn.getAttribute('data-product-id');
-    const product = products.find((p) => p.id === productId);
-    if (product?.inStock && product?.shopUrl) {
-      btn.addEventListener('click', () => window.open(product.shopUrl, '_blank'));
-    } else if (product?.inStock) {
-      btn.addEventListener('click', () => onEnquire?.(product));
-    }
+  const voteField = container.querySelector('#merchVoteField');
+  const status = container.querySelector('#merchVoteStatus');
+  const saved = localStorage.getItem('getloud-merch-vote');
+
+  const applyVote = (id) => {
+    container.querySelectorAll('[data-merch-vote]').forEach((btn) => {
+      const on = btn.getAttribute('data-merch-vote') === id;
+      btn.classList.toggle('border-purple-400', on);
+      btn.classList.toggle('bg-purple-500/10', on);
+    });
+    if (voteField) voteField.value = id || '';
+    if (status) status.textContent = id ? `You picked: ${id}` : 'Tap one — saved on this device';
+  };
+
+  if (saved) applyVote(saved);
+
+  container.querySelectorAll('[data-merch-vote]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const id = btn.getAttribute('data-merch-vote');
+      localStorage.setItem('getloud-merch-vote', id);
+      applyVote(id);
+    });
   });
 }
-
 export function renderWeeklyDonations(container, stats) {
   if (!container) return;
 
@@ -578,29 +543,83 @@ function renderDonationWeekCard(week) {
 export function renderPodcasts(container, onPlayEpisode) {
   if (!container) return;
 
+  const available = podcastEpisodes.filter((ep) => ep.status === 'available');
+  const nextUp = podcastEpisodes.find((ep) => ep.status === 'upcoming');
+
   container.innerHTML = `
-    <div class="space-y-8">
-      <div class="flex flex-wrap items-center gap-4 p-4 rounded-2xl glass-card border border-gray-800">
-        <div class="flex-1 min-w-[200px]">
-          <p class="text-sm font-extrabold text-white">${podcastConfig.seriesTitle}</p>
-          <p class="text-xs text-gray-400">Hosted by ${podcastConfig.host} • ${podcastConfig.production}</p>
+    <div class="max-w-3xl mx-auto space-y-6">
+      <!-- Status strip -->
+      <div class="p-5 rounded-3xl glass-card border border-blue-500/20 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+          <p class="text-xs font-bold uppercase text-blue-400">Series status</p>
+          <p class="text-lg font-extrabold text-white">${podcastConfig.seriesTitle}</p>
+          <p class="text-xs text-gray-400 mt-1">Hosted by ${podcastConfig.host} · ${available.length} live · rest in production</p>
         </div>
-        <div class="flex flex-wrap gap-2">
-          ${podcastConfig.platforms.map((p) => `
-            <span class="px-3 py-1.5 rounded-lg text-[10px] font-bold ${p.url ? 'bg-[#00f098]/10 text-[#00f098] border border-[#00f098]/30 cursor-pointer hover:bg-[#00f098]/20' : 'bg-gray-900 text-gray-500 border border-gray-800'} transition-all" ${p.url ? `data-platform-url="${p.url}"` : ''}>
-              ${p.name}${p.url ? '' : ' (Soon)'}
-            </span>
+        <div class="text-left sm:text-right">
+          <p class="text-xs text-gray-500">Next focus</p>
+          <p class="text-sm font-bold text-white">${nextUp ? nextUp.title : 'TBA'}</p>
+          <p class="text-[11px] text-gray-500">${nextUp ? nextUp.perthLocation : ''}</p>
+        </div>
+      </div>
+
+      <!-- Available only (if any) -->
+      ${available.length ? `
+      <div class="space-y-3">
+        <p class="text-xs font-bold uppercase text-gray-500">Available now</p>
+        <div class="space-y-3">
+          ${available.map((ep) => `
+            <div class="p-4 rounded-2xl glass-card border border-gray-800 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+              <div>
+                <p class="text-sm font-extrabold text-white">${ep.title}</p>
+                <p class="text-xs text-gray-400">${ep.guest} · ${ep.duration}</p>
+              </div>
+              <button type="button" data-episode-id="${ep.id}"
+                class="px-4 py-2 rounded-xl text-xs font-bold bg-gray-900 border border-gray-700 text-white hover:bg-[#00f098] hover:text-black transition-all">
+                ${ep.audioUrl ? 'Listen' : 'Preview soon'}
+              </button>
+            </div>
           `).join('')}
         </div>
-      </div>
-      <p class="text-xs text-gray-500 italic text-center">${podcastConfig.subscribeNote}</p>
+      </div>` : `
+      <div class="p-4 rounded-2xl bg-gray-900/60 border border-dashed border-gray-700 text-center text-sm text-gray-400">
+        First full episodes drop after weekly runs are recorded. Preview slot is reserved for launch.
+      </div>`}
 
-           <p class="h-scroll-hint">Swipe for more episodes →</p>
-      <div class="h-scroll h-scroll-lg-grid-3">
-        ${podcastEpisodes.map((ep) => `
-          <div class="h-card-wide">${renderPodcastCard(ep)}</div>
-        `).join('')}
-      </div>
+      <!-- Interactive: register interest -->
+      <form id="podcastRegisterForm"
+        action="https://formsubmit.co/krashworks0@gmail.com"
+        method="POST"
+        class="p-5 sm:p-6 rounded-3xl glass-card border border-blue-500/20 space-y-4">
+        <input type="hidden" name="_subject" value="GetLoud Podcast — Interest / guest idea" />
+        <input type="hidden" name="_captcha" value="false" />
+        <input type="hidden" name="_template" value="table" />
+        <input type="text" name="_honey" class="hidden" tabindex="-1" autocomplete="off" />
+
+        <p class="text-sm font-extrabold text-white">Register interest</p>
+        <p class="text-xs text-gray-400">Get episode alerts, or pitch yourself / a guest for a week.</p>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <input required name="name" placeholder="Your name"
+            class="px-4 py-3 rounded-xl bg-gray-950 border border-gray-700 text-white text-sm outline-none focus:border-blue-400" />
+          <input required type="email" name="email" placeholder="Email"
+            class="px-4 py-3 rounded-xl bg-gray-950 border border-gray-700 text-white text-sm outline-none focus:border-blue-400" />
+        </div>
+
+        <select name="interest" class="w-full px-4 py-3 rounded-xl bg-gray-950 border border-gray-700 text-white text-sm outline-none focus:border-blue-400">
+          <option value="notify">Just notify me when episodes drop</option>
+          <option value="guest">I’d like to be a podcast guest</option>
+          <option value="topic">I have a topic suggestion</option>
+        </select>
+
+        <textarea name="message" rows="3" placeholder="Optional: topic, week preference, or link"
+          class="w-full px-4 py-3 rounded-xl bg-gray-950 border border-gray-700 text-white text-sm outline-none focus:border-blue-400 resize-none"></textarea>
+
+        <button type="submit"
+          class="w-full sm:w-auto px-6 py-3 rounded-xl bg-blue-500 hover:bg-blue-400 text-white font-bold text-sm transition-all">
+          Send to Karsang
+        </button>
+        <p class="text-[11px] text-gray-500">Handled personally · not a booking confirmation until he replies</p>
+      </form>
     </div>
   `;
 
@@ -609,10 +628,6 @@ export function renderPodcasts(container, onPlayEpisode) {
       const ep = podcastEpisodes.find((e) => e.id === btn.getAttribute('data-episode-id'));
       if (ep) onPlayEpisode?.(ep);
     });
-  });
-
-  container.querySelectorAll('[data-platform-url]').forEach((el) => {
-    el.addEventListener('click', () => window.open(el.getAttribute('data-platform-url'), '_blank'));
   });
 }
 

@@ -228,19 +228,23 @@ section .mb-12 {
 }
 
 /* Card widths inside horizontal rows */
+/* Run cards: readable on phone, full width in desktop grid */
 .h-scroll .run-card-wrapper,
-.h-scroll .h-card {
-  width: min(85vw, 320px);
-}
-
 .h-scroll .h-card-wide {
-  width: min(88vw, 360px);
+  width: min(78vw, 280px);
 }
 
 .h-scroll .h-card-sm {
-  width: min(70vw, 220px);
+  width: min(70vw, 200px);
 }
 
+@media (min-width: 1024px) {
+  .h-scroll-lg-grid .run-card-wrapper,
+  .h-scroll-lg-grid .h-card-wide {
+    width: auto !important;
+    max-width: none;
+  }
+}
 /* Hide ugly scrollbar a bit but keep usable */
 .h-scroll::-webkit-scrollbar {
   height: 6px;
