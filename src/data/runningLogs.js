@@ -31,6 +31,7 @@ import day24Image from '../assets/day24.jpeg';
 import day25Image from '../assets/day25.jpeg';
 import day26Image from '../assets/day26.jpeg';
 import day27Image from '../assets/day27.jpeg';
+import day28Image from '../assets/day28.jpeg';
 
 /** Official Samsung Health run logs extracted from Karsang Ghising's verified runs */
 export const runningLogs = [
@@ -946,6 +947,40 @@ export const runningLogs = [
       paceDelta:     "-17s/km faster",
       speedDelta:    "+0.6 km/h",
       stepsDelta:    "-128 steps",
+    },
+  },
+  {
+    day: 28,
+    date: "2026-10-28",
+    dateLabel: "28 Oct",
+    fullDate: "Wednesday, 28 Oct 2026",
+    time: "5:00 pm",
+    distanceKm: 6,
+    duration: "30:00",
+    pace: "05'00\"",
+    avgSpeedKmh: 12,
+    fastestPace: "04'00\"",
+    steps: 4800,
+    cadenceSpm: null,
+    avgStrideM: null,
+    calories: 330,
+    elevationM: null,
+    routeType: "Evening Loop",
+    routeLocation: "Perth, WA",
+    routeDescription: "Day 28 run. 6 km in 30:00 at 05'00\"/km average pace.",
+    image: day28Image,
+    mapCard: null,
+    mapCrop: null,
+    routeSvg: null,
+    quote: "Day 28 done. 6 km at 05'00\" — keeping the grind alive.",
+    source: 'Samsung Health',
+    verified: true,
+    youtubeShortUrl: "https://www.youtube.com/shorts/9UyU757rdiY",
+    gains: {
+      distanceDelta: "-0.08 km",
+      paceDelta:     "-27s/km faster",
+      speedDelta:    "+1.0 km/h",
+      stepsDelta:    "-665 steps",
     },
   },
 ];
