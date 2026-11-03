@@ -181,28 +181,28 @@ function renderRunCard(log) {
       <!-- Metrics -->
       <div class="p-3 grid grid-cols-3 gap-2 text-center border-b border-gray-800/60">
         <div>
-          <p class="text-[9px] uppercase text-gray-500 font-bold">Pace</p>
+          <p class="text-[9px] uppercase text-gray-400 font-bold">Pace</p>
           <p class="text-xs sm:text-sm font-extrabold text-white font-mono">${log.pace || '—'}</p>
         </div>
         <div>
-          <p class="text-[9px] uppercase text-gray-500 font-bold">Time</p>
+          <p class="text-[9px] uppercase text-gray-400 font-bold">Time</p>
           <p class="text-xs sm:text-sm font-extrabold text-white font-mono">${log.duration || '—'}</p>
         </div>
         <div>
-          <p class="text-[9px] uppercase text-gray-500 font-bold">Speed</p>
+          <p class="text-[9px] uppercase text-gray-400 font-bold">Speed</p>
           <p class="text-xs sm:text-sm font-extrabold text-white font-mono">${log.avgSpeedKmh != null ? log.avgSpeedKmh : '—'}</p>
         </div>
       </div>
 
-      <!-- Actions -->
+      <!-- Actions (min 44px touch targets) -->
       <div class="p-3 flex items-center justify-between gap-2 mt-auto">
         ${log.youtubeShortUrl ? `
         <a href="${log.youtubeShortUrl}" target="_blank" rel="noopener noreferrer"
-          class="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-red-600/15 text-red-400 border border-red-500/30 text-[11px] font-bold hover:bg-red-600 hover:text-white transition-all">
+          class="inline-flex items-center gap-1 px-3 py-2 min-h-[44px] rounded-xl bg-red-600/15 text-red-400 border border-red-500/30 text-[11px] font-bold hover:bg-red-600 hover:text-white active:scale-95 transition-all">
           Short
-        </a>` : `<span class="text-[10px] text-gray-600">—</span>`}
+        </a>` : `<span class="text-[10px] text-gray-500">—</span>`}
         <button type="button" data-inspect-run="${log.day}"
-          class="text-[11px] font-bold text-[#00f098] hover:underline">
+          class="min-h-[44px] px-3 py-2 rounded-xl text-xs font-bold text-[#00f098] hover:underline active:scale-95 flex items-center">
           Full details →
         </button>
       </div>
@@ -446,9 +446,9 @@ export function renderProducts(container, onEnquire) {
         <p class="text-sm font-extrabold text-white">Get notified when the shop opens</p>
         <div class="flex flex-col sm:flex-row gap-3">
           <input required type="email" name="email" placeholder="you@email.com"
-            class="flex-1 px-4 py-3 rounded-xl bg-gray-950 border border-gray-700 text-white text-sm focus:border-purple-400 outline-none" />
+            class="flex-1 px-4 py-3 min-h-[44px] rounded-xl bg-gray-950 border border-gray-700 text-white text-sm focus:border-purple-400 outline-none" />
           <button type="submit"
-            class="px-6 py-3 rounded-xl bg-purple-500 hover:bg-purple-400 text-white font-bold text-sm transition-all shrink-0">
+            class="px-6 py-3 min-h-[44px] rounded-xl bg-purple-500 hover:bg-purple-400 active:scale-95 text-white font-bold text-sm transition-all shrink-0">
             Notify me
           </button>
         </div>
@@ -574,7 +574,7 @@ export function renderPodcasts(container, onPlayEpisode) {
                 <p class="text-xs text-gray-400">${ep.guest} · ${ep.duration}</p>
               </div>
               <button type="button" data-episode-id="${ep.id}"
-                class="px-4 py-2 rounded-xl text-xs font-bold bg-gray-900 border border-gray-700 text-white hover:bg-[#00f098] hover:text-black transition-all">
+                class="px-4 py-2.5 min-h-[44px] rounded-xl text-xs font-bold bg-gray-900 border border-gray-700 text-white hover:bg-[#00f098] hover:text-black active:scale-95 transition-all">
                 ${ep.audioUrl ? 'Listen' : 'Preview soon'}
               </button>
             </div>
@@ -600,12 +600,12 @@ export function renderPodcasts(container, onPlayEpisode) {
 
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
           <input required name="name" placeholder="Your name"
-            class="px-4 py-3 rounded-xl bg-gray-950 border border-gray-700 text-white text-sm outline-none focus:border-blue-400" />
+            class="px-4 py-3 min-h-[44px] rounded-xl bg-gray-950 border border-gray-700 text-white text-sm outline-none focus:border-blue-400" />
           <input required type="email" name="email" placeholder="Email"
-            class="px-4 py-3 rounded-xl bg-gray-950 border border-gray-700 text-white text-sm outline-none focus:border-blue-400" />
+            class="px-4 py-3 min-h-[44px] rounded-xl bg-gray-950 border border-gray-700 text-white text-sm outline-none focus:border-blue-400" />
         </div>
 
-        <select name="interest" class="w-full px-4 py-3 rounded-xl bg-gray-950 border border-gray-700 text-white text-sm outline-none focus:border-blue-400">
+        <select name="interest" class="w-full px-4 py-3 min-h-[44px] rounded-xl bg-gray-950 border border-gray-700 text-white text-sm outline-none focus:border-blue-400">
           <option value="notify">Just notify me when episodes drop</option>
           <option value="guest">I’d like to be a podcast guest</option>
           <option value="topic">I have a topic suggestion</option>
@@ -615,7 +615,7 @@ export function renderPodcasts(container, onPlayEpisode) {
           class="w-full px-4 py-3 rounded-xl bg-gray-950 border border-gray-700 text-white text-sm outline-none focus:border-blue-400 resize-none"></textarea>
 
         <button type="submit"
-          class="w-full sm:w-auto px-6 py-3 rounded-xl bg-blue-500 hover:bg-blue-400 text-white font-bold text-sm transition-all">
+          class="w-full sm:w-auto px-6 py-3 min-h-[44px] rounded-xl bg-blue-500 hover:bg-blue-400 active:scale-95 text-white font-bold text-sm transition-all">
           Send to Karsang
         </button>
         <p class="text-[11px] text-gray-500">Handled personally · not a booking confirmation until he replies</p>
@@ -646,7 +646,7 @@ function renderPodcastCard(ep) {
       </div>
       <p class="text-xs text-gray-400 leading-relaxed flex-1">${ep.description}</p>
       <p class="text-[10px] text-gray-500">📍 ${ep.perthLocation}</p>
-      <button data-episode-id="${ep.id}" class="w-full py-3 rounded-xl text-xs font-bold ${isAvailable ? 'bg-gray-900 hover:bg-[#00f098] text-white hover:text-black border border-gray-700 hover:border-[#00f098]' : 'bg-gray-900/50 text-gray-500 border border-gray-800 cursor-not-allowed'} transition-all flex items-center justify-center gap-2" ${!isAvailable ? 'disabled' : ''}>
+      <button data-episode-id="${ep.id}" class="w-full py-3 min-h-[44px] rounded-xl text-xs font-bold ${isAvailable ? 'bg-gray-900 hover:bg-[#00f098] text-white hover:text-black border border-gray-700 hover:border-[#00f098] active:scale-95' : 'bg-gray-900/50 text-gray-500 border border-gray-800 cursor-not-allowed'} transition-all flex items-center justify-center gap-2" ${!isAvailable ? 'disabled' : ''}>
         <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"/></svg>
         ${isAvailable ? (ep.audioUrl ? 'Listen Now' : 'Preview Episode') : 'Coming Soon'}
       </button>
@@ -660,7 +660,7 @@ export function updateHeroProgress(stats) {
   const heroKmText = document.getElementById('heroKmText');
   const heroRemainingText = document.getElementById('heroRemainingText');
 
-  if (dayText) dayText.textContent = `Day ${stats.currentDay} of ${stats.totalDays} — ${formatKm(stats.distanceCoveredKm)} km logged`;
+  if (dayText) dayText.textContent = `Day ${stats.currentDay} of ${stats.totalDays}`;
   if (progressBar) progressBar.style.width = `${Math.max(stats.progressPercent, 2)}%`;
   if (heroKmText) heroKmText.textContent = `${formatKm(stats.distanceCoveredKm)} KM`;
   if (heroRemainingText) heroRemainingText.textContent = `${formatKm(stats.remainingKm)} KM LEFT`;

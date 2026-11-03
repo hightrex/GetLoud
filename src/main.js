@@ -124,11 +124,13 @@ function initScrollReveal(root = document) {
     observeReveal(observer, el);
   });
 
-  // Staggered grids: each direct .reveal child gets an increasing delay
+  // Staggered grids: each direct .reveal child gets an increasing delay (snappier on mobile)
+  const isMobile = window.innerWidth < 768;
+  const staggerStep = isMobile ? 35 : 85;
   root.querySelectorAll('.reveal-stagger').forEach(grid => {
     const children = [...grid.querySelectorAll(':scope > .reveal, :scope > .reveal-scale')];
     children.forEach((child, i) => {
-      observeReveal(observer, child, i * 85); // 85ms between each card
+      observeReveal(observer, child, i * staggerStep);
     });
   });
 }
@@ -676,11 +678,14 @@ function renderCollaborators(filterCategory = 'all', showAll = false) {
 
   const list = showAll ? filtered : filtered.slice(0, 6);
 
+  const isMobile = window.innerWidth < 768;
+  const collabStagger = isMobile ? 35 : 80;
+
   list.forEach((collab, idx) => {
     const card = document.createElement('div');
     card.className = 'h-card-wide reveal-scale';
     // Stagger via inline delay
-    card.style.setProperty('--reveal-delay', `${idx * 80}ms`);
+    card.style.setProperty('--reveal-delay', `${idx * collabStagger}ms`);
 
     const isConfirmed  = collab.isConfirmed;
     const statusBadge  = isConfirmed
@@ -725,7 +730,7 @@ function renderCollaborators(filterCategory = 'all', showAll = false) {
         <button
           type="button"
           data-collab-week="${collab.week}"
-          class="collab-request-btn w-full py-2.5 rounded-xl text-xs font-extrabold
+          class="collab-request-btn w-full py-2.5 min-h-[44px] rounded-xl text-xs font-extrabold
             ${isConfirmed
               ? 'bg-gray-900 text-gray-500 border border-gray-800 cursor-default'
               : 'bg-gradient-to-r from-[#00f098] to-[#10b981] text-black hover:scale-[1.02] active:scale-95 transition-all shadow-md shadow-[#00f098]/15'}">
@@ -794,10 +799,13 @@ function renderFAQ() {
   if (!faqAccordionContainer) return;
   faqAccordionContainer.innerHTML = '';
 
+  const isMobile = window.innerWidth < 768;
+  const faqStagger = isMobile ? 30 : 70;
+
   faqData.forEach((item, idx) => {
     const faqCard = document.createElement('div');
     faqCard.className = 'reveal rounded-2xl glass-card border border-gray-800 overflow-hidden transition-all duration-300';
-    faqCard.style.setProperty('--reveal-delay', `${idx * 70}ms`);
+    faqCard.style.setProperty('--reveal-delay', `${idx * faqStagger}ms`);
 
     faqCard.innerHTML = `
       <button

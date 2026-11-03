@@ -42,6 +42,10 @@
     --dur-fast: 0.2s;
     --dur-base: 0.35s;
     --dur-slow: 0.65s;
+
+    /* Mobile reveal tuning */
+    --dur-mobile-reveal: 0.34s;
+    --travel-mobile-reveal: 12px;
   }
 
   /* ── 2. Base Styles ──────────────────────────────────────── */
@@ -50,6 +54,7 @@
     background-color: var(--bg-dark);
     color: #f3f4f6;
     font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    -webkit-text-size-adjust: 100%;
   }
 
   body {
@@ -60,6 +65,20 @@
       radial-gradient(circle at 50% 90%, rgba(59, 130, 246, 0.05) 0%, transparent 50%);
     background-attachment: fixed;
     overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Remove 300ms tap delay & mobile tap highlight */
+  button,
+  a,
+  input,
+  select,
+  textarea,
+  [role="button"] {
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
   }
 
   /* Custom scrollbar */
@@ -96,20 +115,22 @@
     transform    var(--dur-base) var(--ease-spring);
 }
 
-.glass-card:hover {
-  border-color: rgba(0, 240, 152, 0.40);
-  transform: translateY(-6px);
-  box-shadow:
-    0 28px 56px -18px rgba(0, 240, 152, 0.18),
-    0 6px  18px -6px  rgba(0, 0, 0, 0.6);
-}
+@media (hover: hover) {
+  .glass-card:hover {
+    border-color: rgba(0, 240, 152, 0.40);
+    transform: translateY(-6px);
+    box-shadow:
+      0 28px 56px -18px rgba(0, 240, 152, 0.18),
+      0 6px  18px -6px  rgba(0, 0, 0, 0.6);
+  }
 
-/* Scale up any images inside hoverable cards */
-.glass-card img {
-  transition: transform 0.55s var(--ease-spring);
-}
-.glass-card:hover img {
-  transform: scale(1.04);
+  /* Scale up any images inside hoverable cards */
+  .glass-card img {
+    transition: transform 0.55s var(--ease-spring);
+  }
+  .glass-card:hover img {
+    transform: scale(1.04);
+  }
 }
 
 /*
@@ -270,6 +291,29 @@
   transform: translateY(0) scale(1);
 }
 
+/* Mobile-specific tighter & snappier reveals */
+@media (max-width: 767px) {
+  .reveal {
+    transform: translateY(var(--travel-mobile-reveal, 12px));
+    transition:
+      opacity   var(--dur-mobile-reveal, 0.34s) var(--ease-out),
+      transform var(--dur-mobile-reveal, 0.34s) var(--ease-spring);
+  }
+  .reveal.is-visible {
+    transform: translateY(0);
+  }
+
+  .reveal-scale {
+    transform: translateY(8px) scale(0.98);
+    transition:
+      opacity   var(--dur-mobile-reveal, 0.32s) var(--ease-out),
+      transform var(--dur-mobile-reveal, 0.32s) var(--ease-spring);
+  }
+  .reveal-scale.is-visible {
+    transform: translateY(0) scale(1);
+  }
+}
+
 
 /* ── 7. Nav Link Micro-interaction ───────────────────────── */
 /*
@@ -299,9 +343,9 @@
 }
 
 
-/* ── 8. Primary CTA Pulse ────────────────────────────────── */
+/* ── 8. Primary CTA Pulse & Touch Interaction ───────────── */
 /*
- * .btn-primary wraps the two main donate / support buttons.
+ * .btn-primary wraps the main donate / support buttons.
  * Continuous soft glow makes them feel "alive" without being loud.
  */
 .btn-primary {
@@ -309,7 +353,8 @@
   transition:
     transform    var(--dur-fast) var(--ease-spring),
     box-shadow   var(--dur-fast) var(--ease-spring),
-    filter       var(--dur-fast) var(--ease-spring) !important;
+    filter       var(--dur-fast) var(--ease-spring),
+    opacity      var(--dur-fast) var(--ease-spring) !important;
 }
 .btn-primary:hover {
   /* Pause pulse on hover and show strong glow instead */
@@ -321,8 +366,45 @@
     0 0    0  1px rgba(0, 240, 152, 0.30) !important;
 }
 .btn-primary:active {
-  transform: scale(0.97) !important;
+  transform: scale(0.96) !important;
+  opacity: 0.92;
+  box-shadow:
+    0 4px 16px -4px rgba(0, 240, 152, 0.45),
+    0 0   0  1px rgba(0, 240, 152, 0.25) !important;
   animation: none;
+}
+
+/* Tactile touch feedback for buttons, chips, and interactive cards */
+button:not(:disabled),
+.tab-btn,
+.mobile-nav-link,
+.collab-request-btn,
+.run-card,
+.merch-vote-btn {
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+button:active:not(:disabled),
+.tab-btn:active,
+.mobile-nav-link:active,
+.collab-request-btn:active,
+.merch-vote-btn:active {
+  transform: scale(0.97);
+  opacity: 0.92;
+  transition: transform 0.1s var(--ease-spring), opacity 0.1s ease;
+}
+
+/* Comfortable minimum 44px touch targets on mobile */
+.btn-primary,
+.tab-btn,
+.mobile-nav-link,
+.collab-request-btn,
+#mobileMenuBtn,
+#closeModalBtn,
+#closeRunModalBtn,
+#closePodcastBtn {
+  min-height: 44px;
 }
 
 
@@ -514,29 +596,33 @@ select:focus-visible {
 
 /* ── 14. Run Card & Product Card Polish ──────────────────── */
 
+/* ── 14. Run Card & Product Card Polish ──────────────────── */
+
 .run-card {
   transition:
     border-color var(--dur-base) var(--ease-spring),
     box-shadow   var(--dur-base) var(--ease-spring),
     transform    var(--dur-base) var(--ease-spring);
 }
-.run-card:hover {
-  transform: translateY(-4px);
-  border-color: rgba(0, 240, 152, 0.40);
-  box-shadow: 0 18px 44px -14px rgba(0, 240, 152, 0.16);
-}
-.run-card img {
-  filter: brightness(0.95);
-  transition:
-    filter    0.4s ease,
-    transform 0.5s var(--ease-spring);
-}
-.run-card:hover img {
-  filter: brightness(1);
-}
+@media (hover: hover) {
+  .run-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(0, 240, 152, 0.40);
+    box-shadow: 0 18px 44px -14px rgba(0, 240, 152, 0.16);
+  }
+  .run-card img {
+    filter: brightness(0.95);
+    transition:
+      filter    0.4s ease,
+      transform 0.5s var(--ease-spring);
+  }
+  .run-card:hover img {
+    filter: brightness(1);
+  }
 
-.product-card:hover {
-  transform: translateY(-4px);
+  .product-card:hover {
+    transform: translateY(-4px);
+  }
 }
 
 
@@ -550,13 +636,13 @@ select:focus-visible {
 
 /* ── 16. Section Spacing & Breathing Room ────────────────── */
 /*
- * More generous spacing on desktop gives each section room to breathe —
- * a key difference between "solid" and "premium" in editorial design.
+ * Generous breathing room gives each section room to breathe on mobile and desktop —
+ * keeping the mobile experience calm, premium, and intentional.
  */
 section[id],
 section.py-20 {
-  padding-top:    3rem;
-  padding-bottom: 3rem;
+  padding-top:    clamp(3.75rem, 8vw, 4.5rem);
+  padding-bottom: clamp(3.75rem, 8vw, 4.5rem);
 }
 @media (min-width: 640px) {
   section[id],
@@ -573,17 +659,50 @@ section.py-20 {
   }
 }
 
-/* Hero: don't force full viewport height */
+/* Hero: generous mobile breathing room & air around progress card */
 #hero {
   min-height: auto;
-  padding-top:    2.5rem;
-  padding-bottom: 2.5rem;
+  padding-top:    clamp(2.75rem, 6.5vw, 4rem);
+  padding-bottom: clamp(3.25rem, 7.5vw, 4.5rem);
 }
 @media (min-width: 1024px) {
   #hero {
-    padding-top:    4rem;
-    padding-bottom: 4rem;
+    padding-top:    4.5rem;
+    padding-bottom: 4.5rem;
   }
+}
+
+/* Hero title fluid hierarchy & text balancing on mobile */
+#hero h1 {
+  font-size: clamp(2.2rem, 7.5vw, 3.75rem);
+  line-height: 1.15;
+  letter-spacing: -0.025em;
+  text-wrap: balance;
+}
+@media (min-width: 640px) {
+  #hero h1 {
+    font-size: 3rem;
+  }
+}
+@media (min-width: 1024px) {
+  #hero h1 {
+    font-size: 3.75rem;
+    line-height: 1.1;
+  }
+}
+
+/* Contrast and line-height polish for cards on mobile */
+.glass-card p,
+.run-card p {
+  line-height: 1.55;
+}
+
+.text-gray-400 {
+  color: #9ca3af;
+}
+
+.text-gray-500 {
+  color: #94a3b8;
 }
 
 /* Collapsed section handling */
@@ -595,11 +714,15 @@ section.py-20 {
 
 .h-scroll {
   display: flex;
-  gap: 1rem;
+  gap: 1.125rem;
   overflow-x: auto;
   overflow-y: hidden;
-  padding-bottom: 0.75rem;
+  padding-top: 0.25rem;
+  padding-bottom: 1rem;
+  padding-inline: 0.25rem;
+  scroll-padding-inline: 1rem;
   scroll-snap-type: x mandatory;
+  scroll-snap-stop: normal;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: thin;
 }
@@ -608,16 +731,24 @@ section.py-20 {
   flex-shrink: 0;
 }
 
-/* Card widths inside h-scroll rows */
+/* Card widths inside h-scroll rows — mobile first with intentional peek of next card */
 .h-scroll .run-card-wrapper,
-.h-scroll .h-card-wide { width: min(78vw, 280px); }
-.h-scroll .h-card-sm   { width: min(70vw, 200px); }
+.h-scroll .h-card-wide { width: min(82vw, 300px); }
+.h-scroll .h-card-sm   { width: min(72vw, 220px); }
 
 .h-scroll::-webkit-scrollbar       { height: 6px; }
 .h-scroll::-webkit-scrollbar-thumb { background: #1f293d; border-radius: 4px; }
+.h-scroll::-webkit-scrollbar-thumb:hover { background: #00f098; }
 
 /* Tablet / desktop — switch to real grid layout */
 @media (min-width: 1024px) {
+  .h-scroll {
+    gap: 1rem;
+    padding-top: 0;
+    padding-bottom: 0.75rem;
+    padding-inline: 0;
+  }
+
   .h-scroll-lg-grid {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -648,11 +779,15 @@ section.py-20 {
 
 /* Scroll-row hint label (hidden on desktop) */
 .h-scroll-hint {
-  display: block;
-  font-size: 11px;
-  color: #6b7280;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #94a3b8;
+  letter-spacing: 0.02em;
   margin-top: -0.25rem;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.625rem;
 }
 @media (min-width: 1024px) {
   .h-scroll-hint { display: none; }
