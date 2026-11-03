@@ -65,15 +65,15 @@
 
       <!-- Desktop Navigation Links -->
       <nav class="hidden md:flex items-center gap-6 text-sm font-semibold text-gray-300">
-        <a href="#progress" class="hover:text-[#00f098] transition-colors">Progress</a>
-        <a href="#collaborators" class="hover:text-[#00f098] transition-colors">Join</a>
-        <a href="#faq" class="hover:text-[#00f098] transition-colors">FAQ</a>
+        <a href="#progress" class="nav-link hover:text-[#00f098] transition-colors">Progress</a>
+        <a href="#collaborators" class="nav-link hover:text-[#00f098] transition-colors">Join</a>
+        <a href="#faq" class="nav-link hover:text-[#00f098] transition-colors">FAQ</a>
       </nav>
 
       <!-- CTA & Mobile Toggle -->
       <div class="flex items-center gap-4">
         <button id="navDonateBtn"
-          class="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#00f098] to-[#10b981] text-black font-bold text-sm shadow-md shadow-[#00f098]/20 hover:shadow-[#00f098]/40 hover:scale-[1.02] active:scale-95 transition-all">
+          class="btn-primary hidden sm:inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#00f098] to-[#10b981] text-black font-bold text-sm shadow-md shadow-[#00f098]/20 hover:shadow-[#00f098]/40 hover:scale-[1.02] active:scale-95 transition-all">
           <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
             <path fill-rule="evenodd"
               d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
@@ -107,16 +107,16 @@
     <section id="hero"
       class="relative min-h-0 flex items-center justify-center py-16 px-4 sm:px-6 lg:px-8 overflow-hidden">
       <div
-        class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#00f098]/10 rounded-full blur-[140px] pointer-events-none">
+        class="orb-float-1 absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#00f098]/10 rounded-full blur-[140px] pointer-events-none">
       </div>
       <div
-        class="absolute bottom-10 right-10 w-[400px] h-[400px] bg-[#f59e0b]/10 rounded-full blur-[120px] pointer-events-none">
+        class="orb-float-2 absolute bottom-10 right-10 w-[400px] h-[400px] bg-[#f59e0b]/10 rounded-full blur-[120px] pointer-events-none">
       </div>
 
       <div class="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center relative z-10">
 
         <!-- Hero Text Content -->
-        <div class="lg:col-span-7 space-y-8 text-left">
+        <div class="lg:col-span-7 space-y-8 text-left reveal">
 
           <div
             class="inline-flex flex-wrap items-center gap-2 px-3.5 py-1.5 rounded-full bg-gradient-to-r from-[#00f098]/15 to-[#f59e0b]/15 border border-[#00f098]/30 shadow-inner">
@@ -173,7 +173,7 @@
           <!-- CTA Buttons -->
           <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 pt-2">
             <button id="heroDonateBtn"
-              class="w-full sm:w-auto px-8 py-4 rounded-xl bg-gradient-to-r from-[#00f098] via-[#10b981] to-[#059669] text-black font-extrabold text-base shadow-xl shadow-[#00f098]/30 hover:shadow-[#00f098]/50 hover:scale-[1.02] active:scale-95 transition-all flex items-center justify-center gap-3 group">
+              class="btn-primary w-full sm:w-auto px-8 py-4 rounded-xl bg-gradient-to-r from-[#00f098] via-[#10b981] to-[#059669] text-black font-extrabold text-base shadow-xl shadow-[#00f098]/30 hover:shadow-[#00f098]/50 hover:scale-[1.02] active:scale-95 transition-all flex items-center justify-center gap-3 group">
               <svg class="w-5 h-5 text-black group-hover:scale-110 transition-transform" fill="currentColor"
                 viewBox="0 0 20 20">
                 <path fill-rule="evenodd"
@@ -196,7 +196,7 @@
         </div>
 
         <!-- Hero Visual Feature Card -->
-        <div class="lg:col-span-5 flex justify-center">
+        <div class="lg:col-span-5 flex justify-center reveal" style="--reveal-delay:150ms">
           <div class="relative w-full max-w-md">
             <div
               class="absolute -inset-1 bg-gradient-to-r from-[#00f098] to-[#f59e0b] rounded-3xl blur-xl opacity-30 animate-pulse">
@@ -256,7 +256,7 @@
 
     <!-- RUNNING PROGRESS TRACKER -->
     <section id="progress" class="py-10 sm:py-14 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-gray-800/80">
-      <div class="text-center max-w-3xl mx-auto space-y-3 mb-6">
+      <div class="reveal text-center max-w-3xl mx-auto space-y-3 mb-6">
         <span
           class="px-3.5 py-1.5 rounded-full bg-[#00f098]/10 text-[#00f098] border border-[#00f098]/20 text-xs font-bold uppercase">
           Live Run Tracker & GPS Maps
@@ -501,7 +501,7 @@
 
        <!-- PODCASTS -->
     <section id="podcasts" class="py-10 sm:py-14 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-gray-800/80">
-      <div class="text-center max-w-2xl mx-auto space-y-3 mb-8">
+      <div class="reveal text-center max-w-2xl mx-auto space-y-3 mb-8">
         <span class="px-3.5 py-1.5 rounded-full bg-blue-500/10 text-blue-400 border border-blue-500/20 text-xs font-bold uppercase">
           Podcast
         </span>
@@ -516,7 +516,7 @@
     <!-- WEEKLY COLLABORATOR REGISTRATION ROSTER (14 OPEN SLOTS) -->
     <section id="collaborators" class="py-10 sm:py-14 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-gray-800/80">
 
-      <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+      <div class="reveal flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
         <div class="space-y-3 max-w-2xl">
           <div
             class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#00f098]/10 text-[#00f098] border border-[#00f098]/20 text-xs font-bold uppercase">
@@ -566,7 +566,7 @@
     <!-- MERCH & PRODUCTS SECTION -->
         <!-- MERCH -->
     <section id="merch" class="py-10 sm:py-14 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-gray-800/80">
-      <div class="text-center max-w-2xl mx-auto space-y-3 mb-8">
+      <div class="reveal text-center max-w-2xl mx-auto space-y-3 mb-8">
         <span class="px-3.5 py-1.5 rounded-full bg-purple-500/10 text-purple-400 border border-purple-500/20 text-xs font-bold uppercase">
           Merch
         </span>
@@ -580,7 +580,7 @@
 
     <!-- WEEKLY DONATIONS SECTION -->
     <section id="donations" class="py-10 sm:py-14 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-gray-800/80">
-      <div class="text-center max-w-3xl mx-auto space-y-3 mb-6">
+      <div class="reveal text-center max-w-3xl mx-auto space-y-3 mb-6">
         <span
           class="px-3.5 py-1.5 rounded-full bg-[#f59e0b]/15 text-[#f59e0b] border border-[#f59e0b]/30 text-xs font-bold uppercase">
           Transparent Fundraising
@@ -597,7 +597,7 @@
 
     <!-- IMPACT -->
     <section id="impact" class="py-10 sm:py-14 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-gray-800/80">
-      <div class="text-center max-w-2xl mx-auto space-y-3 mb-8">
+      <div class="reveal text-center max-w-2xl mx-auto space-y-3 mb-8">
         <span class="px-3.5 py-1.5 rounded-full bg-[#f59e0b]/15 text-[#f59e0b] border border-[#f59e0b]/30 text-xs font-bold uppercase">
           Impact
         </span>
@@ -609,23 +609,23 @@
 
       <div class="max-w-3xl mx-auto space-y-6">
         <!-- Live numbers (reuse existing ids if updateImpactStats still runs) -->
-        <div class="grid grid-cols-3 gap-3">
-          <div class="p-4 rounded-2xl glass-card border border-gray-800 text-center">
+        <div class="grid grid-cols-3 gap-3 reveal-stagger">
+          <div class="reveal p-4 rounded-2xl glass-card border border-gray-800 text-center">
             <p class="text-[10px] uppercase font-bold text-gray-500">Distance</p>
             <p id="statKm" class="text-lg sm:text-xl font-extrabold text-[#00f098] font-mono">—</p>
           </div>
-          <div class="p-4 rounded-2xl glass-card border border-gray-800 text-center">
+          <div class="reveal p-4 rounded-2xl glass-card border border-gray-800 text-center">
             <p class="text-[10px] uppercase font-bold text-gray-500">Days</p>
             <p id="statDays" class="text-lg sm:text-xl font-extrabold text-white font-mono">—</p>
           </div>
-          <div class="p-4 rounded-2xl glass-card border border-gray-800 text-center">
+          <div class="reveal p-4 rounded-2xl glass-card border border-gray-800 text-center">
             <p class="text-[10px] uppercase font-bold text-gray-500">Raised</p>
             <p id="statFunds" class="text-lg sm:text-xl font-extrabold text-[#f59e0b] font-mono">—</p>
           </div>
         </div>
 
         <!-- Interactive: “what $20 can mean” slider (illustrative only) -->
-        <div class="p-5 sm:p-6 rounded-3xl glass-card border border-[#f59e0b]/20 space-y-4">
+        <div class="reveal p-5 sm:p-6 rounded-3xl glass-card border border-[#f59e0b]/20 space-y-4">
           <div class="flex items-center justify-between gap-2">
             <p class="text-sm font-extrabold text-white">Illustrative support</p>
             <span class="text-[10px] text-gray-500">Not a payment · for context only</span>
@@ -654,7 +654,7 @@
     <!-- CLEAN PRE-EVENT FAQ ACCORDION -->
     <section id="faq" class="py-10 sm:py-14 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto border-t border-gray-800/80">
 
-      <div class="text-center space-y-4 mb-14">
+      <div class="reveal text-center space-y-4 mb-14">
         <span
           class="px-3 py-1 rounded-full bg-[#00f098]/10 text-[#00f098] border border-[#00f098]/20 text-xs font-bold uppercase">
           Questions & Clarity
@@ -676,7 +676,7 @@
     <!-- CALL TO ACTION BANNER -->
     <section class="py-10 sm:py-14 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
       <div
-        class="relative rounded-3xl p-8 sm:p-14 overflow-hidden border border-emerald-500/30 glass-card bg-gradient-to-br from-gray-900 via-[#0d1726] to-[#080c14] text-center space-y-6">
+        class="reveal relative rounded-3xl p-8 sm:p-14 overflow-hidden border border-emerald-500/30 glass-card bg-gradient-to-br from-gray-900 via-[#0d1726] to-[#080c14] text-center space-y-6">
         <div class="absolute -top-24 -right-24 w-80 h-80 bg-[#00f098]/20 rounded-full blur-[100px] pointer-events-none">
         </div>
         <div
@@ -700,7 +700,7 @@
           </p>
           <div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
             <button id="ctaDonateBtn"
-              class="w-full sm:w-auto px-8 py-4 rounded-xl bg-gradient-to-r from-[#00f098] to-[#10b981] text-black font-extrabold text-base shadow-xl shadow-[#00f098]/30 hover:scale-105 active:scale-95 transition-all">
+              class="btn-primary w-full sm:w-auto px-8 py-4 rounded-xl bg-gradient-to-r from-[#00f098] to-[#10b981] text-black font-extrabold text-base shadow-xl shadow-[#00f098]/30 hover:scale-105 active:scale-95 transition-all">
               Request a Week Spot
             </button>
             <button id="shareCampaignBtn"
@@ -734,12 +734,12 @@
         </div>
 
         <div class="flex flex-wrap items-center justify-center gap-5 text-sm text-gray-400">
-          <a href="#progress" class="hover:text-[#00f098]">Run Progress</a>
-          <a href="#podcasts" class="hover:text-[#00f098]">Podcasts</a>
-          <a href="#collaborators" class="hover:text-[#00f098]">Collaborators</a>
-          <a href="#merch" class="hover:text-[#00f098]">Merch</a>
-          <a href="#donations" class="hover:text-[#00f098]">Donations</a>
-          <a href="#faq" class="hover:text-[#00f098]">FAQ</a>
+          <a href="#progress" class="nav-link hover:text-[#00f098]">Run Progress</a>
+          <a href="#podcasts" class="nav-link hover:text-[#00f098]">Podcasts</a>
+          <a href="#collaborators" class="nav-link hover:text-[#00f098]">Collaborators</a>
+          <a href="#merch" class="nav-link hover:text-[#00f098]">Merch</a>
+          <a href="#donations" class="nav-link hover:text-[#00f098]">Donations</a>
+          <a href="#faq" class="nav-link hover:text-[#00f098]">FAQ</a>
         </div>
 
         <div class="text-xs text-gray-500">
@@ -761,8 +761,8 @@
 
   <!-- SUPPORT / REGISTRATION MODAL (HONEST NO-PAYMENT FLOW — BOTTOM SHEET ON MOBILE) -->
   <div id="donationModal"
-    class="fixed inset-0 z-50 hidden flex items-end sm:items-center justify-center p-0 sm:p-4 bg-black/85 backdrop-blur-md transition-all duration-300">
-    <div class="relative w-full max-w-xl glass-modal p-5 sm:p-8 rounded-t-3xl sm:rounded-3xl space-y-5 sm:space-y-6 max-h-[92vh] sm:max-h-[90vh] overflow-y-auto">
+    class="modal-backdrop fixed inset-0 z-50 hidden flex items-end sm:items-center justify-center p-0 sm:p-4 bg-black/85 backdrop-blur-md transition-all duration-300">
+    <div class="modal-panel relative w-full max-w-xl glass-modal p-5 sm:p-8 rounded-t-3xl sm:rounded-3xl space-y-5 sm:space-y-6 max-h-[92vh] sm:max-h-[90vh] overflow-y-auto">
 
       <button id="closeModalBtn" aria-label="Close Modal"
         class="absolute top-4 right-4 sm:top-5 sm:right-5 p-2 rounded-xl bg-gray-800/80 text-gray-400 hover:text-white hover:bg-gray-700 transition-all focus:outline-none">
@@ -900,8 +900,8 @@
 
   <!-- AUDIO PODCAST PLAYER MODAL / DRAWER -->
   <div id="podcastPlayerModal"
-    class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-black/85 backdrop-blur-md transition-all duration-300">
-    <div class="relative w-full max-w-lg glass-modal p-6 sm:p-8 rounded-3xl space-y-6 text-center">
+    class="modal-backdrop fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-black/85 backdrop-blur-md transition-all duration-300">
+    <div class="podcast-panel relative w-full max-w-lg glass-modal p-6 sm:p-8 rounded-3xl space-y-6 text-center">
 
       <button id="closePodcastBtn" aria-label="Close Podcast Player"
         class="absolute top-5 right-5 p-2 rounded-xl bg-gray-800 text-gray-400 hover:text-white">
@@ -971,9 +971,9 @@
 
   <!-- RUN & ROUTE MAP INSPECTION LIGHTBOX MODAL -->
   <div id="runInspectionModal"
-    class="fixed inset-0 z-50 hidden bg-black/85 backdrop-blur-md flex items-center justify-center p-3 sm:p-6 overflow-y-auto">
+    class="modal-backdrop fixed inset-0 z-50 hidden bg-black/85 backdrop-blur-md flex items-center justify-center p-3 sm:p-6 overflow-y-auto">
     <div
-      class="glass-modal max-w-4xl w-full rounded-3xl p-6 sm:p-8 space-y-6 relative border border-[#00f098]/30 max-h-[92vh] overflow-y-auto my-auto shadow-2xl shadow-[#00f098]/10">
+      class="run-modal-panel glass-modal max-w-4xl w-full rounded-3xl p-6 sm:p-8 space-y-6 relative border border-[#00f098]/30 max-h-[92vh] overflow-y-auto my-auto shadow-2xl shadow-[#00f098]/10">
       
       <button id="closeRunModalBtn" aria-label="Close Modal"
         class="absolute top-5 right-5 p-2 rounded-xl bg-gray-800/90 text-gray-400 hover:text-white hover:bg-gray-700 transition-colors">

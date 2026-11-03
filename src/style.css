@@ -1,5 +1,29 @@
 @import "tailwindcss";
 
+/* ============================================================
+   GETLOUD — PREMIUM MOTION & VISUAL SYSTEM
+   Sections:
+    1. Design Tokens (CSS custom properties)
+    2. Base Styles (html, body, scrollbar)
+    3. Glassmorphism Components
+    4. Text & Gradient Utilities
+    5. Keyframe Definitions
+    6. Scroll Reveal System
+    7. Nav Link Micro-interaction
+    8. Primary CTA Pulse
+    9. Progress Bar Shimmer
+   10. Modal & Drawer Animations
+   11. Mobile Menu Smooth Expand
+   12. Focus States (Accessibility)
+   13. Hero Ambient Orbs
+   14. Run Card & Product Card Polish
+   15. FAQ & Misc
+   16. Section Spacing & Breathing Room
+   17. Horizontal Scroll Card Layout
+   18. Reduced Motion (MUST BE LAST)
+   ============================================================ */
+
+/* ── 1. Design Tokens ─────────────────────────────────────── */
 @layer base {
   :root {
     --bg-dark: #080c14;
@@ -8,8 +32,19 @@
     --accent-emerald-glow: rgba(0, 240, 152, 0.35);
     --accent-amber: #f59e0b;
     --accent-amber-glow: rgba(245, 158, 11, 0.35);
+
+    /* Spring-like premium easing */
+    --ease-spring:  cubic-bezier(0.16, 1, 0.3, 1);
+    --ease-out:     cubic-bezier(0.33, 1, 0.68, 1);
+    --ease-in-out:  cubic-bezier(0.65, 0, 0.35, 1);
+
+    /* Duration scale */
+    --dur-fast: 0.2s;
+    --dur-base: 0.35s;
+    --dur-slow: 0.65s;
   }
 
+  /* ── 2. Base Styles ──────────────────────────────────────── */
   html {
     scroll-behavior: smooth;
     background-color: var(--bg-dark);
@@ -19,7 +54,7 @@
 
   body {
     background-color: #080c14;
-    background-image: 
+    background-image:
       radial-gradient(circle at 15% 15%, rgba(0, 240, 152, 0.07) 0%, transparent 40%),
       radial-gradient(circle at 85% 65%, rgba(245, 158, 11, 0.06) 0%, transparent 45%),
       radial-gradient(circle at 50% 90%, rgba(59, 130, 246, 0.05) 0%, transparent 50%);
@@ -27,23 +62,16 @@
     overflow-x: hidden;
   }
 
-  /* Custom Scrollbar */
-  ::-webkit-scrollbar {
-    width: 8px;
-  }
-  ::-webkit-scrollbar-track {
-    background: #080c14;
-  }
-  ::-webkit-scrollbar-thumb {
-    background: #1f293d;
-    border-radius: 4px;
-  }
-  ::-webkit-scrollbar-thumb:hover {
-    background: #00f098;
-  }
+  /* Custom scrollbar */
+  ::-webkit-scrollbar        { width: 8px; }
+  ::-webkit-scrollbar-track  { background: #080c14; }
+  ::-webkit-scrollbar-thumb  { background: #1f293d; border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: #00f098; }
 }
 
-/* Glassmorphism & Neon Glow Utilities */
+
+/* ── 3. Glassmorphism Components ─────────────────────────── */
+
 .glass-nav {
   background: rgba(8, 12, 20, 0.82);
   backdrop-filter: blur(16px);
@@ -51,105 +79,458 @@
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
+/*
+ * glass-card — upgraded to spring transition.
+ * The extra translateY and stronger shadow on hover
+ * give a convincing "lift off the page" feel.
+ */
 .glass-card {
   background: rgba(15, 23, 42, 0.65);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   border: 1px solid rgba(255, 255, 255, 0.08);
   box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition:
+    border-color var(--dur-base) var(--ease-spring),
+    box-shadow   var(--dur-base) var(--ease-spring),
+    transform    var(--dur-base) var(--ease-spring);
 }
 
 .glass-card:hover {
-  border-color: rgba(0, 240, 152, 0.35);
-  transform: translateY(-4px);
-  box-shadow: 0 20px 40px -15px rgba(0, 240, 152, 0.15);
+  border-color: rgba(0, 240, 152, 0.40);
+  transform: translateY(-6px);
+  box-shadow:
+    0 28px 56px -18px rgba(0, 240, 152, 0.18),
+    0 6px  18px -6px  rgba(0, 0, 0, 0.6);
 }
 
+/* Scale up any images inside hoverable cards */
+.glass-card img {
+  transition: transform 0.55s var(--ease-spring);
+}
+.glass-card:hover img {
+  transform: scale(1.04);
+}
+
+/*
+ * glass-modal — elevated blur, richer shadow ring to feel
+ * genuinely premium (like a floating sheet of frosted glass).
+ */
 .glass-modal {
-  background: rgba(11, 17, 28, 0.94);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
+  background: rgba(11, 17, 28, 0.96);
+  backdrop-filter: blur(28px);
+  -webkit-backdrop-filter: blur(28px);
   border: 1px solid rgba(0, 240, 152, 0.25);
-  box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.8), 0 0 40px rgba(0, 240, 152, 0.15);
+  box-shadow:
+    0 40px 100px -20px rgba(0, 0, 0, 0.9),
+    0 0   0  1px rgba(0, 240, 152, 0.08),
+    0 0   60px   rgba(0, 240, 152, 0.10);
 }
 
-.glow-emerald {
-  box-shadow: 0 0 25px rgba(0, 240, 152, 0.35);
-}
 
-.glow-emerald-strong {
-  box-shadow: 0 0 35px rgba(0, 240, 152, 0.55), 0 0 10px rgba(0, 240, 152, 0.8);
-}
+/* ── 4. Text & Gradient Utilities ─────────────────────────── */
 
-.glow-amber {
-  box-shadow: 0 0 25px rgba(245, 158, 11, 0.35);
-}
+.glow-emerald       { box-shadow: 0 0 25px rgba(0, 240, 152, 0.35); }
+.glow-emerald-strong{ box-shadow: 0 0 35px rgba(0, 240, 152, 0.55), 0 0 10px rgba(0, 240, 152, 0.8); }
+.glow-amber         { box-shadow: 0 0 25px rgba(245, 158, 11, 0.35); }
 
 .text-gradient-emerald {
   background: linear-gradient(135deg, #ffffff 0%, #00f098 50%, #10b981 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
-
 .text-gradient-amber {
   background: linear-gradient(135deg, #ffffff 0%, #fbbf24 50%, #f59e0b 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
-.bg-gradient-accent {
-  background: linear-gradient(135deg, #00f098 0%, #059669 100%);
+.bg-gradient-accent { background: linear-gradient(135deg, #00f098 0%, #059669 100%); }
+.bg-gradient-amber  { background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); }
+
+
+/* ── 5. Keyframe Definitions ─────────────────────────────── */
+
+/* Scroll-reveal entrance — fade + rise */
+@keyframes revealUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0);    }
 }
 
-.bg-gradient-amber {
-  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+/* Pure fade — used for overlays */
+@keyframes revealFade {
+  from { opacity: 0; }
+  to   { opacity: 1; }
 }
 
-/* Timeline & SVG Animations */
-@keyframes pulseGlow {
+/*
+ * Progress-bar shimmer — a bright diagonal bar sweeps
+ * left-to-right continuously, giving the fill life.
+ */
+@keyframes shimmer {
+  0%   { transform: translateX(-100%); }
+  100% { transform: translateX(400%); }
+}
+
+/*
+ * Hero orb ambient drift — very slow, very small travel.
+ * The orbs look "breathing" rather than "animated".
+ */
+@keyframes orbFloat1 {
+  0%   { transform: translate(0px,   0px)  scale(1);    }
+  33%  { transform: translate(26px, -20px) scale(1.04); }
+  66%  { transform: translate(-18px, 14px) scale(0.97); }
+  100% { transform: translate(0px,   0px)  scale(1);    }
+}
+@keyframes orbFloat2 {
+  0%   { transform: translate(0px,   0px)  scale(1);    }
+  40%  { transform: translate(-24px, 22px) scale(1.03); }
+  75%  { transform: translate(20px, -14px) scale(0.98); }
+  100% { transform: translate(0px,   0px)  scale(1);    }
+}
+
+/*
+ * Primary CTA continuous soft glow pulse.
+ * Barely perceptible on the base state, felt on 50% peak.
+ */
+@keyframes ctaPulse {
   0%, 100% {
-    opacity: 0.8;
-    transform: scale(1);
+    box-shadow: 0 8px 32px -8px rgba(0, 240, 152, 0.32),
+                0 2px 8px  -2px rgba(0, 0, 0, 0.3);
   }
   50% {
-    opacity: 1;
-    transform: scale(1.03);
+    box-shadow: 0 8px 44px -4px rgba(0, 240, 152, 0.60),
+                0 0  22px      rgba(0, 240, 152, 0.22),
+                0 2px 8px  -2px rgba(0, 0, 0, 0.3);
   }
 }
 
-.animate-pulse-glow {
-  animation: pulseGlow 3s infinite ease-in-out;
+/* Legacy keyframes — preserved for existing uses */
+@keyframes pulseGlow {
+  0%, 100% { opacity: 0.8; transform: scale(1);    }
+  50%       { opacity: 1;   transform: scale(1.03); }
 }
+.animate-pulse-glow { animation: pulseGlow 3s infinite ease-in-out; }
 
 @keyframes floatSlow {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-8px); }
+  0%, 100% { transform: translateY(0px);  }
+  50%       { transform: translateY(-8px); }
+}
+.animate-float { animation: floatSlow 4s infinite ease-in-out; }
+
+/*
+ * Toast notification slide-in (replaces animate-bounce).
+ * Slides in from the right edge.
+ */
+@keyframes toastSlideIn {
+  from { opacity: 0; transform: translateX(110%) scale(0.94); }
+  to   { opacity: 1; transform: translateX(0)    scale(1);    }
+}
+.toast-enter {
+  animation: toastSlideIn 0.45s var(--ease-spring) forwards;
 }
 
-.animate-float {
-  animation: floatSlow 4s infinite ease-in-out;
+
+/* ── 6. Scroll Reveal System ─────────────────────────────── */
+/*
+ * How it works:
+ *   - Markup adds class="reveal" (or "reveal-scale") to any element.
+ *   - Elements start invisible & shifted down.
+ *   - JS IntersectionObserver adds .is-visible when they enter viewport.
+ *   - JS sets --reveal-delay (ms) for stagger via inline CSS var.
+ *   - Transition fires. One-shot — observer is disconnected after trigger.
+ */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity   var(--dur-slow) var(--ease-spring),
+    transform var(--dur-slow) var(--ease-spring);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
-/* Modal Open state body freeze */
-body.modal-open {
-  overflow: hidden;
+/* Scale variant — subtle scale-up for cards */
+.reveal-scale {
+  opacity: 0;
+  transform: translateY(16px) scale(0.97);
+  transition:
+    opacity   0.6s var(--ease-spring),
+    transform 0.6s var(--ease-spring);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+.reveal-scale.is-visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
 }
 
-/* Accordion max-height smooth transitions */
-.faq-answer {
-  transition: max-height 0.4s cubic-bezier(0, 1, 0, 1), opacity 0.3s ease;
+
+/* ── 7. Nav Link Micro-interaction ───────────────────────── */
+/*
+ * Elegant underline that slides in from left on hover,
+ * rather than a flat color swap. Far more premium feel.
+ */
+.nav-link {
+  position: relative;
+  transition: color var(--dur-fast) var(--ease-out);
+}
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -3px;
+  left: 0;
+  width: 100%;
+  height: 1.5px;
+  background: var(--accent-emerald);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform var(--dur-base) var(--ease-spring);
+  border-radius: 1px;
+}
+.nav-link:hover::after,
+.nav-link:focus-visible::after {
+  transform: scaleX(1);
 }
 
-/* Progress bar shimmer */
+
+/* ── 8. Primary CTA Pulse ────────────────────────────────── */
+/*
+ * .btn-primary wraps the two main donate / support buttons.
+ * Continuous soft glow makes them feel "alive" without being loud.
+ */
+.btn-primary {
+  animation: ctaPulse 3.5s ease-in-out infinite;
+  transition:
+    transform    var(--dur-fast) var(--ease-spring),
+    box-shadow   var(--dur-fast) var(--ease-spring),
+    filter       var(--dur-fast) var(--ease-spring) !important;
+}
+.btn-primary:hover {
+  /* Pause pulse on hover and show strong glow instead */
+  animation: none;
+  transform: scale(1.035) !important;
+  filter: brightness(1.08);
+  box-shadow:
+    0 14px 44px -8px rgba(0, 240, 152, 0.60),
+    0 0    0  1px rgba(0, 240, 152, 0.30) !important;
+}
+.btn-primary:active {
+  transform: scale(0.97) !important;
+  animation: none;
+}
+
+
+/* ── 9. Progress Bar Shimmer ─────────────────────────────── */
+/*
+ * A bright, narrow highlight sweeps across the progress fill
+ * every ~2 seconds, giving the impression of live activity.
+ */
+
 .progress-bar-fill {
-  transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  transition: width 1.4s var(--ease-out);
+}
+.progress-bar-fill::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  width: 25%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.24) 50%,
+    transparent 100%
+  );
+  animation: shimmer 2.4s ease-in-out 1.5s infinite;
 }
 
+/* Hero progress bar (rendered with Tailwind, not .progress-bar-fill class) */
+#heroProgressBar {
+  position: relative;
+  overflow: hidden;
+  transition: width 1.4s var(--ease-out) !important;
+}
+#heroProgressBar::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  width: 25%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.24) 50%,
+    transparent 100%
+  );
+  animation: shimmer 2.4s ease-in-out 1.5s infinite;
+}
+
+
+/* ── 10. Modal & Drawer Animations ───────────────────────── */
+/*
+ * Modals use visibility + opacity rather than display:none toggling.
+ * This lets CSS transitions fire on both open and close.
+ *
+ * JS adds/removes .modal-visible to trigger the animation.
+ * The inner panels (.modal-panel, .run-modal-panel, .podcast-panel)
+ * have their own enter transform so they appear to spring into place.
+ */
+
+/* Shared backdrop */
+.modal-backdrop {
+  visibility: hidden;
+  opacity: 0;
+  transition:
+    opacity     0.30s var(--ease-out),
+    visibility  0.30s;
+  pointer-events: none;
+}
+.modal-backdrop.modal-visible {
+  visibility: visible;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Support / donation modal panel — desktop scale-up */
+.modal-panel {
+  opacity: 0;
+  transform: scale(0.94) translateY(14px);
+  transition:
+    opacity   0.38s var(--ease-spring),
+    transform 0.38s var(--ease-spring);
+}
+.modal-backdrop.modal-visible .modal-panel {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+}
+
+/* Bottom-sheet slide-up on mobile for the donation modal */
+@media (max-width: 639px) {
+  .modal-panel {
+    transform: translateY(100%);
+  }
+  .modal-backdrop.modal-visible .modal-panel {
+    transform: translateY(0);
+  }
+}
+
+/* Run inspection modal panel */
+.run-modal-panel {
+  opacity: 0;
+  transform: scale(0.95) translateY(18px);
+  transition:
+    opacity   0.42s var(--ease-spring),
+    transform 0.42s var(--ease-spring);
+}
+.modal-backdrop.modal-visible .run-modal-panel {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+}
+
+/* Podcast player panel */
+.podcast-panel {
+  opacity: 0;
+  transform: scale(0.92) translateY(22px);
+  transition:
+    opacity   0.40s var(--ease-spring),
+    transform 0.40s var(--ease-spring);
+}
+.modal-backdrop.modal-visible .podcast-panel {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+}
+
+/* Freeze body scroll when any modal is open */
+body.modal-open { overflow: hidden; }
+
+
+/* ── 11. Mobile Menu Smooth Expand ───────────────────────── */
+/*
+ * The mobile menu expands via max-height + opacity rather than
+ * toggling display:none — which would cause a jarring flash.
+ * JS sets the exact max-height value to the element's scrollHeight.
+ */
+.mobile-menu-panel {
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  transition:
+    max-height 0.40s var(--ease-spring),
+    opacity    0.28s var(--ease-out);
+}
+.mobile-menu-panel.is-open {
+  /* max-height is set inline by JS */
+  opacity: 1;
+}
+
+
+/* ── 12. Focus States (Accessibility) ─────────────────────── */
+/*
+ * Visible focus rings for keyboard navigation.
+ * Using :focus-visible ensures rings only appear during keyboard nav,
+ * not on mouse clicks (avoids the "ugly outline on click" problem).
+ */
+*:focus-visible {
+  outline: 2px solid #00f098;
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+*:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* Enhanced form control focus */
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  border-color: #00f098 !important;
+  box-shadow: 0 0 0 3px rgba(0, 240, 152, 0.14);
+  transition:
+    border-color 0.2s var(--ease-out),
+    box-shadow   0.2s var(--ease-out);
+}
+
+
+/* ── 13. Hero Ambient Orbs ───────────────────────────────── */
+/*
+ * Very slow, barely-perceptible drift of the background gradient orbs.
+ * Range kept to ±26px max. The orbs "breathe" rather than "animate".
+ */
+.orb-float-1 {
+  animation: orbFloat1 28s ease-in-out infinite;
+  will-change: transform;
+}
+.orb-float-2 {
+  animation: orbFloat2 36s ease-in-out infinite;
+  will-change: transform;
+}
+
+
+/* ── 14. Run Card & Product Card Polish ──────────────────── */
+
+.run-card {
+  transition:
+    border-color var(--dur-base) var(--ease-spring),
+    box-shadow   var(--dur-base) var(--ease-spring),
+    transform    var(--dur-base) var(--ease-spring);
+}
+.run-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(0, 240, 152, 0.40);
+  box-shadow: 0 18px 44px -14px rgba(0, 240, 152, 0.16);
+}
 .run-card img {
   filter: brightness(0.95);
+  transition:
+    filter    0.4s ease,
+    transform 0.5s var(--ease-spring);
 }
-
 .run-card:hover img {
   filter: brightness(1);
 }
@@ -158,58 +539,59 @@ body.modal-open {
   transform: translateY(-4px);
 }
 
-/* ===== PAGE LENGTH FIX ===== */
 
-/* Shrink every major section */
-section[id],
-section.py-20 {
-  padding-top: 2.5rem !important;
-  padding-bottom: 2.5rem !important;
+/* ── 15. FAQ Accordion ────────────────────────────────────── */
+.faq-answer {
+  transition:
+    max-height 0.44s var(--ease-spring),
+    opacity    0.30s var(--ease-out);
 }
 
+
+/* ── 16. Section Spacing & Breathing Room ────────────────── */
+/*
+ * More generous spacing on desktop gives each section room to breathe —
+ * a key difference between "solid" and "premium" in editorial design.
+ */
+section[id],
+section.py-20 {
+  padding-top:    3rem;
+  padding-bottom: 3rem;
+}
 @media (min-width: 640px) {
   section[id],
   section.py-20 {
-    padding-top: 3.5rem !important;
-    padding-bottom: 3.5rem !important;
+    padding-top:    4.5rem;
+    padding-bottom: 4.5rem;
+  }
+}
+@media (min-width: 1024px) {
+  section[id],
+  section.py-20 {
+    padding-top:    6rem;
+    padding-bottom: 6rem;
   }
 }
 
-/* Shrink section intro blocks */
-section .mb-16,
-section .mb-14,
-section .mb-12 {
-  margin-bottom: 1.5rem !important;
-}
-
-/* Hero: don't force nearly full viewport height */
+/* Hero: don't force full viewport height */
 #hero {
-  min-height: auto !important;
-  padding-top: 2rem !important;
-  padding-bottom: 2rem !important;
+  min-height: auto;
+  padding-top:    2.5rem;
+  padding-bottom: 2.5rem;
 }
-
 @media (min-width: 1024px) {
   #hero {
-    padding-top: 3rem !important;
-    padding-bottom: 3rem !important;
+    padding-top:    4rem;
+    padding-bottom: 4rem;
   }
 }
 
-/* Run cards denser */
-#runCardsGrid {
-  gap: 1rem !important;
-}
+/* Collapsed section handling */
+.collapse-section > .collapse-body  { display: none; }
+.collapse-section.is-open > .collapse-body { display: block; }
 
-/* Hide secondary story sections by default; open via details */
-.collapse-section > .collapse-body {
-  display: none;
-}
-.collapse-section.is-open > .collapse-body {
-  display: block;
-}
 
-/* ===== HORIZONTAL CARD ROWS (phone-first) ===== */
+/* ── 17. Horizontal Scroll Card Layout ───────────────────── */
 
 .h-scroll {
   display: flex;
@@ -221,40 +603,20 @@ section .mb-12 {
   -webkit-overflow-scrolling: touch;
   scrollbar-width: thin;
 }
-
 .h-scroll > * {
   scroll-snap-align: start;
   flex-shrink: 0;
 }
 
-/* Card widths inside horizontal rows */
-/* Run cards: readable on phone, full width in desktop grid */
+/* Card widths inside h-scroll rows */
 .h-scroll .run-card-wrapper,
-.h-scroll .h-card-wide {
-  width: min(78vw, 280px);
-}
+.h-scroll .h-card-wide { width: min(78vw, 280px); }
+.h-scroll .h-card-sm   { width: min(70vw, 200px); }
 
-.h-scroll .h-card-sm {
-  width: min(70vw, 200px);
-}
+.h-scroll::-webkit-scrollbar       { height: 6px; }
+.h-scroll::-webkit-scrollbar-thumb { background: #1f293d; border-radius: 4px; }
 
-@media (min-width: 1024px) {
-  .h-scroll-lg-grid .run-card-wrapper,
-  .h-scroll-lg-grid .h-card-wide {
-    width: auto !important;
-    max-width: none;
-  }
-}
-/* Hide ugly scrollbar a bit but keep usable */
-.h-scroll::-webkit-scrollbar {
-  height: 6px;
-}
-.h-scroll::-webkit-scrollbar-thumb {
-  background: #1f293d;
-  border-radius: 4px;
-}
-
-/* From tablet up: optional grid again for some sections */
+/* Tablet / desktop — switch to real grid layout */
 @media (min-width: 1024px) {
   .h-scroll-lg-grid {
     display: grid;
@@ -262,10 +624,7 @@ section .mb-12 {
     overflow: visible;
     scroll-snap-type: none;
   }
-  .h-scroll-lg-grid > * {
-    width: auto !important;
-    flex-shrink: 1;
-  }
+  .h-scroll-lg-grid > * { width: auto !important; flex-shrink: 1; }
 
   .h-scroll-lg-grid-3 {
     display: grid;
@@ -273,9 +632,7 @@ section .mb-12 {
     overflow: visible;
     scroll-snap-type: none;
   }
-  .h-scroll-lg-grid-3 > * {
-    width: auto !important;
-  }
+  .h-scroll-lg-grid-3 > * { width: auto !important; }
 
   .h-scroll-lg-grid-4 {
     display: grid;
@@ -283,12 +640,13 @@ section .mb-12 {
     overflow: visible;
     scroll-snap-type: none;
   }
-  .h-scroll-lg-grid-4 > * {
-    width: auto !important;
-  }
+  .h-scroll-lg-grid-4 > * { width: auto !important; }
+
+  .h-scroll-lg-grid .run-card-wrapper,
+  .h-scroll-lg-grid .h-card-wide { width: auto !important; max-width: none; }
 }
 
-/* Hint under scroll rows on mobile */
+/* Scroll-row hint label (hidden on desktop) */
 .h-scroll-hint {
   display: block;
   font-size: 11px;
@@ -297,7 +655,65 @@ section .mb-12 {
   margin-bottom: 0.5rem;
 }
 @media (min-width: 1024px) {
-  .h-scroll-hint {
-    display: none;
+  .h-scroll-hint { display: none; }
+}
+
+
+/* ── 18. Reduced Motion Overrides (LAST — highest specificity) ── */
+/*
+ * IMPORTANT: All animations, transitions, and reveals are disabled
+ * for users who have requested reduced motion in their OS settings.
+ * This is a hard accessibility requirement. Do NOT move this block.
+ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration:        0.01ms !important;
+    animation-iteration-count: 1      !important;
+    transition-duration:       0.01ms !important;
+    transition-delay:          0ms    !important;
+    scroll-behavior:           auto   !important;
+  }
+
+  /* Reveal elements: immediately show */
+  .reveal,
+  .reveal-scale {
+    opacity:    1 !important;
+    transform:  none !important;
+    transition: none !important;
+  }
+
+  /* Kill orb drift */
+  .orb-float-1,
+  .orb-float-2 {
+    animation: none !important;
+    will-change: auto;
+  }
+
+  /* Kill CTA pulse */
+  .btn-primary {
+    animation: none !important;
+    /* Preserve the base shadow for visual context */
+    box-shadow: 0 8px 32px -8px rgba(0, 240, 152, 0.32) !important;
+  }
+
+  /* Kill progress-bar shimmer */
+  .progress-bar-fill::after,
+  #heroProgressBar::after {
+    display: none !important;
+  }
+
+  /* Modals: no animation, just appear */
+  .modal-panel,
+  .run-modal-panel,
+  .podcast-panel {
+    transform:  none !important;
+    transition: opacity 0.01ms !important;
+  }
+
+  /* Mobile menu: no slide */
+  .mobile-menu-panel {
+    transition: none !important;
   }
 }

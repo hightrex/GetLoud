@@ -18,23 +18,23 @@ export function renderProgressTracker(container, stats, onInspectRun) {
   container.innerHTML = `
     <div class="space-y-12">
       <!-- Hero Stats Row -->
-      <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
-        <div class="p-5 rounded-2xl glass-card border border-[#00f098]/30 text-center space-y-1">
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 reveal-stagger">
+        <div class="reveal p-5 rounded-2xl glass-card border border-[#00f098]/30 text-center space-y-1">
           <p class="text-xs font-bold uppercase text-gray-400">Total Distance</p>
           <p class="text-3xl sm:text-4xl font-extrabold text-[#00f098] font-mono">${formatKm(distanceCoveredKm)} <span class="text-base text-gray-400 font-sans">KM</span></p>
           <p class="text-xs text-gray-500">of ${stats.targetKm} km goal</p>
         </div>
-        <div class="p-5 rounded-2xl glass-card border border-gray-800 text-center space-y-1">
+        <div class="reveal p-5 rounded-2xl glass-card border border-gray-800 text-center space-y-1">
           <p class="text-xs font-bold uppercase text-gray-400">Remaining</p>
           <p class="text-3xl sm:text-4xl font-extrabold text-white font-mono">${formatKm(remainingKm)} <span class="text-base text-gray-400 font-sans">KM</span></p>
           <p class="text-xs text-gray-500">to complete challenge</p>
         </div>
-        <div class="p-5 rounded-2xl glass-card border border-gray-800 text-center space-y-1">
+        <div class="reveal p-5 rounded-2xl glass-card border border-gray-800 text-center space-y-1">
           <p class="text-xs font-bold uppercase text-gray-400">Days Completed</p>
           <p class="text-3xl sm:text-4xl font-extrabold text-white font-mono">${currentDay}<span class="text-lg text-gray-500 font-sans">/${totalDays}</span></p>
           <p class="text-xs text-[#00f098] font-semibold">100% On Schedule</p>
         </div>
-        <div class="p-5 rounded-2xl glass-card border border-gray-800 text-center space-y-1">
+        <div class="reveal p-5 rounded-2xl glass-card border border-gray-800 text-center space-y-1">
           <p class="text-xs font-bold uppercase text-gray-400">Avg per Run</p>
           <p class="text-3xl sm:text-4xl font-extrabold text-[#f59e0b] font-mono">${formatKm(avgDistanceKm)} <span class="text-base text-gray-400 font-sans">KM</span></p>
           <p class="text-xs text-emerald-400">${aboveTargetKm > 0 ? `+${aboveTargetKm} km above daily target` : 'On target daily'}</p>
@@ -42,7 +42,7 @@ export function renderProgressTracker(container, stats, onInspectRun) {
       </div>
 
       <!-- Main Progress Bar -->
-      <div class="p-6 sm:p-8 rounded-3xl glass-card border border-[#00f098]/20 space-y-4">
+      <div class="reveal p-6 sm:p-8 rounded-3xl glass-card border border-[#00f098]/20 space-y-4">
         <div class="flex items-center justify-between">
           <div>
             <h3 class="text-lg font-extrabold text-white">500 km Challenge Progress</h3>
@@ -87,7 +87,7 @@ export function renderProgressTracker(container, stats, onInspectRun) {
         <p class="h-scroll-hint">Swipe for more runs →</p>
         <div id="runCardsGrid" class="h-scroll h-scroll-lg-grid">
           ${[...runningLogs].reverse().map((log) => `
-            <div class="run-card-wrapper h-card-wide">${renderRunCard(log)}</div>
+            <div class="run-card-wrapper h-card-wide reveal-scale">${renderRunCard(log)}</div>
           `).join('')}
         </div>
       </div>
@@ -408,7 +408,7 @@ export function renderProducts(container, onEnquire) {
   container.innerHTML = `
     <div class="max-w-3xl mx-auto space-y-8">
       <!-- Interactive: pick a favourite (local only) -->
-      <div class="p-5 sm:p-6 rounded-3xl glass-card border border-purple-500/20 space-y-4">
+      <div class="reveal p-5 sm:p-6 rounded-3xl glass-card border border-purple-500/20 space-y-4">
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
           <div>
             <p class="text-xs font-bold uppercase text-purple-400">Coming soon · teaser</p>
@@ -436,7 +436,7 @@ export function renderProducts(container, onEnquire) {
       <form id="merchNotifyForm"
         action="https://formsubmit.co/krashworks0@gmail.com"
         method="POST"
-        class="p-5 sm:p-6 rounded-3xl glass-card border border-gray-800 space-y-4">
+        class="reveal p-5 sm:p-6 rounded-3xl glass-card border border-gray-800 space-y-4">
         <input type="hidden" name="_subject" value="GetLoud Merch — Launch notify" />
         <input type="hidden" name="_captcha" value="false" />
         <input type="hidden" name="_template" value="table" />
@@ -488,7 +488,7 @@ export function renderWeeklyDonations(container, stats) {
 
   container.innerHTML = `
     <div class="space-y-8">
-      <div class="p-6 sm:p-8 rounded-3xl glass-card border border-[#f59e0b]/20 space-y-4">
+      <div class="reveal p-6 sm:p-8 rounded-3xl glass-card border border-[#f59e0b]/20 space-y-4">
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
             <p class="text-xs font-bold uppercase text-gray-400">Total Raised</p>
@@ -506,7 +506,7 @@ export function renderWeeklyDonations(container, stats) {
       <p class="h-scroll-hint">Swipe weeks →</p>
       <div class="h-scroll h-scroll-lg-grid-4">
         ${weeklyDonations.map((week) => `
-          <div class="h-card-sm">${renderDonationWeekCard(week)}</div>
+          <div class="h-card-sm reveal-scale">${renderDonationWeekCard(week)}</div>
         `).join('')}
       </div>
     </div>
@@ -549,7 +549,7 @@ export function renderPodcasts(container, onPlayEpisode) {
   container.innerHTML = `
     <div class="max-w-3xl mx-auto space-y-6">
       <!-- Status strip -->
-      <div class="p-5 rounded-3xl glass-card border border-blue-500/20 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div class="reveal p-5 rounded-3xl glass-card border border-blue-500/20 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <p class="text-xs font-bold uppercase text-blue-400">Series status</p>
           <p class="text-lg font-extrabold text-white">${podcastConfig.seriesTitle}</p>
@@ -568,7 +568,7 @@ export function renderPodcasts(container, onPlayEpisode) {
         <p class="text-xs font-bold uppercase text-gray-500">Available now</p>
         <div class="space-y-3">
           ${available.map((ep) => `
-            <div class="p-4 rounded-2xl glass-card border border-gray-800 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div class="reveal p-4 rounded-2xl glass-card border border-gray-800 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
               <div>
                 <p class="text-sm font-extrabold text-white">${ep.title}</p>
                 <p class="text-xs text-gray-400">${ep.guest} · ${ep.duration}</p>
@@ -581,7 +581,7 @@ export function renderPodcasts(container, onPlayEpisode) {
           `).join('')}
         </div>
       </div>` : `
-      <div class="p-4 rounded-2xl bg-gray-900/60 border border-dashed border-gray-700 text-center text-sm text-gray-400">
+      <div class="reveal p-4 rounded-2xl bg-gray-900/60 border border-dashed border-gray-700 text-center text-sm text-gray-400">
         First full episodes drop after weekly runs are recorded. Preview slot is reserved for launch.
       </div>`}
 
@@ -589,7 +589,7 @@ export function renderPodcasts(container, onPlayEpisode) {
       <form id="podcastRegisterForm"
         action="https://formsubmit.co/krashworks0@gmail.com"
         method="POST"
-        class="p-5 sm:p-6 rounded-3xl glass-card border border-blue-500/20 space-y-4">
+        class="reveal p-5 sm:p-6 rounded-3xl glass-card border border-blue-500/20 space-y-4">
         <input type="hidden" name="_subject" value="GetLoud Podcast — Interest / guest idea" />
         <input type="hidden" name="_captcha" value="false" />
         <input type="hidden" name="_template" value="table" />
